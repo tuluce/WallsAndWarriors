@@ -16,8 +16,8 @@
 - [Emin Bahadır Tülüce](https://github.com/eminbahadir98)
 
 **Meeting Hours**
-Tuesday, 17.30-19.30
-Saturday, 11.00-13.00
+- Tuesday, 17.30-19.30
+- Saturday, 11.00-13.00
 
 ## Original Game Description
 The principle of this game place the four walls on the game board so that all the blue knights are inside the enclosure and all the red knights are on the outside. But instead of defending an ancient city, you now have to defend a castle. The knights are more detailed and more stable, the walls are bigger and easier to handle, and with 80 challenges instead of the former 60, there was space to add a few easier challenges that include hints. However, there is always only one correct solution, which can be found at the back of the challenge booklet. For ages 8 to adult.
