@@ -1,5 +1,4 @@
-# CS319 Project Description - Walls & Warriors
-## Group 2B
+# Group 2B CS319 Project Description - Walls & Warriors
 ## OOPs - Group Members
 - Ali Babayev
 - Tunar Mahmudov
