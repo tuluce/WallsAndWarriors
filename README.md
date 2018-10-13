@@ -1,5 +1,5 @@
 # CS319 Project Description - Walls & Warriors
-## OOPs - Group Members
+## G2B- OOPs - Group Members
 - Ali Babayev
 - Tunar Mahmudov
 - Merve Sağyatanlar
