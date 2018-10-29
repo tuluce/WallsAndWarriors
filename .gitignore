@@ -1,0 +1,6 @@
+#Ignore
+src/WallsAndWarriors/*
+
+#Allow
+!src/WallsAndWarriors/src/
+!src/WallsAndWarriors/resources/
