@@ -14,12 +14,11 @@ import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -96,6 +95,23 @@ public class CustomChallengesScreen extends ParentScreen {
         importButton.setLayoutX(50);
         importButton.setLayoutY(500);
         importButton.setPrefSize(100,50);
+
+        importButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                TextInputDialog textInputDialog = new TextInputDialog(null);
+                textInputDialog.setTitle("Add Challenge");
+                textInputDialog.setHeaderText("Enter the code of the challenge");
+                textInputDialog.setContentText("Code: ");
+                textInputDialog.showAndWait();
+
+
+                String code = textInputDialog.getEditor().getText();
+                System.out.println(code);
+            }
+        });
+
         root.getChildren().add(importButton);
 
         grid.setHgap(10);
@@ -211,6 +227,12 @@ public class CustomChallengesScreen extends ParentScreen {
             @Override
             public void handle(MouseEvent event) {
 
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Share Challenge");
+                alert.setHeaderText(null);
+                alert.setContentText("Code for sharing this challenge: " + "\n");
+
+                alert.showAndWait();
             }
         });
 
