@@ -85,9 +85,11 @@ public class CampaignChallengesScreen extends ParentScreen {
         renderBackgroundCanvas(root, "resources/images/background2.png", "Campaign Challenges");
         renderButtons(root);
 
-        Text title = new Text("Campaign Mode - Choose a Challenge");
+        Text title = new Text(200, 150, "Campaign Mode - Choose a Challenge");
         Font theFont = Font.font("Arial", FontWeight.BOLD, 20);
         title.setFont(theFont);
+        root.getChildren().add(title);
+
 
         showChallenges(root);
 
@@ -110,11 +112,6 @@ public class CampaignChallengesScreen extends ParentScreen {
         challenges.add(CHALLENGE_51);
         challenges.add(CHALLENGE_51);
 
-
-        Text title = new Text(200, 150, "Campaign Mode - Choose a Challenge");
-        Font theFont = Font.font("Arial", FontWeight.BOLD, 20);
-        title.setFont(theFont);
-        root.getChildren().add(title);
 
 
         for(int i = 0; i < challenges.size(); i++)
