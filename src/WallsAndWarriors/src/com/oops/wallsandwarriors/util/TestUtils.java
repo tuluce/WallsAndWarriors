@@ -29,7 +29,7 @@ public class TestUtils {
         enemyKnights45.add(new Coordinate(3, 2));
         Image image45 = new Image(FileUtils.getInputStream("resources/images/ch45.jpg"));
         CHALLENGE_45 = new ChallengeData(
-                "Challenge 45", "OOPs", image45,
+                "Challenge 45", "OOPs", true, image45,
                 GridDefinitions.SMALL,
                 castleKnights45, highTowers45, enemyKnights45,
                 WallDefinitions.STANDARD);
@@ -43,7 +43,7 @@ public class TestUtils {
         enemyKnights51.add(new Coordinate(1, 2));
         Image image51 = new Image(FileUtils.getInputStream("resources/images/ch51.jpg"));
         CHALLENGE_51 = new ChallengeData(
-                "Challenge 51", "OOPs", image51,
+                "Challenge 51", "OOPs",false, image51,
                 GridDefinitions.SMALL,
                 castleKnights51, highTowers51, enemyKnights51,
                 WallDefinitions.STANDARD);

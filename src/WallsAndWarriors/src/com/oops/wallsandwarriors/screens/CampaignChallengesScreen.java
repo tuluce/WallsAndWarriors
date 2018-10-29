@@ -11,10 +11,12 @@ import com.oops.wallsandwarriors.util.FileUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -34,6 +36,10 @@ public class CampaignChallengesScreen extends ParentScreen {
     public static final ChallengeData CHALLENGE_45;
     public static final ChallengeData CHALLENGE_51;
 
+
+    ObservableList<Button> buttons = FXCollections.observableArrayList ();
+
+
     static {
 
         List<Coordinate> castleKnights45 = new ArrayList<Coordinate>();
@@ -49,7 +55,7 @@ public class CampaignChallengesScreen extends ParentScreen {
 
         Image image45 = new Image(FileUtils.getInputStream("resources/images/ch45.jpg"));
         CHALLENGE_45 = new ChallengeData(
-                "Challenge 45", "OOPs", image45,
+                "Challenge 45", "OOPs",true, image45,
                 GridDefinitions.SMALL,
                 castleKnights45, highTowers45, enemyKnights45,
                 WallDefinitions.STANDARD);
@@ -63,7 +69,7 @@ public class CampaignChallengesScreen extends ParentScreen {
         enemyKnights51.add(new Coordinate(1, 2));
         Image image51 = new Image(FileUtils.getInputStream("resources/images/ch51.jpg"));
         CHALLENGE_51 = new ChallengeData(
-                "Challenge 51", "OOPs", image51,
+                "Challenge 51", "OOPs",false, image51,
                 GridDefinitions.SMALL,
                 castleKnights51, highTowers51, enemyKnights51,
                 WallDefinitions.STANDARD);
@@ -83,9 +89,6 @@ public class CampaignChallengesScreen extends ParentScreen {
         Font theFont = Font.font("Arial", FontWeight.BOLD, 20);
         title.setFont(theFont);
 
-        challenges.clear();
-        challenges.add(CHALLENGE_45);
-        challenges.add(CHALLENGE_51);
         showChallenges(root);
 
         return scene;
@@ -97,25 +100,22 @@ public class CampaignChallengesScreen extends ParentScreen {
 
     private void showChallenges(Group root)
     {
+        challenges.clear();
+        buttons.clear();
+
+        challenges.add(CHALLENGE_45);
+        challenges.add(CHALLENGE_51);
+        challenges.add(CHALLENGE_51);
+        challenges.add(CHALLENGE_51);
+        challenges.add(CHALLENGE_51);
+        challenges.add(CHALLENGE_51);
+
+
         Text title = new Text(200, 150, "Campaign Mode - Choose a Challenge");
         Font theFont = Font.font("Arial", FontWeight.BOLD, 20);
         title.setFont(theFont);
         root.getChildren().add(title);
 
-
-        GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(200, 25, 25, 100));
-
-        root.getChildren().add(grid);
-
-        int col = 5;
-        int row = challenges.size() / col;
-
-        int c = 0;
-        int r = 0;
 
         for(int i = 0; i < challenges.size(); i++)
         {
@@ -123,23 +123,29 @@ public class CampaignChallengesScreen extends ParentScreen {
             Image image = challengeData.image;
 
             ImageView imageview=new ImageView(image);
-            imageview.setFitHeight(80);
-            imageview.setFitWidth(80);
+            imageview.setFitHeight(120);
+            imageview.setFitWidth(120);
 
             Button btn = new Button("",imageview);
 
-            grid.add(btn, c, r);
-            c++;
-
-
-            if(c == col)
+            if(!challengeData.getSolved())
             {
-                c = 0;
-                r++;
+                btn.setDisable(true);
             }
-
+            buttons.add(btn);
 
         }
+
+
+        ListView<Button> list = new ListView<>();
+        list.setLayoutX(100);
+        list.setLayoutY(200);
+        list.setOrientation(Orientation.HORIZONTAL);
+        list.setMaxHeight(150);
+        list.setPrefWidth(600);
+        list.setItems(buttons);
+        root.getChildren().add(list);
+
 
     }
 

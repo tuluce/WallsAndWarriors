@@ -33,6 +33,7 @@ public class ChallengeData {
     public ChallengeData(
             String name,
             String creator,
+            boolean isSolved,
             Image image,
             List<Coordinate> blocks,
             List<Coordinate> castleKnights,
@@ -42,12 +43,23 @@ public class ChallengeData {
         this.name = name;
         this.creator = creator;
         this.image = image;
-        isSolved = false;
+        this.isSolved = isSolved;
         this.blocks = blocks;
         this.castleKnights = castleKnights;
         this.highTowers = highTowers;
         this.enemyKnights = enemyKnights;
         this.walls = walls;
+    }
+
+
+    public boolean getSolved()
+    {
+        return isSolved;
+    }
+
+    public void setSolved(boolean solved)
+    {
+        isSolved = solved;
     }
     
 }
