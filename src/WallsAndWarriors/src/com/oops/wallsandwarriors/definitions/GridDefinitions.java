@@ -13,7 +13,7 @@ public class GridDefinitions {
         SMALL = new ArrayList<Coordinate>();
         for (int column = 0; column < 5; column++) {
             for (int row = 0; row < 4; row++) {
-                if (column != 0 && column != 4 && row != 0 && row != 3) {
+                if (! ((column == 0 || column == 4) && (row == 0 || row == 3))) {
                     SMALL.add(new Coordinate(column, row));
                 }
             }
