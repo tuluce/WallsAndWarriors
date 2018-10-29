@@ -43,22 +43,31 @@ public abstract class ParentScreen implements Screen {
         button.setLayoutY(y);
     }
     
-    protected void renderBackgroundCanvas(Group root, String imagePath, String title) {
+    protected GraphicsContext addBackgroundCanvas(Group root, String imagePath, String title) {
         Canvas canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+        GraphicsContext graphics = canvas.getGraphicsContext2D();
         
         Image background = new Image(FileUtils.getInputStream(imagePath));
-        gc.drawImage(background, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        graphics.drawImage(background, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         
-        gc.setFill(Color.WHITE );
-        gc.setStroke(Color.BLACK );
-        gc.setLineWidth(2);
-        Font theFont = Font.font("Arial", FontWeight.BOLD, 48);
-        gc.setFont(theFont);
-        gc.fillText(title, 30, 50);
-        gc.strokeText(title, 30, 50);
+        Font titleFont = Font.font("Arial", FontWeight.BOLD, 48);
+        graphics.setFill(Color.WHITE );
+        graphics.setStroke(Color.BLACK );
+        graphics.setLineWidth(2);
+        graphics.setFont(titleFont);
+        graphics.fillText(title, 30, 50);
+        graphics.strokeText(title, 30, 50);
         
         root.getChildren().add(canvas);
+        
+        return graphics;
+    }
+    
+    protected GraphicsContext addBackgroundCanvas(Group root) {
+        Canvas canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
+        GraphicsContext graphics = canvas.getGraphicsContext2D();
+        root.getChildren().add(canvas);
+        return graphics;
     }
     
 }

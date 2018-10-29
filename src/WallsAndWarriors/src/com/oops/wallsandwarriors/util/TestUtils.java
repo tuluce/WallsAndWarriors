@@ -1,10 +1,10 @@
 package com.oops.wallsandwarriors.util;
 
 import com.oops.wallsandwarriors.definitions.GridDefinitions;
-import com.oops.wallsandwarriors.game.data.ChallengeData;
-import com.oops.wallsandwarriors.game.data.Coordinate;
+import com.oops.wallsandwarriors.game.model.ChallengeData;
+import com.oops.wallsandwarriors.game.model.Coordinate;
 import com.oops.wallsandwarriors.definitions.WallDefinitions;
-import com.oops.wallsandwarriors.game.data.HighTowerData;
+import com.oops.wallsandwarriors.game.model.HighTowerData;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -27,9 +27,8 @@ public class TestUtils {
         enemyKnights45.add(new Coordinate(2, 0));
         enemyKnights45.add(new Coordinate(0, 1));
         enemyKnights45.add(new Coordinate(3, 2));
-        Image image45 = new Image(FileUtils.getInputStream("resources/images/ch45.jpg"));
         CHALLENGE_45 = new ChallengeData(
-                "Challenge 45", "OOPs", true, image45,
+                "Challenge 45", "OOPs",
                 GridDefinitions.SMALL,
                 castleKnights45, highTowers45, enemyKnights45,
                 WallDefinitions.STANDARD);
@@ -41,9 +40,8 @@ public class TestUtils {
         highTowers51.add(new HighTowerData(new Coordinate(1, 1), new Coordinate(2, 1)));
         List<Coordinate> enemyKnights51 = new ArrayList<Coordinate>();
         enemyKnights51.add(new Coordinate(1, 2));
-        Image image51 = new Image(FileUtils.getInputStream("resources/images/ch51.jpg"));
         CHALLENGE_51 = new ChallengeData(
-                "Challenge 51", "OOPs",false, image51,
+                "Challenge 51", "OOPs",
                 GridDefinitions.SMALL,
                 castleKnights51, highTowers51, enemyKnights51,
                 WallDefinitions.STANDARD);

@@ -1,6 +1,6 @@
 package com.oops.wallsandwarriors.definitions;
 
-import com.oops.wallsandwarriors.game.data.Coordinate;
+import com.oops.wallsandwarriors.game.model.Coordinate;
 import java.util.ArrayList;
 import java.util.List;
 

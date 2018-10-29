@@ -13,7 +13,7 @@ public class SettingsScreen extends ParentScreen {
         Scene scene = new Scene(root);
         
         DebugUtils.initClickDebugger(scene);
-        renderBackgroundCanvas(root, "resources/images/background2.png", "Settings");
+        addBackgroundCanvas(root, "resources/images/background2.png", "Settings");
         addTransactionButton(root, "Back", 300, 300, Game.MAIN_MENU);
         
         return scene;

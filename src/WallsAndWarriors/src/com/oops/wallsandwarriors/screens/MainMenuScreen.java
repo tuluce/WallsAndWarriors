@@ -13,13 +13,13 @@ public class MainMenuScreen extends ParentScreen {
         Scene scene = new Scene(root);
         
         DebugUtils.initClickDebugger(scene);
-        renderBackgroundCanvas(root, "resources/images/background.png", "Walls & Warriors");
-        renderButtons(root);
+        addBackgroundCanvas(root, "resources/images/background.png", "Walls & Warriors");
+        addButtons(root);
         
         return scene;
     }
 
-    private void renderButtons(Group root) {
+    private void addButtons(Group root) {
         addTransactionButton(root, "Campaign Challenges", 300, 300, Game.CAMPAIGN_CHALLENGES);
         addTransactionButton(root, "Custom Challenges", 300, 350, Game.CUSTOM_CHALLENGES);
         addTransactionButton(root, "Challenge Editor", 300, 400, Game.CHALLENGE_EDITOR);

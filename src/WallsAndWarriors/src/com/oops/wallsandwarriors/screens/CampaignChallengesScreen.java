@@ -2,33 +2,28 @@ package com.oops.wallsandwarriors.screens;
 
 import com.oops.wallsandwarriors.definitions.GridDefinitions;
 import com.oops.wallsandwarriors.definitions.WallDefinitions;
-import com.oops.wallsandwarriors.game.data.ChallengeData;
-import com.oops.wallsandwarriors.game.data.Coordinate;
-import com.oops.wallsandwarriors.game.data.HighTowerData;
+import com.oops.wallsandwarriors.game.model.ChallengeData;
+import com.oops.wallsandwarriors.game.model.Coordinate;
+import com.oops.wallsandwarriors.game.model.HighTowerData;
 import com.oops.wallsandwarriors.util.DebugUtils;
 import com.oops.wallsandwarriors.Game;
 import com.oops.wallsandwarriors.util.FileUtils;
+import com.oops.wallsandwarriors.util.TestUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 public class CampaignChallengesScreen extends ParentScreen {
 
@@ -55,7 +50,7 @@ public class CampaignChallengesScreen extends ParentScreen {
 
         Image image45 = new Image(FileUtils.getInputStream("resources/images/ch45.jpg"));
         CHALLENGE_45 = new ChallengeData(
-                "Challenge 45", "OOPs",true, image45,
+                "Challenge 45", "OOPs",
                 GridDefinitions.SMALL,
                 castleKnights45, highTowers45, enemyKnights45,
                 WallDefinitions.STANDARD);
@@ -69,7 +64,7 @@ public class CampaignChallengesScreen extends ParentScreen {
         enemyKnights51.add(new Coordinate(1, 2));
         Image image51 = new Image(FileUtils.getInputStream("resources/images/ch51.jpg"));
         CHALLENGE_51 = new ChallengeData(
-                "Challenge 51", "OOPs",false, image51,
+                "Challenge 51", "OOPs",
                 GridDefinitions.SMALL,
                 castleKnights51, highTowers51, enemyKnights51,
                 WallDefinitions.STANDARD);
@@ -82,7 +77,7 @@ public class CampaignChallengesScreen extends ParentScreen {
         Scene scene = new Scene(root);
 
         DebugUtils.initClickDebugger(scene);
-        renderBackgroundCanvas(root, "resources/images/background2.png", "Campaign Challenges");
+        addBackgroundCanvas(root, "resources/images/background2.png", "Campaign Challenges");
         renderButtons(root);
 
         Text title = new Text(200, 150, "Campaign Mode - Choose a Challenge");
@@ -116,19 +111,33 @@ public class CampaignChallengesScreen extends ParentScreen {
 
         for(int i = 0; i < challenges.size(); i++)
         {
-            ChallengeData challengeData = challenges.get(i);
-            Image image = challengeData.image;
-
-            ImageView imageview=new ImageView(image);
-            imageview.setFitHeight(120);
-            imageview.setFitWidth(120);
-
-            Button btn = new Button("",imageview);
-
-            if(!challengeData.getSolved())
-            {
-                btn.setDisable(true);
-            }
+//            ChallengeData challengeData = challenges.get(i);
+//            Image image = challengeData.image;
+//
+//            ImageView imageview=new ImageView(image);
+//            imageview.setFitHeight(120);
+//            imageview.setFitWidth(120);
+//
+//            Button btn = new Button("",imageview);
+//
+//            if(!challengeData.getSolved())
+//            {
+//                btn.setDisable(true);
+//            }
+            final int index = i;
+            Button btn = new Button(challenges.get(i).name);
+            btn.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                        GameScreen gameScreen = Game.GAME_SCREEN;
+                        ChallengeData challenge = 
+                                (index == 45) ? TestUtils.CHALLENGE_45.createCopy() 
+                                              : TestUtils.CHALLENGE_51.createCopy() ;
+                        Game.getInstance().getChallengeManager().setChallengeData(challenge);
+                        Game.getInstance().setScreen(gameScreen);
+                    }
+                }
+            );
             buttons.add(btn);
 
         }

@@ -2,12 +2,14 @@ package com.oops.wallsandwarriors.screens;
 
 import com.oops.wallsandwarriors.definitions.GridDefinitions;
 import com.oops.wallsandwarriors.definitions.WallDefinitions;
-import com.oops.wallsandwarriors.game.data.ChallengeData;
-import com.oops.wallsandwarriors.game.data.Coordinate;
-import com.oops.wallsandwarriors.game.data.HighTowerData;
+import com.oops.wallsandwarriors.game.model.ChallengeData;
+import com.oops.wallsandwarriors.game.model.Coordinate;
+import com.oops.wallsandwarriors.game.model.HighTowerData;
 import com.oops.wallsandwarriors.util.DebugUtils;
 import com.oops.wallsandwarriors.Game;
+import com.oops.wallsandwarriors.game.view.GridView;
 import com.oops.wallsandwarriors.util.FileUtils;
+import com.oops.wallsandwarriors.util.TestUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -18,7 +20,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
@@ -27,6 +28,7 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.canvas.Canvas;
 
 public class CustomChallengesScreen extends ParentScreen {
 
@@ -53,7 +55,7 @@ public class CustomChallengesScreen extends ParentScreen {
 
         Image image45 = new Image(FileUtils.getInputStream("resources/images/ch45.jpg"));
         CHALLENGE_45 = new ChallengeData(
-                "Challenge 45", "OOPs",true, image45,
+                "Challenge 45", "OOPs",
                 GridDefinitions.SMALL,
                 castleKnights45, highTowers45, enemyKnights45,
                 WallDefinitions.STANDARD);
@@ -67,7 +69,7 @@ public class CustomChallengesScreen extends ParentScreen {
         enemyKnights51.add(new Coordinate(1, 2));
         Image image51 = new Image(FileUtils.getInputStream("resources/images/ch51.jpg"));
         CHALLENGE_51 = new ChallengeData(
-                "Challenge 51", "OOPs",false, image51,
+                "Challenge 51", "OOPs",
                 GridDefinitions.SMALL,
                 castleKnights51, highTowers51, enemyKnights51,
                 WallDefinitions.STANDARD);
@@ -81,7 +83,7 @@ public class CustomChallengesScreen extends ParentScreen {
         Scene scene = new Scene(root);
 
         DebugUtils.initClickDebugger(scene);
-        renderBackgroundCanvas(root, "resources/images/background2.png", "Custom Challenges");
+        addBackgroundCanvas(root, "resources/images/background2.png", "Custom Challenges");
         renderButtons(root);
 
         Text title = new Text(50, 100, "Custom Mode - Choose a Challenge");
@@ -170,12 +172,13 @@ public class CustomChallengesScreen extends ParentScreen {
     public void showChallengeInfo(ChallengeData challenge, Group root)
     {
         //Image of the challenge
-        ImageView imageview=new ImageView(challenge.image);
-        imageview.setFitHeight(150);
-        imageview.setFitWidth(200);
-
-        Button btn = new Button("",imageview);
-        grid.add(btn,0,0);
+        Game.getInstance().getChallengeManager().setChallengeData(challenge);
+        Canvas previewCanvas = new Canvas();
+        previewCanvas.setHeight(150);
+        previewCanvas.setWidth(200);
+        GridView gridView = new GridView(5, 5, 5, 30);
+        gridView.draw(previewCanvas.getGraphicsContext2D(), 1);
+        grid.add(previewCanvas, 0, 0);
 
 
         //created by info
@@ -185,23 +188,25 @@ public class CustomChallengesScreen extends ParentScreen {
         Label warriorLabel = new Label("Info:  " + challenge.enemyKnights.size() + " Red Knights, " + challenge.castleKnights.size() + " Blue Knights.");
 
         //type info
-        String solved;
-        if(challenge.getSolved())
-        {
-            solved = " Yes";
-        }
-        else
-        {
-            solved = " No";
-        }
-
-        Label isSolved = new Label("Solved: " + solved);
+//        String solved;
+//        if(challenge.getSolved())
+//        {
+//            solved = " Yes";
+//        }
+//        else
+//        {
+//            solved = " No";
+//        }
+//
+//        Label isSolved = new Label("Solved: " + solved);
 
         Button playButton = new Button("Play");
         playButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-
+                GameScreen gameScreen = Game.GAME_SCREEN;
+                Game.getInstance().getChallengeManager().setChallengeData(challenge);
+                Game.getInstance().setScreen(gameScreen);
             }
         });
 
@@ -217,7 +222,7 @@ public class CustomChallengesScreen extends ParentScreen {
 
         grid.add(creatorLabel,0,1);
         grid.add(warriorLabel,0,2);
-        grid.add(isSolved,0,3);
+//        grid.add(isSolved,0,3);
         grid.add(shareButton, 0, 4);
         grid.add(playButton, 1,4);
 

@@ -13,7 +13,7 @@ public class HowToPlayScreen extends ParentScreen {
         Scene scene = new Scene(root);
         
         DebugUtils.initClickDebugger(scene);
-        renderBackgroundCanvas(root, "resources/images/background2.png", "How to Play");
+        addBackgroundCanvas(root, "resources/images/background2.png", "How to Play");
         addTransactionButton(root, "Back", 300, 300, Game.MAIN_MENU);
         
         return scene;

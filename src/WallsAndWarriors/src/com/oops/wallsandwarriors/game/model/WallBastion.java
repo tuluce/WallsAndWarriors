@@ -1,4 +1,4 @@
-package com.oops.wallsandwarriors.game.data;
+package com.oops.wallsandwarriors.game.model;
 
 public class WallBastion {
     
