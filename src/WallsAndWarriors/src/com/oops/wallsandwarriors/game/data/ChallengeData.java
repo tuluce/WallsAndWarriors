@@ -1,5 +1,7 @@
 package com.oops.wallsandwarriors.game.data;
 
+import javafx.scene.image.Image;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,8 @@ public class ChallengeData {
 
     public final String name;
     public final String creator;
+    public boolean isSolved;
+    public Image image;
         
     public final List<Coordinate> blocks;
     public final List<Coordinate> castleKnights;
@@ -17,6 +21,8 @@ public class ChallengeData {
     public ChallengeData() {
         name = null;
         creator = null;
+        image = null;
+        isSolved = false;
         blocks = new ArrayList<Coordinate>();
         castleKnights = new ArrayList<Coordinate>();
         highTowers = new ArrayList<HighTowerData>();
@@ -27,6 +33,7 @@ public class ChallengeData {
     public ChallengeData(
             String name,
             String creator,
+            Image image,
             List<Coordinate> blocks,
             List<Coordinate> castleKnights,
             List<HighTowerData> highTowers,
@@ -34,6 +41,8 @@ public class ChallengeData {
             List<WallData> walls) {
         this.name = name;
         this.creator = creator;
+        this.image = image;
+        isSolved = false;
         this.blocks = blocks;
         this.castleKnights = castleKnights;
         this.highTowers = highTowers;

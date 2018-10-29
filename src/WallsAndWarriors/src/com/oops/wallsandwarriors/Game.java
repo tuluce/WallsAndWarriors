@@ -12,7 +12,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
  
 public class Game extends Application {
-    
+
     public static final Screen MAIN_MENU = new MainMenuScreen();
     public static final Screen CAMPAIGN_CHALLENGES = new CampaignChallengesScreen();
     public static final Screen CUSTOM_CHALLENGES = new CustomChallengesScreen();
