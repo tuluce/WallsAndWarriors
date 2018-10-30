@@ -8,7 +8,7 @@ import java.util.Base64;
 /**
  * Created by caglasozen on 10/29/18.
  */
-public class EncodeUtil {
+public class EncodeUtils {
 
     private static String base64;
     private static ChallengeData data;

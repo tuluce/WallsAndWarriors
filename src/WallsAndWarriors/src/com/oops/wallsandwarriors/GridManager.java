@@ -7,11 +7,11 @@ import java.util.List;
 
 public class GridManager {
     
-    public boolean isWallPlacable(Coordinate block, int wallIndex) {
+    public boolean isWallPlacable(Coordinate block, WallData wall) {
         List<Coordinate> blocks = Game.getInstance().getChallengeManager().getChallengeData().blocks;
         List<WallData> walls = Game.getInstance().getChallengeManager().getChallengeData().walls;
         
-        List<Point2D.Double> candidatePoints = walls.get(wallIndex).occupies(block);
+        List<Point2D.Double> candidatePoints = wall.occupies(block);
         List<Point2D.Double> occupiedPoints = Game.getInstance()
                 .getChallengeManager().getChallengeData().getOccupiedPoints();
         
@@ -33,10 +33,10 @@ public class GridManager {
         return true;
     }
     
-    public boolean attemptWallPlacement(Coordinate block, int wallIndex) {
-        if (isWallPlacable(block, wallIndex)) {
+    public boolean attemptWallPlacement(Coordinate block, WallData wall) {
+        if (isWallPlacable(block, wall)) {
             List<WallData> walls = Game.getInstance().getChallengeManager().getChallengeData().walls;
-            walls.get(wallIndex).setPosition(block);
+            wall.setPosition(block);
             return true;
         }
         return false;

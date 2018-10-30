@@ -3,15 +3,12 @@ package com.oops.wallsandwarriors.game.view;
 import com.oops.wallsandwarriors.Game;
 import com.oops.wallsandwarriors.game.model.Coordinate;
 import com.oops.wallsandwarriors.game.model.HighTowerData;
-import com.oops.wallsandwarriors.game.model.WallData;
 import com.oops.wallsandwarriors.util.DrawUtils;
 import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class GridView implements ViewObject {
-
-    private final WallView tempWallView;
     
     private final double x;
     private final double y;
@@ -23,13 +20,11 @@ public class GridView implements ViewObject {
         this.y = y;
         this.margin = margin;
         this.blockLength = blockLength;
-        tempWallView = new WallView();
     }
     
     @Override
     public void draw(GraphicsContext graphics, double deltaTime) {
         drawGrid(graphics, deltaTime);
-        drawPlacedWalls(graphics, deltaTime);
         drawKnights(graphics, deltaTime);
         drawHighTowers(graphics, deltaTime);
     }
@@ -50,22 +45,11 @@ public class GridView implements ViewObject {
         }
     }
     
-    private void drawPlacedWalls(GraphicsContext graphics, double deltaTime) {
-        graphics.setStroke(Color.BLACK);
-        List<WallData> walls = Game.getInstance().getChallengeManager().getChallengeData().walls;
-        for (int i = 0; i < walls.size(); i++) {
-            WallData wall = walls.get(i);
-            if (wall.getPosition() != null) {
-                tempWallView.update(x, y, blockLength, wall);
-                tempWallView.draw(graphics, deltaTime);
-            }
-        }
-    }
-    
     private void drawKnights(GraphicsContext graphics, double deltaTime) {
         List<Coordinate> castleKnights = Game.getInstance().getChallengeManager().getChallengeData().castleKnights;
         List<Coordinate> enemyKnights = Game.getInstance().getChallengeManager().getChallengeData().enemyKnights;
         graphics.setLineWidth(4);
+        graphics.setStroke(Color.BLACK);
         graphics.setFill(Color.BLUE);
         for (Coordinate castleKnight : castleKnights) {
             drawKnight(graphics, castleKnight);

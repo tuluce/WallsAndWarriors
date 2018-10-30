@@ -1,43 +1,20 @@
 package com.oops.wallsandwarriors;
 
 import com.oops.wallsandwarriors.game.model.Coordinate;
-import com.oops.wallsandwarriors.game.model.WallData;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BoundsManager {
 
-    private List<Rectangle2D.Double> paletteBounds;
     private List<Rectangle2D.Double> blockBounds;
-    
-    public List<Rectangle2D.Double> getPaletteBounds() {
-        return paletteBounds;
-    }
     
     public List<Rectangle2D.Double> getBlockBounds() {
         return blockBounds;
     }
     
     public void calculateBounds() {
-        calculatePaletteBounds();
         calculateBlockBounds();
-    }
-    
-    private void calculatePaletteBounds() {
-        paletteBounds = new ArrayList<Rectangle2D.Double>();
-        List<WallData> walls = Game.getInstance().getChallengeManager().getChallengeData().walls;
-        double figureHeight = (double) GameConstants.PALETTE_HEIGHT / walls.size();
-        double figureWidth = GameConstants.PALETTE_WIDTH;
-        for (int i = 0; i < walls.size(); i++) {
-            WallData wall = walls.get(i);
-            if (wall.getPosition() == null) {
-                paletteBounds.add(new Rectangle2D.Double(GameConstants.PALETTE_X,
-                        GameConstants.PALETTE_Y + i * figureHeight, figureWidth, figureHeight));
-            } else {
-                paletteBounds.add(new Rectangle2D.Double());
-            }
-        }
     }
     
     private void calculateBlockBounds() {
