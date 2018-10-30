@@ -1,10 +1,12 @@
 package com.oops.wallsandwarriors.game.model;
 
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HighTowerData implements BoardPiece {
+
+public class HighTowerData implements BoardPiece, Serializable {
 
     public final Coordinate firstPosition;
     public final Coordinate secondPosition;

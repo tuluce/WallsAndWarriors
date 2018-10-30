@@ -1,6 +1,8 @@
 package com.oops.wallsandwarriors.game.model;
 
-public class WallPortion {
+import java.io.Serializable;
+
+public class WallPortion implements Serializable {
     
     // The wall portion lies between two relative block positions
     public final Coordinate firstRelativePos;

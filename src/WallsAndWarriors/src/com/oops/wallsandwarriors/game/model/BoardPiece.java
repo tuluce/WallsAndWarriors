@@ -1,6 +1,7 @@
 package com.oops.wallsandwarriors.game.model;
 
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 import java.util.List;
 
 public interface BoardPiece {
