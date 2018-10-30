@@ -10,6 +10,8 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO there is no locked/unlocked property for ChallengeData
+
 public class TestUtils {
 
     public static final ChallengeData CHALLENGE_45;
