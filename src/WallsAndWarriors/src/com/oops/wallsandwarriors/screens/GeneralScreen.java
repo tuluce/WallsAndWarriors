@@ -7,6 +7,7 @@ import com.oops.wallsandwarriors.util.FileUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -15,11 +16,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public abstract class ParentScreen implements Screen {
+public abstract class GeneralScreen implements Screen {
     
     protected void addButton(Group root, String text, double x, double y, EventHandler<ActionEvent> action) {
         Button button = new Button(text);
-        setButtonCoordinates(button, x , y);
+        setLayoutPos(button, x , y);
         button.setOnAction(action);
         root.getChildren().add(button);
     }
@@ -38,9 +39,9 @@ public abstract class ParentScreen implements Screen {
         );
     }
     
-    protected void setButtonCoordinates(Button button, double x, double y) {
-        button.setLayoutX(x);
-        button.setLayoutY(y);
+    protected void setLayoutPos(Node componentNode, double x, double y) {
+        componentNode.setLayoutX(x);
+        componentNode.setLayoutY(y);
     }
     
     protected GraphicsContext addBackgroundCanvas(Group root, String imagePath, String title) {

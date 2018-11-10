@@ -5,7 +5,7 @@ import com.oops.wallsandwarriors.Game;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 
-public class CreditsScreen extends ParentScreen {
+public class CreditsScreen extends GeneralScreen {
     
     @Override
     public Scene getScene() {
@@ -14,7 +14,7 @@ public class CreditsScreen extends ParentScreen {
         
         DebugUtils.initClickDebugger(scene);
         addBackgroundCanvas(root, "resources/images/background2.png", "Credits");
-        addTransactionButton(root, "Back", 300, 300, Game.MAIN_MENU);
+        addTransactionButton(root, "Back", 300, 300, Game.getInstance().screenManager.mainMenu);
         
         return scene;
     }

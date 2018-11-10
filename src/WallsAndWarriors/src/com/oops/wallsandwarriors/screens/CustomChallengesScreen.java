@@ -1,14 +1,13 @@
 package com.oops.wallsandwarriors.screens;
 
-import com.oops.wallsandwarriors.definitions.GridDefinitions;
-import com.oops.wallsandwarriors.definitions.WallDefinitions;
-import com.oops.wallsandwarriors.game.model.ChallengeData;
-import com.oops.wallsandwarriors.game.model.Coordinate;
-import com.oops.wallsandwarriors.game.model.HighTowerData;
 import com.oops.wallsandwarriors.util.DebugUtils;
 import com.oops.wallsandwarriors.Game;
+import com.oops.wallsandwarriors.game.model.ChallengeData;
+import com.oops.wallsandwarriors.game.model.HighTowerData;
+import com.oops.wallsandwarriors.game.model.KnightData;
 import com.oops.wallsandwarriors.game.view.GridView;
-import com.oops.wallsandwarriors.util.FileUtils;
+import com.oops.wallsandwarriors.game.view.HighTowerView;
+import com.oops.wallsandwarriors.game.view.KnightView;
 import com.oops.wallsandwarriors.util.TestUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,67 +16,28 @@ import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.canvas.Canvas;
 
-public class CustomChallengesScreen extends ParentScreen {
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+
+public class CustomChallengesScreen extends GeneralScreen {
 
     ObservableList<String> challengeNames = FXCollections.observableArrayList ();
     List<ChallengeData> challenges = new ArrayList<>();
 
-    public static final ChallengeData CHALLENGE_45;
-    public static final ChallengeData CHALLENGE_51;
-
     GridPane grid = new GridPane();
 
-    static {
-
-        List<Coordinate> castleKnights45 = new ArrayList<Coordinate>();
-        castleKnights45.add(new Coordinate(1, 0));
-        castleKnights45.add(new Coordinate(3, 1));
-        castleKnights45.add(new Coordinate(0, 2));
-        List<HighTowerData> highTowers45 = new ArrayList<HighTowerData>();
-        highTowers45.add(new HighTowerData(new Coordinate(1, 2), new Coordinate(2, 2)));
-        List<Coordinate> enemyKnights45 = new ArrayList<Coordinate>();
-        enemyKnights45.add(new Coordinate(2, 0));
-        enemyKnights45.add(new Coordinate(0, 1));
-        enemyKnights45.add(new Coordinate(3, 2));
-
-        Image image45 = new Image(FileUtils.getInputStream("resources/images/ch45.jpg"));
-        CHALLENGE_45 = new ChallengeData(
-                "Challenge 45", "OOPs",
-                GridDefinitions.SMALL,
-                castleKnights45, highTowers45, enemyKnights45,
-                WallDefinitions.STANDARD);
-
-        List<Coordinate> castleKnights51 = new ArrayList<Coordinate>();
-        castleKnights51.add(new Coordinate(1, 3));
-        castleKnights51.add(new Coordinate(3, 3));
-        List<HighTowerData> highTowers51 = new ArrayList<HighTowerData>();
-        highTowers51.add(new HighTowerData(new Coordinate(1, 1), new Coordinate(2, 1)));
-        List<Coordinate> enemyKnights51 = new ArrayList<Coordinate>();
-        enemyKnights51.add(new Coordinate(1, 2));
-        Image image51 = new Image(FileUtils.getInputStream("resources/images/ch51.jpg"));
-        CHALLENGE_51 = new ChallengeData(
-                "Challenge 51", "OOPs",
-                GridDefinitions.SMALL,
-                castleKnights51, highTowers51, enemyKnights51,
-                WallDefinitions.STANDARD);
-
-    }
-
-
     @Override
-    public Scene getScene() {
+    public Scene getScene(){
         Group root = new Group();
         Scene scene = new Scene(root);
 
@@ -108,9 +68,6 @@ public class CustomChallengesScreen extends ParentScreen {
                 textInputDialog.setContentText("Code: ");
                 textInputDialog.showAndWait();
 
-
-                String code = textInputDialog.getEditor().getText();
-                System.out.println(code);
             }
         });
 
@@ -128,40 +85,40 @@ public class CustomChallengesScreen extends ParentScreen {
 
     private void renderButtons(Group root)
     {
-        addTransactionButton(root, "Back", 700, 500, Game.MAIN_MENU);
+        addTransactionButton(root, "Back", 700, 500, Game.getInstance().screenManager.mainMenu);
     }
 
     private void showChallenges(Group root)
     {
         challengeNames.clear();
 
-        challengeNames.add(CHALLENGE_45.name);
-        challengeNames.add(CHALLENGE_51.name);
-        challengeNames.add(CHALLENGE_51.name);
-        challengeNames.add(CHALLENGE_51.name);
-        challengeNames.add(CHALLENGE_51.name);
-        challengeNames.add(CHALLENGE_51.name);
-        challengeNames.add(CHALLENGE_51.name);
-        challengeNames.add(CHALLENGE_51.name);
-        challengeNames.add(CHALLENGE_51.name);
-        challengeNames.add(CHALLENGE_51.name);
-        challengeNames.add(CHALLENGE_51.name);
+        challengeNames.add(TestUtils.CHALLENGE_45.getName());
+        challengeNames.add(TestUtils.CHALLENGE_51.getName());
+        challengeNames.add(TestUtils.CHALLENGE_51.getName());
+        challengeNames.add(TestUtils.CHALLENGE_51.getName());
+        challengeNames.add(TestUtils.CHALLENGE_51.getName());
+        challengeNames.add(TestUtils.CHALLENGE_51.getName());
+        challengeNames.add(TestUtils.CHALLENGE_51.getName());
+        challengeNames.add(TestUtils.CHALLENGE_51.getName());
+        challengeNames.add(TestUtils.CHALLENGE_51.getName());
+        challengeNames.add(TestUtils.CHALLENGE_51.getName());
+        challengeNames.add(TestUtils.CHALLENGE_51.getName());
 
 
 
         challenges.clear();
 
-        challenges.add(CHALLENGE_45);
-        challenges.add(CHALLENGE_51);
-        challenges.add(CHALLENGE_51);
-        challenges.add(CHALLENGE_51);
-        challenges.add(CHALLENGE_51);
-        challenges.add(CHALLENGE_51);
-        challenges.add(CHALLENGE_51);
-        challenges.add(CHALLENGE_51);
-        challenges.add(CHALLENGE_51);
-        challenges.add(CHALLENGE_51);
-        challenges.add(CHALLENGE_51);
+        challenges.add(TestUtils.CHALLENGE_45);
+        challenges.add(TestUtils.CHALLENGE_51);
+        challenges.add(TestUtils.CHALLENGE_51);
+        challenges.add(TestUtils.CHALLENGE_51);
+        challenges.add(TestUtils.CHALLENGE_51);
+        challenges.add(TestUtils.CHALLENGE_51);
+        challenges.add(TestUtils.CHALLENGE_51);
+        challenges.add(TestUtils.CHALLENGE_51);
+        challenges.add(TestUtils.CHALLENGE_51);
+        challenges.add(TestUtils.CHALLENGE_51);
+        challenges.add(TestUtils.CHALLENGE_51);
 
 
         ListView<String> list = new ListView<>();
@@ -179,29 +136,28 @@ public class CustomChallengesScreen extends ParentScreen {
             public void handle(MouseEvent event) {
                 grid.getChildren().clear();
                 int challengeIndex = list.getSelectionModel().getSelectedIndex();
-                showChallengeInfo(challenges.get(challengeIndex), root);
+                try {
+                    showChallengeInfo(challenges.get(challengeIndex), root);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
 
-    public void showChallengeInfo(ChallengeData challenge, Group root)
+    public void showChallengeInfo(ChallengeData challenge, Group root) throws FileNotFoundException
     {
+        Game.getInstance().challengeManager.setChallengeData(challenge);
+        
         //Image of the challenge
-        Game.getInstance().getChallengeManager().setChallengeData(challenge);
-        Canvas previewCanvas = new Canvas();
-        previewCanvas.setHeight(150);
-        previewCanvas.setWidth(200);
-        GridView gridView = new GridView(5, 5, 5, 30);
-        gridView.draw(previewCanvas.getGraphicsContext2D(), 1);
-        grid.add(previewCanvas, 0, 0);
-
+        dipslayChallengePreview(challenge);
 
         //created by info
-        Label creatorLabel = new Label("Creator:  " + challenge.creator);
+        Label creatorLabel = new Label("Creator:  " + challenge.getCreator());
 
         //warriors info
-        Label warriorLabel = new Label("Info:  " + challenge.enemyKnights.size() + " Red Knights, " + challenge.castleKnights.size() + " Blue Knights.");
+        Label warriorLabel = new Label("Info:  " + challenge.knights.size() + " Knights.");
 
         //type info
 //        String solved;
@@ -220,8 +176,8 @@ public class CustomChallengesScreen extends ParentScreen {
         playButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                GameScreen gameScreen = Game.GAME_SCREEN;
-                Game.getInstance().getChallengeManager().setChallengeData(challenge);
+                Screen gameScreen = Game.getInstance().screenManager.gameScreen;
+                Game.getInstance().challengeManager.setChallengeData(challenge);
                 Game.getInstance().setScreen(gameScreen);
             }
         });
@@ -241,7 +197,6 @@ public class CustomChallengesScreen extends ParentScreen {
             }
         });
 
-
         grid.add(creatorLabel,0,1);
         grid.add(warriorLabel,0,2);
 //        grid.add(isSolved,0,3);
@@ -249,6 +204,23 @@ public class CustomChallengesScreen extends ParentScreen {
         grid.add(playButton, 1,4);
 
     }
-
-
+    
+    private void dipslayChallengePreview(ChallengeData challenge) {
+        Canvas previewCanvas = new Canvas();
+        previewCanvas.setHeight(150);
+        previewCanvas.setWidth(200);
+        GraphicsContext graphics = previewCanvas.getGraphicsContext2D();
+        
+        GridView gridView = new GridView(5, 5, 5, 30);
+        gridView.draw(graphics, 1);
+        grid.add(previewCanvas, 0, 0);
+        
+        for (KnightData knight : challenge.knights) {
+            new KnightView(knight, 5, 5, 30).draw(graphics, 1);
+        }
+        for (HighTowerData highTower : challenge.highTowers) {
+            new HighTowerView(highTower, 5, 5, 30).draw(graphics, 1);
+        }
+    }
+    
 }

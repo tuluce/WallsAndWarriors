@@ -1,6 +1,7 @@
 package com.oops.wallsandwarriors.game.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class WallPortion implements Serializable {
     
@@ -23,6 +24,14 @@ public class WallPortion implements Serializable {
                     otherWall.secondRelativePos.equals(this.firstRelativePos));
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.firstRelativePos);
+        hash = 97 * hash + Objects.hashCode(this.secondRelativePos);
+        return hash;
     }
     
 }

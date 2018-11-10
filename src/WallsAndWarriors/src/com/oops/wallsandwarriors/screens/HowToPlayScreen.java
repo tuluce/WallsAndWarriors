@@ -5,7 +5,7 @@ import com.oops.wallsandwarriors.Game;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 
-public class HowToPlayScreen extends ParentScreen {
+public class HowToPlayScreen extends GeneralScreen {
     
     @Override
     public Scene getScene() {
@@ -14,7 +14,7 @@ public class HowToPlayScreen extends ParentScreen {
         
         DebugUtils.initClickDebugger(scene);
         addBackgroundCanvas(root, "resources/images/background2.png", "How to Play");
-        addTransactionButton(root, "Back", 300, 300, Game.MAIN_MENU);
+        addTransactionButton(root, "Back", 300, 300, Game.getInstance().screenManager.mainMenu);
         
         return scene;
     }

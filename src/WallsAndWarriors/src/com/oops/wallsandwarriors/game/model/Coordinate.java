@@ -23,6 +23,14 @@ public class Coordinate implements Serializable{
         }
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + this.x;
+        hash = 67 * hash + this.y;
+        return hash;
+    }
     
     public Coordinate plus(Coordinate other) {
         return new Coordinate(other.x + x, other.y + y);

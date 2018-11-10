@@ -15,7 +15,7 @@ public class EncodeUtils {
 
     public static String encode(ChallengeData toEncode) throws FileNotFoundException, IOException
     {
-        String tag = "chl"+toEncode.name +".txt";
+        String tag = "chl"+toEncode.getName() +".txt";
         PrintWriter out = new PrintWriter(tag);
 
         data = toEncode;

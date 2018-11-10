@@ -14,4 +14,9 @@ public class ChallengeManager {
         return challengeData;
     }
     
+    public void initChallengeData() {
+        challengeData = new ChallengeData();
+        challengeData.walls.clear();
+    }
+    
 }

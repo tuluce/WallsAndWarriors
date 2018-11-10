@@ -1,5 +1,6 @@
 package com.oops.wallsandwarriors.game.view;
 
+import com.oops.wallsandwarriors.GameConstants;
 import com.oops.wallsandwarriors.util.DrawUtils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -8,28 +9,33 @@ import javafx.scene.text.FontWeight;
 
 public class FpsDisplayView implements ViewObject {
 
-    private static final double REFRESH_PERIOD = 0.5;
+    private static final double REFRESH_PERIOD = 1;
     
     private final Font fpsFont;
     
-    private double lastRefreshTime;
+    private double time;
+    private int frames;
     private int fps;
     
     public FpsDisplayView() {
         fpsFont = Font.font("Monospace", FontWeight.BOLD, 10);
-        lastRefreshTime = 0;
+        time = 0;
     }
     
     @Override
     public void draw(GraphicsContext graphics, double deltaTime) {
-        lastRefreshTime += deltaTime;
-        if (lastRefreshTime > REFRESH_PERIOD) {
-            fps = (int) (1.0 / deltaTime);
-            lastRefreshTime = 0;
+        time += deltaTime;
+        frames++;
+        if (time > REFRESH_PERIOD) {
+            fps = (int) (frames / time) + 1;
+            time = 0;
+            frames = 0;
         }
         DrawUtils.setAttributes(graphics, Color.BLACK, Color.WHITE, 1);
         graphics.setFont(fpsFont);
-        graphics.fillText(fps + " fps", 10, 590);
+        if (fps > 0) {
+            graphics.fillText(fps + " fps", 5, GameConstants.SCREEN_HEIGHT - 5);
+        }
     }
 
 }

@@ -2,109 +2,100 @@ package com.oops.wallsandwarriors.game.view;
 
 import com.oops.wallsandwarriors.Game;
 import com.oops.wallsandwarriors.game.model.Coordinate;
-import com.oops.wallsandwarriors.game.model.HighTowerData;
 import com.oops.wallsandwarriors.util.DrawUtils;
+import com.oops.wallsandwarriors.util.Rectangle;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class GridView implements ViewObject {
     
-    private final double x;
-    private final double y;
+    private final double screenX;
+    private final double screenY;
     private final double margin;
     private final double blockLength;
+    private List<Rectangle> blockBounds;
     
     public GridView(double x, double y, double margin, double blockLength) {
-        this.x = x;
-        this.y = y;
+        this.screenX = x;
+        this.screenY = y;
         this.margin = margin;
         this.blockLength = blockLength;
+        calculateBlockBounds();
+    }
+    
+    public List<Rectangle> getBlockBounds() {
+        return blockBounds;
     }
     
     @Override
     public void draw(GraphicsContext graphics, double deltaTime) {
-        drawGrid(graphics, deltaTime);
-        drawKnights(graphics, deltaTime);
-        drawHighTowers(graphics, deltaTime);
+        drawGrid(graphics);
     }
     
-    private void drawGrid(GraphicsContext graphics, double deltaTime) {
+    private void drawGrid(GraphicsContext graphics) {
         graphics.setFill(Color.BEIGE);
-        graphics.fillRoundRect(x - margin,
-                y - margin,
+        graphics.fillRoundRect(screenX - margin,
+                screenY - margin,
                 5 * blockLength + 2 * margin,
                 4 * blockLength + 2 * margin, 50, 50);
-        List<Coordinate> blocks = Game.getInstance().getChallengeManager().getChallengeData().blocks;
+        List<Coordinate> blocks = Game.getInstance().challengeManager.getChallengeData().blocks;
         DrawUtils.setAttributes(graphics, Color.GRAY, Color.LIGHTGRAY, 6);
         for (Coordinate block : blocks) {
             DrawUtils.drawRect(graphics, 
-                    x + block.x * blockLength,
-                    y + block.y * blockLength,
+                    screenX + block.x * blockLength,
+                    screenY + block.y * blockLength,
                     blockLength, blockLength);
         }
     }
     
-    private void drawKnights(GraphicsContext graphics, double deltaTime) {
-        List<Coordinate> castleKnights = Game.getInstance().getChallengeManager().getChallengeData().castleKnights;
-        List<Coordinate> enemyKnights = Game.getInstance().getChallengeManager().getChallengeData().enemyKnights;
-        graphics.setLineWidth(4);
-        graphics.setStroke(Color.BLACK);
-        graphics.setFill(Color.BLUE);
-        for (Coordinate castleKnight : castleKnights) {
-            drawKnight(graphics, castleKnight);
-        }
-        graphics.setFill(Color.RED);
-        for (Coordinate enemyKnight : enemyKnights) {
-            drawKnight(graphics, enemyKnight);
+    private void calculateBlockBounds() {
+        blockBounds = new ArrayList<Rectangle>();
+        List<Coordinate> extendedBlocks = getExtendedBlocks();
+        for (Coordinate block : extendedBlocks) {
+            blockBounds.add(new Rectangle(
+                    translateToScreenX(block.x),
+                    translateToScreenY(block.y),
+                    blockLength, blockLength));
         }
     }
     
-    private void drawKnight(GraphicsContext graphics, Coordinate block) {
-        double a = translateToScreenX(block.x + 0.5);
-        double b = translateToScreenY(block.y + 0.5);
-        double l = blockLength;
-        final double RAD_RATIO = 0.5;
-        DrawUtils.drawOval(graphics, a - l * RAD_RATIO * 0.5,
-                b - l * RAD_RATIO * 0.5, l * RAD_RATIO, l * RAD_RATIO);
-    }
-    
-    private void drawHighTowers(GraphicsContext graphics, double deltaTime) {
-        List<HighTowerData> highTowers = Game.getInstance().getChallengeManager().getChallengeData().highTowers;
-        graphics.setFill(Color.BLUE);
-        graphics.setStroke(Color.BLACK);
-        for (HighTowerData highTower : highTowers) {
-            graphics.setLineWidth(blockLength / 3.0);
-            drawHighTowerWall(graphics, highTower.firstPosition, highTower.secondPosition);
-            graphics.setLineWidth(6);
-            drawHighTowerPart(graphics, highTower.firstPosition);
-            drawHighTowerPart(graphics, highTower.secondPosition);
+    private List<Coordinate> getExtendedBlocks() {
+        List<Coordinate> blocks = Game.getInstance().challengeManager.getChallengeData().blocks;
+        List<Coordinate> extendedBlocks = new ArrayList<Coordinate>();
+        int minX = Integer.MAX_VALUE;
+        int minY = Integer.MAX_VALUE;
+        int maxX = Integer.MIN_VALUE;
+        int maxY = Integer.MIN_VALUE;
+        for (Coordinate block : blocks) {
+            minX = Math.min(minX, block.x);
+            minY = Math.min(minY, block.y);
+            maxX = Math.max(maxX, block.x);
+            maxY = Math.max(maxY, block.y);
         }
+        for (int x = minX; x <= maxX; x++) {
+            for (int y = minY; y <= maxY; y++) {
+                extendedBlocks.add(new Coordinate(x, y));
+            }
+        }
+        return extendedBlocks;
     }
     
-    private void drawHighTowerPart(GraphicsContext graphics, Coordinate block) {
-        double a = translateToScreenX(block.x + 0.5);
-        double b = translateToScreenY(block.y + 0.5);
-        double l = blockLength;
-        final double RAD_RATIO = 0.6;
-        DrawUtils.drawOval(graphics, a - l * RAD_RATIO * 0.5,
-                b - l * RAD_RATIO * 0.5, l * RAD_RATIO, l * RAD_RATIO);
+    public double translateToScreenY(double y) {
+        return screenY + y * blockLength;
     }
     
-    private void drawHighTowerWall(GraphicsContext graphics, Coordinate block1, Coordinate block2) {
-        double a = translateToScreenX(block1.x + 0.5);
-        double b = translateToScreenY(block1.y + 0.5);
-        double c = translateToScreenX(block2.x + 0.5);
-        double d = translateToScreenY(block2.y + 0.5);
-        graphics.strokeLine(a, b, c, d);
+    public double translateToScreenX(double x) {
+        return screenX + x * blockLength;
     }
     
-    public double translateToScreenY(double gridY) {
-        return y + gridY * blockLength;
+    public int translateToGridY(double y) {
+        return (int) ((y - screenY) / blockLength);
     }
-    
-    public double translateToScreenX(double gridX) {
-        return x + gridX * blockLength;
+
+    public int translateToGridX(double x) {
+        return (int) ((x - screenX) / blockLength);
     }
 
 }

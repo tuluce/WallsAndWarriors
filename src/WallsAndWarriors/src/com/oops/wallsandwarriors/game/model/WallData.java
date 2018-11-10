@@ -1,11 +1,11 @@
 package com.oops.wallsandwarriors.game.model;
 
-import java.awt.geom.Point2D;
+import com.oops.wallsandwarriors.util.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WallData implements BoardPiece, Serializable {
+public class WallData implements BorderPiece, Serializable {
     
     private WallDefinition definition;
     private Coordinate position;
@@ -31,6 +31,11 @@ public class WallData implements BoardPiece, Serializable {
         this.position = position;
     }
     
+    @Override
+    public WallData createCopy() {
+        return new WallData(definition, position);
+    }
+    
     public void rotate() {
         List<WallPortion> rotatedPortions = new ArrayList<WallPortion>();
         List<WallBastion> rotatedBastions = new ArrayList<WallBastion>();
@@ -49,12 +54,12 @@ public class WallData implements BoardPiece, Serializable {
     }
     
     @Override
-    public List<Point2D.Double> occupies() {
+    public List<Point> occupiesBorder() {
         return occupies(position);
     }
     
-    public List<Point2D.Double> occupies(Coordinate position) {
-        List<Point2D.Double> occupies = new ArrayList<Point2D.Double>();
+    public List<Point> occupies(Coordinate position) {
+        List<Point> occupies = new ArrayList<Point>();
         if (position == null) {
             return occupies;
         }
@@ -64,24 +69,16 @@ public class WallData implements BoardPiece, Serializable {
             double middleX = (coord1.x + coord2.x) / 2.0;
             double middleY = (coord1.y + coord2.y) / 2.0;
             if (coord1.y == coord2.y) {
-                occupies.add(new Point2D.Double(
-                    middleX,
-                    middleY - 1.0 / 6.0));
-                occupies.add(new Point2D.Double(
-                    middleX,
-                    middleY + 1.0 / 6.0));
+                occupies.add(new Point(middleX, middleY - 1.0 / 6.0));
+                occupies.add(new Point(middleX, middleY + 1.0 / 6.0));
             } else {
-                occupies.add(new Point2D.Double(
-                    middleX - 1.0 / 6.0,
-                    middleY));
-                occupies.add(new Point2D.Double(
-                    middleX + 1.0 / 6.0,
-                    middleY));
+                occupies.add(new Point(middleX - 1.0 / 6.0, middleY));
+                occupies.add(new Point(middleX + 1.0 / 6.0, middleY));
             }
         }
         for (WallBastion bastion : definition.bastions) {
             Coordinate coord = position.plus(bastion.relativePos);
-            occupies.add(new Point2D.Double(coord.x - 0.5, coord.y - 0.5));
+            occupies.add(new Point(coord.x - 0.5, coord.y - 0.5));
         }
         return occupies;
     }
