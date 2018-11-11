@@ -17,15 +17,20 @@ import com.oops.wallsandwarriors.game.view.HighTowerView;
 import com.oops.wallsandwarriors.game.view.KnightView;
 import com.oops.wallsandwarriors.game.view.WallView;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import com.oops.wallsandwarriors.util.CopyUtils;
+import com.oops.wallsandwarriors.util.EncodeUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -70,15 +75,23 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         addButton(root, "Export", 700, 550, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Exporting...");
+                try {
+                    exportChallenge();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        });
+            }
+        );
         addButton(root, "Reset", 650, 550, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                resetState();
+                    resetState();
+                }
             }
-        });
+        );
         addTextComponents(root);
     }
     
@@ -223,6 +236,35 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         for (HighTowerData highTower : challenge.highTowers) {
             highTowerViews.add(new HighTowerView(highTower, true));
         }
+    }
+    
+    private void exportChallenge() throws FileNotFoundException,IOException{
+        ChallengeData exportedChallenge = Game.getInstance().challengeManager.getChallengeData().createCopy();
+        exportedChallenge.resetWalls();
+        exportedChallenge.setName(nameField.getText());
+        exportedChallenge.setDescription(nameField.getText());
+        exportedChallenge.setCreator(creatorField.getText());
+        
+        TextArea textArea = new TextArea(EncodeUtils.encode(exportedChallenge));
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+        GridPane gridPane = new GridPane();
+        gridPane.add(textArea, 0, 0);
+        ButtonType clipboard = new ButtonType("Copy To Clipboard!");
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Copy the exported challenge code.");
+        alert.setHeaderText(null);
+        alert.getDialogPane().setContent(gridPane);
+        alert.getButtonTypes().add(clipboard);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.get() == clipboard )
+        {
+                CopyUtils.copyToClipboard(textArea.getText());
+        }
+        alert.showAndWait();
     }
     
 }
