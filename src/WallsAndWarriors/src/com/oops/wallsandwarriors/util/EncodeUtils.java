@@ -5,9 +5,6 @@ import com.oops.wallsandwarriors.game.model.ChallengeData;
 import java.io.*;
 import java.util.Base64;
 
-/**
- * Created by caglasozen on 10/29/18.
- */
 public class EncodeUtils {
 
     private static String base64;
@@ -15,14 +12,16 @@ public class EncodeUtils {
 
     public static String encode(ChallengeData toEncode) throws FileNotFoundException, IOException
     {
-        String tag = "chl"+toEncode.getName() +".txt";
+        String tag = toEncode.getName() +".txt";
         PrintWriter out = new PrintWriter(tag);
+
 
         data = toEncode;
         byte[] inBytes = getByteStream(data);
 
         base64 = Base64.getEncoder().encodeToString(inBytes);
         out.println(base64);
+        out.close();
         return base64;
     }
 
@@ -49,19 +48,14 @@ public class EncodeUtils {
 
     public static ChallengeData decode(String toDecode) throws FileNotFoundException, IOException, ClassNotFoundException
     {
-        String tag = toDecode;
-        BufferedReader in = new BufferedReader(new FileReader(tag));
-        String line;
-        String str = "";
-        while((line = in.readLine()) != null)
-        {
-           str += line;
-        }
-        in.close();
+        byte[] byteArray = Base64.getDecoder().decode(toDecode);
+        data = fromByteStream(byteArray);
 
-        byte[] byteArr = str.getBytes();
+        String tag = data.getName() +".txt";
+        PrintWriter out = new PrintWriter(tag);
+        out.println(toDecode);
+        out.close();
 
-        data = fromByteStream(byteArr);
         return data;
 
     }
