@@ -1,5 +1,6 @@
 package com.oops.wallsandwarriors.screens;
 
+import com.oops.wallsandwarriors.util.CopyUtils;
 import com.oops.wallsandwarriors.util.DebugUtils;
 import com.oops.wallsandwarriors.Game;
 import com.oops.wallsandwarriors.game.model.ChallengeData;
@@ -23,13 +24,15 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-
-public class CustomChallengesScreen extends GeneralScreen {
+import com.oops.wallsandwarriors.util.EncodeUtils;
+public class CustomChallengesScreen extends ParentScreen {
 
     ObservableList<String> challengeNames = FXCollections.observableArrayList ();
     List<ChallengeData> challenges = new ArrayList<>();
@@ -68,6 +71,17 @@ public class CustomChallengesScreen extends GeneralScreen {
                 textInputDialog.setContentText("Code: ");
                 textInputDialog.showAndWait();
 
+
+                String code = textInputDialog.getEditor().getText();
+                ChallengeData toImp = null;
+                try {
+                    toImp = EncodeUtils.decode(code);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                challenges.add(toImp);
             }
         });
 
@@ -186,16 +200,17 @@ public class CustomChallengesScreen extends GeneralScreen {
         Button shareButton = new Button("Share");
         shareButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event) {
+            public void handle(MouseEvent event){
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Share Challenge");
-                alert.setHeaderText(null);
-                alert.setContentText("Code for sharing this challenge: " + "\n");
-
-                alert.showAndWait();
+                try {
+                    shareChallenge(challenge);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
         });
+
 
         grid.add(creatorLabel,0,1);
         grid.add(warriorLabel,0,2);
@@ -222,5 +237,28 @@ public class CustomChallengesScreen extends GeneralScreen {
             new HighTowerView(highTower, 5, 5, 30).draw(graphics, 1);
         }
     }
-    
+    private void shareChallenge(ChallengeData challenge ) throws FileNotFoundException,IOException{
+
+        TextArea textArea = new TextArea(EncodeUtils.encode(challenge));
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+        GridPane gridPane = new GridPane();
+        gridPane.add(textArea, 0, 0);
+        ButtonType clipboard = new ButtonType("Copy To Clipboard!");
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Copy the exported challenge code.");
+        alert.setHeaderText(null);
+        alert.getDialogPane().setContent(gridPane);
+        alert.getButtonTypes().add(clipboard);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.get() == clipboard )
+        {
+            CopyUtils.copyToClipboard(textArea.getText());
+        }
+
+        alert.showAndWait();
+    }
 }
