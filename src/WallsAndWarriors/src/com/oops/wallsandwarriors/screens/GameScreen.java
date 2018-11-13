@@ -147,19 +147,23 @@ public class GameScreen extends BaseGameScreen {
         ChallengeData challenge = Game.getInstance().challengeManager.getChallengeData();
         SolutionManager solutionManager = Game.getInstance().solutionManager;
         ArrayList<KnightData> incorrectRedKnights = solutionManager.checkSolution(challenge);
-        if(showMistake && incorrectRedKnights == null)
-            System.out.print("Wall are not closed\n");
-        else if(incorrectRedKnights != null && incorrectRedKnights.size() == 0) { //if it doesn't contain any red knight
-            System.out.print("WIN!!!\n");
-
+        if (incorrectRedKnights == null) {
+            handleAlert("Mistake", "Walls are not closed.", showMistake);
+        } else if (!incorrectRedKnights.isEmpty()) {
+            handleAlert("Mistake", "Problem with red Knights: " + incorrectRedKnights.size(), showMistake);
+        } else {
+            handleAlert("WIN!", "Congratulations!!! You solved the challenge", true);
+        }
+    }
+    
+    private void handleAlert(String title, String content, boolean show) {
+        if (show) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("WIN!!!");
+            alert.setTitle(title);
             alert.setHeaderText(null);
-            alert.setContentText("Congratulations!!! You solved the challenge" + "\n");
-
+            alert.setContentText(content);
             alert.showAndWait();
         }
-        else if(showMistake)
-            System.out.print("Problem with red Knights:" + incorrectRedKnights + "\n");
     }
+    
 }
