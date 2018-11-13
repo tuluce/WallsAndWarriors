@@ -147,9 +147,9 @@ public class GameScreen extends BaseGameScreen {
         ChallengeData challenge = Game.getInstance().challengeManager.getChallengeData();
         SolutionManager solutionManager = Game.getInstance().solutionManager;
         ArrayList<KnightData> incorrectRedKnights = solutionManager.checkSolution(challenge);
-        if(incorrectRedKnights == null && showMistake)
+        if(showMistake && incorrectRedKnights == null)
             System.out.print("Wall are not closed\n");
-        else if(incorrectRedKnights.size() == 0) { //if it doesn't contain any red knight
+        else if(incorrectRedKnights != null && incorrectRedKnights.size() == 0) { //if it doesn't contain any red knight
             System.out.print("WIN!!!\n");
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
