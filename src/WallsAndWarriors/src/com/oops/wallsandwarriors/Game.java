@@ -11,6 +11,7 @@ public class Game {
     public final ChallengeManager challengeManager;
     public final GridManager gridManager;
     public final ScreenManager screenManager;
+    public final SolutionManager solutionManager;
     
     public static Game getInstance() {
         if (instance == null) {
@@ -23,6 +24,7 @@ public class Game {
         challengeManager = new ChallengeManager();
         gridManager = new GridManager();
         screenManager = new ScreenManager();
+        solutionManager = new SolutionManager();
     }
     
     public void initGame(Stage stage) {

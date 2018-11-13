@@ -32,7 +32,8 @@ import java.util.Optional;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import com.oops.wallsandwarriors.util.EncodeUtils;
-public class CustomChallengesScreen extends ParentScreen {
+
+public class CustomChallengesScreen extends GeneralScreen {
 
     ObservableList<String> challengeNames = FXCollections.observableArrayList ();
     List<ChallengeData> challenges = new ArrayList<>();

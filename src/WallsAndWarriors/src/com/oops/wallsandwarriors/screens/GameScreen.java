@@ -2,6 +2,7 @@ package com.oops.wallsandwarriors.screens;
 
 import com.oops.wallsandwarriors.Game;
 import com.oops.wallsandwarriors.GameConstants;
+import com.oops.wallsandwarriors.SolutionManager;
 import com.oops.wallsandwarriors.game.model.ChallengeData;
 import com.oops.wallsandwarriors.game.model.HighTowerData;
 import com.oops.wallsandwarriors.game.model.KnightData;
@@ -13,6 +14,7 @@ import com.oops.wallsandwarriors.game.view.HighTowerView;
 import com.oops.wallsandwarriors.game.view.KnightView;
 import com.oops.wallsandwarriors.game.view.GamePaletteView;
 import com.oops.wallsandwarriors.game.view.WallView;
+import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -49,7 +51,7 @@ public class GameScreen extends BaseGameScreen {
         addButton(root, "Check", 700, 550, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Checking...");
+                checkSolution(true);
             }
         });
         addButton(root, "Reset", 650, 550, new EventHandler<ActionEvent>() {
@@ -64,7 +66,7 @@ public class GameScreen extends BaseGameScreen {
     protected boolean attemptPlacement() {
         if (hoveredBlock != null && selectedPiece != null &&
             Game.getInstance().gridManager.attemptPlacement(hoveredBlock, selectedPiece)) {
-            System.out.println("Checking for solved...");
+            checkSolution(false);
             return true;
         }
         return false;
@@ -134,6 +136,17 @@ public class GameScreen extends BaseGameScreen {
         }
         if (selectedWallView != null) {
             selectedWallView.draw(graphics, deltaTime);
+        }
+    }
+    
+    private void checkSolution(boolean showMistake) {
+        ChallengeData challenge = Game.getInstance().challengeManager.getChallengeData();
+        SolutionManager solutionManager = Game.getInstance().solutionManager;
+        ArrayList<KnightData> incorrectRedKnights = solutionManager.checkSolution(challenge);
+        if (incorrectRedKnights == null) {
+            System.out.println("WIN!");
+        } else if (showMistake) {
+            System.out.println("Incorrect red knights: " + incorrectRedKnights);
         }
     }
 

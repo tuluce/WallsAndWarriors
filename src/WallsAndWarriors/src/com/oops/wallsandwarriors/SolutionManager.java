@@ -1,31 +1,27 @@
 package com.oops.wallsandwarriors;
 
-import com.oops.wallsandwarriors.definitions.GridDefinitions;
-import com.oops.wallsandwarriors.definitions.WallDefinitions;
 import com.oops.wallsandwarriors.game.model.*;
-import com.oops.wallsandwarriors.util.Point;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SolutionManager {
 
-    public final MarkedCoordinates markedCoordinatelist;
-    public final Coordinate leftCoordinate = new Coordinate(-1,0);
-    public final Coordinate rightCoordinate = new Coordinate(1,0);
-    public final Coordinate upperCoordinate = new Coordinate(0,-1);
-    public final Coordinate downCordinate = new Coordinate(0,1);
+    private final MarkedCoordinates markedCoordinatelist;
+    private final Coordinate leftCoordinate = new Coordinate(-1,0);
+    private final Coordinate rightCoordinate = new Coordinate(1,0);
+    private final Coordinate upperCoordinate = new Coordinate(0,-1);
+    private final Coordinate downCordinate = new Coordinate(0,1);
+    private final ArrayList<KnightData> IncorrectRedKnightList;
+    
     private ChallengeData challengeData;
-    public final ArrayList<KnightData> IncorrectRedKnightList;
 
     public SolutionManager() {
         markedCoordinatelist = new MarkedCoordinates();
         IncorrectRedKnightList = new ArrayList<KnightData>();
-
     }
 
     public ArrayList<KnightData> checkSolution(ChallengeData newChallengeData) {
+        
+        reset();
         challengeData = newChallengeData;
 
         //if the knight is BLUE, then check for Coordinates to mark
@@ -92,7 +88,7 @@ public class SolutionManager {
         return null;
     }
 
-    public void markMapCoordinates(Coordinate coordinate) {
+    private void markMapCoordinates(Coordinate coordinate) {
         if( !(markedCoordinatelist.findCoordinate(coordinate)) && isProperCoordinate(coordinate)) {
             markedCoordinatelist.addMarkedCoordinate(coordinate);
 
@@ -132,7 +128,7 @@ public class SolutionManager {
         }
     }
 
-    public boolean isProperCoordinate(Coordinate coordinate) {
+    private boolean isProperCoordinate(Coordinate coordinate) {
         for(Coordinate aCoordinate : challengeData.blocks) {
             if(coordinate.equals(aCoordinate))
                 return true;
@@ -140,8 +136,9 @@ public class SolutionManager {
         return false;
     }
 
-    public void resetSolutionManager() {
+    private void reset() {
         IncorrectRedKnightList.clear();
         markedCoordinatelist.clearMarks();
     }
+    
 }
