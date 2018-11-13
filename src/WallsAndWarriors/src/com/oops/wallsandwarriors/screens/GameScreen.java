@@ -15,9 +15,13 @@ import com.oops.wallsandwarriors.game.view.KnightView;
 import com.oops.wallsandwarriors.game.view.GamePaletteView;
 import com.oops.wallsandwarriors.game.view.WallView;
 import java.util.ArrayList;
+import java.util.Optional;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseButton;
 
 
@@ -138,16 +142,25 @@ public class GameScreen extends BaseGameScreen {
             selectedWallView.draw(graphics, deltaTime);
         }
     }
-    
+
     private void checkSolution(boolean showMistake) {
         ChallengeData challenge = Game.getInstance().challengeManager.getChallengeData();
         SolutionManager solutionManager = Game.getInstance().solutionManager;
         ArrayList<KnightData> incorrectRedKnights = solutionManager.checkSolution(challenge);
-        if (incorrectRedKnights == null) {
-            System.out.println("WIN!");
-        } else if (showMistake) {
-            System.out.println("Incorrect red knights: " + incorrectRedKnights);
+        if(incorrectRedKnights == null && showMistake)
+            System.out.print("Wall are not closed\n");
+        else if(incorrectRedKnights.size() == 0) { //if it doesn't contain any red knight
+            System.out.print("WIN!!!\n");
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("WIN!!!");
+            alert.setHeaderText(null);
+            alert.setContentText("Congratulations!!! You solved the challenge" + "\n");
+
+            alert.showAndWait();
         }
+        else
+            System.out.print("Problem with red Knights: \n" + incorrectRedKnights);
     }
 
 }
