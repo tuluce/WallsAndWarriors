@@ -159,8 +159,7 @@ public class GameScreen extends BaseGameScreen {
 
             alert.showAndWait();
         }
-        else
-            System.out.print("Problem with red Knights: \n" + incorrectRedKnights);
+        else if(showMistake)
+            System.out.print("Problem with red Knights:" + incorrectRedKnights + "\n");
     }
-
 }
