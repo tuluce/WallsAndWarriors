@@ -1,5 +1,6 @@
 package com.oops.wallsandwarriors.data;
 
+import com.oops.wallsandwarriors.Game;
 import com.oops.wallsandwarriors.game.model.ChallengeData;
 import com.oops.wallsandwarriors.util.EncodeUtils;
 import com.oops.wallsandwarriors.util.TestUtils;
@@ -24,9 +25,9 @@ public class CustomChallengesData {
 
         try {
             for (ChallengeData customChallenge : customChallenges) {
-                File challengeFile = new File("C:\\W&W\\CustomChallenges\\" + customChallenge.getName() + ".dat");
-                challengeFile.createNewFile();
+                File challengeFile = new File(Game.f2, customChallenge.getName() + ".dat");
 
+                challengeFile.createNewFile();
                 challengeFile.setWritable(true);
 
                 FileWriter fileWriter = new FileWriter(challengeFile);
@@ -36,8 +37,6 @@ public class CustomChallengesData {
                 files.add(challengeFile);
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

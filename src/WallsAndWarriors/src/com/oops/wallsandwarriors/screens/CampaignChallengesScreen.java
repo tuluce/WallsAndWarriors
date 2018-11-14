@@ -63,7 +63,6 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
 
     private void showChallenges(Group root)
     {
-        challenges.clear();
         buttons.clear();
 
         challenges = CampaignChallengesData.originalChallenges;
@@ -87,7 +86,6 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
 
         for(int i = 0; i < challenges.size(); i++)
         {
-            final int index = i;
             Button btn = new Button(challenges.get(i).getName());
             btn.setOnAction(new EventHandler<ActionEvent>() {
                 @Override

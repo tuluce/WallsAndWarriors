@@ -4,6 +4,7 @@ import com.oops.wallsandwarriors.screens.Screen;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 
 public class Game {
     
@@ -15,7 +16,10 @@ public class Game {
     public final ScreenManager screenManager;
     public final SolutionManager solutionManager;
     public final StorageManager storageManager;
-    
+
+    public static File f1;
+    public static File f2;
+
     public static Game getInstance() {
         if (instance == null) {
             instance = new Game();
@@ -30,8 +34,11 @@ public class Game {
         solutionManager = new SolutionManager();
         storageManager = new StorageManager();
 
-        new File("C:\\W&W\\CampaignChallenges").mkdirs();
-        new File("C:\\W&W\\CustomChallenges").mkdirs();
+        f1 = new File("C:\\W&W\\CustomChallenges");
+        f1.mkdirs();
+
+        f2 = new File("C:\\W&W\\CampaignChallenges");
+        f2.mkdirs();
     }
     
     public void initGame(Stage stage) {
