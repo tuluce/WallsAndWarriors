@@ -33,12 +33,12 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import com.oops.wallsandwarriors.util.EncodeUtils;
 
-public class CustomChallengesScreen extends GeneralScreen {
+public class CustomChallengesScreen extends BaseChallengesScreen {
 
     ObservableList<String> challengeNames = FXCollections.observableArrayList ();
-    List<ChallengeData> challenges = new ArrayList<>();
+    List<ChallengeData> challenges = super.getChallenges();
 
-    GridPane grid = new GridPane();
+    GridPane grid = super.getGrid();
 
     @Override
     public Scene getScene(){
@@ -47,7 +47,7 @@ public class CustomChallengesScreen extends GeneralScreen {
 
         DebugUtils.initClickDebugger(scene);
         addBackgroundCanvas(root, "resources/images/background2.png", "Custom Challenges");
-        renderButtons(root);
+        super.renderButtons(root);
 
         Text title = new Text(50, 100, "Custom Mode - Choose a Challenge");
         Font theFont = Font.font("Arial", FontWeight.BOLD, 20);
@@ -98,10 +98,6 @@ public class CustomChallengesScreen extends GeneralScreen {
     }
 
 
-    private void renderButtons(Group root)
-    {
-        addTransactionButton(root, "Back", 700, 500, Game.getInstance().screenManager.mainMenu);
-    }
 
     private void showChallenges(Group root)
     {
@@ -109,30 +105,11 @@ public class CustomChallengesScreen extends GeneralScreen {
 
         challengeNames.add(TestUtils.CHALLENGE_45.getName());
         challengeNames.add(TestUtils.CHALLENGE_51.getName());
-        challengeNames.add(TestUtils.CHALLENGE_51.getName());
-        challengeNames.add(TestUtils.CHALLENGE_51.getName());
-        challengeNames.add(TestUtils.CHALLENGE_51.getName());
-        challengeNames.add(TestUtils.CHALLENGE_51.getName());
-        challengeNames.add(TestUtils.CHALLENGE_51.getName());
-        challengeNames.add(TestUtils.CHALLENGE_51.getName());
-        challengeNames.add(TestUtils.CHALLENGE_51.getName());
-        challengeNames.add(TestUtils.CHALLENGE_51.getName());
-        challengeNames.add(TestUtils.CHALLENGE_51.getName());
-
 
 
         challenges.clear();
 
         challenges.add(TestUtils.CHALLENGE_45);
-        challenges.add(TestUtils.CHALLENGE_51);
-        challenges.add(TestUtils.CHALLENGE_51);
-        challenges.add(TestUtils.CHALLENGE_51);
-        challenges.add(TestUtils.CHALLENGE_51);
-        challenges.add(TestUtils.CHALLENGE_51);
-        challenges.add(TestUtils.CHALLENGE_51);
-        challenges.add(TestUtils.CHALLENGE_51);
-        challenges.add(TestUtils.CHALLENGE_51);
-        challenges.add(TestUtils.CHALLENGE_51);
         challenges.add(TestUtils.CHALLENGE_51);
 
 
@@ -166,26 +143,13 @@ public class CustomChallengesScreen extends GeneralScreen {
         Game.getInstance().challengeManager.setChallengeData(challenge);
         
         //Image of the challenge
-        dipslayChallengePreview(challenge);
+        super.displayChallengePreview(challenge);
 
         //created by info
         Label creatorLabel = new Label("Creator:  " + challenge.getCreator());
 
         //warriors info
         Label warriorLabel = new Label("Info:  " + challenge.knights.size() + " Knights.");
-
-        //type info
-//        String solved;
-//        if(challenge.getSolved())
-//        {
-//            solved = " Yes";
-//        }
-//        else
-//        {
-//            solved = " No";
-//        }
-//
-//        Label isSolved = new Label("Solved: " + solved);
 
         Button playButton = new Button("Play");
         playButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -209,35 +173,16 @@ public class CustomChallengesScreen extends GeneralScreen {
                     e.printStackTrace();
                 }
             }
-
         });
 
 
         grid.add(creatorLabel,0,1);
         grid.add(warriorLabel,0,2);
-//        grid.add(isSolved,0,3);
         grid.add(shareButton, 0, 4);
         grid.add(playButton, 1,4);
 
     }
-    
-    private void dipslayChallengePreview(ChallengeData challenge) {
-        Canvas previewCanvas = new Canvas();
-        previewCanvas.setHeight(150);
-        previewCanvas.setWidth(200);
-        GraphicsContext graphics = previewCanvas.getGraphicsContext2D();
-        
-        GridView gridView = new GridView(5, 5, 5, 30);
-        gridView.draw(graphics, 1);
-        grid.add(previewCanvas, 0, 0);
-        
-        for (KnightData knight : challenge.knights) {
-            new KnightView(knight, 5, 5, 30).draw(graphics, 1);
-        }
-        for (HighTowerData highTower : challenge.highTowers) {
-            new HighTowerView(highTower, 5, 5, 30).draw(graphics, 1);
-        }
-    }
+
     private void shareChallenge(ChallengeData challenge ) throws FileNotFoundException,IOException{
 
         TextArea textArea = new TextArea(EncodeUtils.encode(challenge));

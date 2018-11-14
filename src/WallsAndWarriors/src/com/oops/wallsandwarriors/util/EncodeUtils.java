@@ -25,7 +25,7 @@ public class EncodeUtils {
         return base64;
     }
 
-    private static byte[] getByteStream(ChallengeData toByte) throws IOException
+    public static byte[] getByteStream(ChallengeData toByte) throws IOException
     {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutput out = null;

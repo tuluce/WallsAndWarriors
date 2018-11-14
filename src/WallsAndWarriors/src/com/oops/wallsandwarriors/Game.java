@@ -3,6 +3,8 @@ package com.oops.wallsandwarriors;
 import com.oops.wallsandwarriors.screens.Screen;
 import javafx.stage.Stage;
 
+import java.io.File;
+
 public class Game {
     
     private static Game instance;
@@ -12,6 +14,7 @@ public class Game {
     public final GridManager gridManager;
     public final ScreenManager screenManager;
     public final SolutionManager solutionManager;
+    public final StorageManager storageManager;
     
     public static Game getInstance() {
         if (instance == null) {
@@ -25,6 +28,10 @@ public class Game {
         gridManager = new GridManager();
         screenManager = new ScreenManager();
         solutionManager = new SolutionManager();
+        storageManager = new StorageManager();
+
+        new File("C:\\W&W\\CampaignChallenges").mkdirs();
+        new File("C:\\W&W\\CustomChallenges").mkdirs();
     }
     
     public void initGame(Stage stage) {
