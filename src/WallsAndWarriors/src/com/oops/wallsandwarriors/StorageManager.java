@@ -5,23 +5,22 @@ import java.io.IOException;
 
 public class StorageManager {
 
-    public static File wnwData;
-    public static File campaignChallengeData;
-    public static File customChallengeData;
-
+    public File wnwData;
+    public File campaignChallengeData;
+    public File customChallengeData;
 
     public StorageManager()
     {
         makeDirectory();
     }
 
-
     private void makeDirectory()
     {
-        wnwData = new File("C:\\W&W");
+        String userHome = System.getProperty("user.home");
+        wnwData = new File(userHome + "/.wnwdata");
         wnwData.mkdirs();
 
-        campaignChallengeData= new File(wnwData,   "campaignChallenges.dat");
+        campaignChallengeData= new File(wnwData,   "campaign_challenges.dat");
 
         try {
             campaignChallengeData.createNewFile();
@@ -32,7 +31,7 @@ public class StorageManager {
 
 
 
-        customChallengeData= new File(wnwData,   "customChallenges.dat");
+        customChallengeData= new File(wnwData,   "custom_challenges.dat");
 
         try {
             customChallengeData.createNewFile();

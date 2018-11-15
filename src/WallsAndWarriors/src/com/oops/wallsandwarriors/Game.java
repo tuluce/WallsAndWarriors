@@ -3,8 +3,6 @@ package com.oops.wallsandwarriors;
 import com.oops.wallsandwarriors.screens.Screen;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
 
 public class Game {
     
@@ -16,7 +14,6 @@ public class Game {
     public final ScreenManager screenManager;
     public final SolutionManager solutionManager;
     public final StorageManager storageManager;
-
 
     public static Game getInstance() {
         if (instance == null) {
@@ -45,4 +42,5 @@ public class Game {
         stage.setScene(screen.getScene());
         stage.sizeToScene();
     }
+    
 }

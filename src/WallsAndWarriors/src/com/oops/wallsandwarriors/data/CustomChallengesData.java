@@ -4,7 +4,6 @@ import com.oops.wallsandwarriors.Game;
 import com.oops.wallsandwarriors.StorageManager;
 import com.oops.wallsandwarriors.game.model.ChallengeData;
 import com.oops.wallsandwarriors.util.EncodeUtils;
-import com.oops.wallsandwarriors.util.TestUtils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import java.util.List;
 public class CustomChallengesData {
 
 
-    private List<ChallengeData> customChallenges;
+    private final List<ChallengeData> customChallenges;
 
     public CustomChallengesData()
     {
@@ -25,11 +24,13 @@ public class CustomChallengesData {
     private void readCustomChallenges()
     {
         try {
-            FileInputStream fileInputStream = new FileInputStream(StorageManager.customChallengeData);
+            
+            StorageManager storageManager = Game.getInstance().storageManager;
+            FileInputStream fileInputStream = new FileInputStream(storageManager.customChallengeData);
 
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
 
-            String code = "";
+            String code;
             while ((code = bufferedReader.readLine()) != null) {
                 customChallenges.add(EncodeUtils.decode(code));
             }
@@ -50,7 +51,8 @@ public class CustomChallengesData {
     {
         try
         {
-            FileWriter fileWriter = new FileWriter(StorageManager.customChallengeData, true);
+            StorageManager storageManager = Game.getInstance().storageManager;
+            FileWriter fileWriter = new FileWriter(storageManager.customChallengeData, true);
             fileWriter.write(EncodeUtils.encode(challengeData) + "\n");
             fileWriter.close();
 

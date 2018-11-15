@@ -1,17 +1,10 @@
 package com.oops.wallsandwarriors.screens;
 
-import com.oops.wallsandwarriors.ScreenManager;
 import com.oops.wallsandwarriors.data.CustomChallengesData;
 import com.oops.wallsandwarriors.util.CopyUtils;
 import com.oops.wallsandwarriors.util.DebugUtils;
 import com.oops.wallsandwarriors.Game;
 import com.oops.wallsandwarriors.game.model.ChallengeData;
-import com.oops.wallsandwarriors.game.model.HighTowerData;
-import com.oops.wallsandwarriors.game.model.KnightData;
-import com.oops.wallsandwarriors.game.view.GridView;
-import com.oops.wallsandwarriors.game.view.HighTowerView;
-import com.oops.wallsandwarriors.game.view.KnightView;
-import com.oops.wallsandwarriors.util.TestUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -27,12 +20,9 @@ import javafx.scene.text.Text;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import com.oops.wallsandwarriors.util.EncodeUtils;
 
 public class CustomChallengesScreen extends BaseChallengesScreen {
@@ -102,14 +92,15 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         list.setItems(challengeNames);
         root.getChildren().add(list);
 
-
         list.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 grid.getChildren().clear();
                 int challengeIndex = list.getSelectionModel().getSelectedIndex();
                 try {
-                    showChallengeInfo(customChallenges.get(challengeIndex), root);
+                    if (challengeIndex >= 0) {
+                        showChallengeInfo(customChallenges.get(challengeIndex), root);
+                    }
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -179,8 +170,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         {
             CopyUtils.copyToClipboard(textArea.getText());
         }
-
-        alert.showAndWait();
+        
     }
 
 
