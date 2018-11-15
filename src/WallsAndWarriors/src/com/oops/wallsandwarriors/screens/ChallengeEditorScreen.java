@@ -264,7 +264,7 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         {
                 CopyUtils.copyToClipboard(textArea.getText());
         }
-        alert.showAndWait();
+        //alert.showAndWait();
     }
     
 }

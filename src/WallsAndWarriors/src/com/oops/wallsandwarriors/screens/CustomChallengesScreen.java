@@ -1,5 +1,7 @@
 package com.oops.wallsandwarriors.screens;
 
+import com.oops.wallsandwarriors.ScreenManager;
+import com.oops.wallsandwarriors.data.CustomChallengesData;
 import com.oops.wallsandwarriors.util.CopyUtils;
 import com.oops.wallsandwarriors.util.DebugUtils;
 import com.oops.wallsandwarriors.Game;
@@ -35,8 +37,10 @@ import com.oops.wallsandwarriors.util.EncodeUtils;
 
 public class CustomChallengesScreen extends BaseChallengesScreen {
 
-    ObservableList<String> challengeNames = FXCollections.observableArrayList ();
-    List<ChallengeData> challenges = super.getChallenges();
+    CustomChallengesData customChallengesData;
+
+    ObservableList<String> challengeNames;
+    List<ChallengeData> customChallenges;
 
     GridPane grid = super.getGrid();
 
@@ -44,6 +48,10 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
     public Scene getScene(){
         Group root = new Group();
         Scene scene = new Scene(root);
+
+        challengeNames = FXCollections.observableArrayList ();
+        customChallengesData = new CustomChallengesData();
+        customChallenges = customChallengesData.getCustomChallenges();
 
         DebugUtils.initClickDebugger(scene);
         addBackgroundCanvas(root, "resources/images/background2.png", "Custom Challenges");
@@ -54,8 +62,8 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         title.setFont(theFont);
         root.getChildren().add(title);
 
-
         showChallenges(root);
+
 
         Button importButton = new Button("Import");
         importButton.setLayoutX(50);
@@ -65,34 +73,13 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         importButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-
-                TextInputDialog textInputDialog = new TextInputDialog(null);
-                textInputDialog.setTitle("Add Challenge");
-                textInputDialog.setHeaderText("Enter the code of the challenge");
-                textInputDialog.setContentText("Code: ");
-                textInputDialog.showAndWait();
-
-
-                String code = textInputDialog.getEditor().getText();
-                ChallengeData toImp = null;
-                try {
-                    toImp = EncodeUtils.decode(code);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-                challenges.add(toImp);
+                importChallenge();
             }
         });
-
         root.getChildren().add(importButton);
 
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setLayoutX(450);
-        grid.setLayoutY(150);
-        root.getChildren().add(grid);
+
+        constructGrid(root,grid);
 
         return scene;
     }
@@ -101,17 +88,10 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
 
     private void showChallenges(Group root)
     {
-        challengeNames.clear();
-
-        challengeNames.add(TestUtils.CHALLENGE_45.getName());
-        challengeNames.add(TestUtils.CHALLENGE_51.getName());
-
-
-        challenges.clear();
-
-        challenges.add(TestUtils.CHALLENGE_45);
-        challenges.add(TestUtils.CHALLENGE_51);
-
+        for (int i = 0; i < customChallenges.size(); i++)
+        {
+            challengeNames.add(customChallenges.get(i).getName());
+        }
 
         ListView<String> list = new ListView<>();
         list.setLayoutX(50);
@@ -129,7 +109,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
                 grid.getChildren().clear();
                 int challengeIndex = list.getSelectionModel().getSelectedIndex();
                 try {
-                    showChallengeInfo(challenges.get(challengeIndex), root);
+                    showChallengeInfo(customChallenges.get(challengeIndex), root);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -142,13 +122,8 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
     {
         Game.getInstance().challengeManager.setChallengeData(challenge);
         
-        //Image of the challenge
         super.displayChallengePreview(challenge);
-
-        //created by info
         Label creatorLabel = new Label("Creator:  " + challenge.getCreator());
-
-        //warriors info
         Label warriorLabel = new Label("Info:  " + challenge.knights.size() + " Knights.");
 
         Button playButton = new Button("Play");
@@ -156,7 +131,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
             @Override
             public void handle(MouseEvent event) {
                 Screen gameScreen = Game.getInstance().screenManager.gameScreen;
-                Game.getInstance().challengeManager.setChallengeData(challenge);
+                Game.getInstance().challengeManager.setChallengeData(challenge.createCopy());
                 Game.getInstance().setScreen(gameScreen);
             }
         });
@@ -207,4 +182,42 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
 
         alert.showAndWait();
     }
+
+
+    public void importChallenge()
+    {
+        TextInputDialog textInputDialog = new TextInputDialog(null);
+        textInputDialog.setTitle("Add Challenge");
+        textInputDialog.setHeaderText("Enter the code of the challenge");
+        textInputDialog.setContentText("Code: ");
+        textInputDialog.showAndWait();
+
+
+        String code = textInputDialog.getEditor().getText();
+        try {
+            if(code != null)
+            {
+                ChallengeData toImp = EncodeUtils.decode(code);
+                customChallenges.add(toImp);
+                customChallengesData.update(toImp);
+            }
+
+        }catch (IOException | ClassNotFoundException e ) {
+            e.printStackTrace();
+        }
+
+        Screen refresh = Game.getInstance().screenManager.customChallenges;
+        Game.getInstance().setScreen(refresh);
+    }
+
+
+    public void constructGrid(Group root, GridPane grid)
+    {
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setLayoutX(450);
+        grid.setLayoutY(150);
+        root.getChildren().add(grid);
+    }
+
 }

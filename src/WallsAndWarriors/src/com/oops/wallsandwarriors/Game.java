@@ -17,8 +17,6 @@ public class Game {
     public final SolutionManager solutionManager;
     public final StorageManager storageManager;
 
-    public static File f1;
-    public static File f2;
 
     public static Game getInstance() {
         if (instance == null) {
@@ -33,12 +31,6 @@ public class Game {
         screenManager = new ScreenManager();
         solutionManager = new SolutionManager();
         storageManager = new StorageManager();
-
-        f1 = new File("C:\\W&W\\CustomChallenges");
-        f1.mkdirs();
-
-        f2 = new File("C:\\W&W\\CampaignChallenges");
-        f2.mkdirs();
     }
     
     public void initGame(Stage stage) {

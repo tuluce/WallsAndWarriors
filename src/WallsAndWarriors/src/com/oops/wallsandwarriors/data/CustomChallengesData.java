@@ -1,45 +1,63 @@
 package com.oops.wallsandwarriors.data;
 
 import com.oops.wallsandwarriors.Game;
+import com.oops.wallsandwarriors.StorageManager;
 import com.oops.wallsandwarriors.game.model.ChallengeData;
 import com.oops.wallsandwarriors.util.EncodeUtils;
 import com.oops.wallsandwarriors.util.TestUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CustomChallengesData {
 
 
-    public static List<File> files = new ArrayList<>();
-    public static List<ChallengeData> customChallenges = new ArrayList<>();
+    private List<ChallengeData> customChallenges;
 
     public CustomChallengesData()
     {
-        customChallenges.add(TestUtils.CHALLENGE_45);
-        customChallenges.add(TestUtils.CHALLENGE_51);
+        customChallenges = new ArrayList<>();
+        readCustomChallenges();
+    }
 
+
+    private void readCustomChallenges()
+    {
         try {
-            for (ChallengeData customChallenge : customChallenges) {
-                File challengeFile = new File(Game.f2, customChallenge.getName() + ".dat");
+            FileInputStream fileInputStream = new FileInputStream(StorageManager.customChallengeData);
 
-                challengeFile.createNewFile();
-                challengeFile.setWritable(true);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
 
-                FileWriter fileWriter = new FileWriter(challengeFile);
-                fileWriter.write(EncodeUtils.encode(customChallenge));
-                fileWriter.close();
-
-                files.add(challengeFile);
+            String code = "";
+            while ((code = bufferedReader.readLine()) != null) {
+                customChallenges.add(EncodeUtils.decode(code));
             }
 
-        } catch (IOException e) {
+            bufferedReader.close();
+        }catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public List<ChallengeData> getCustomChallenges()
+    {
+        return customChallenges;
+    }
+
+    public void update(ChallengeData challengeData)
+    {
+        try
+        {
+            FileWriter fileWriter = new FileWriter(StorageManager.customChallengeData, true);
+            fileWriter.write(EncodeUtils.encode(challengeData) + "\n");
+            fileWriter.close();
+
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

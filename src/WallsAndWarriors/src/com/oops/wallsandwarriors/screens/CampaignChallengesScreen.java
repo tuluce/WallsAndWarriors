@@ -32,16 +32,18 @@ import javafx.stage.Stage;
 
 public class CampaignChallengesScreen extends BaseChallengesScreen {
 
-    public List<ChallengeData> challenges = super.getChallenges();
+    public List<ChallengeData> campaignChallenges;
 
     ObservableList<Button> buttons;
-    String code = "";
-
+    CampaignChallengesData campaignChallengesData;
 
     @Override
     public Scene getScene() {
         Group root = new Group();
         Scene scene = new Scene(root);
+
+        campaignChallengesData = new CampaignChallengesData();
+        campaignChallenges = campaignChallengesData.getCampaignChallenges();
 
         DebugUtils.initClickDebugger(scene);
         addBackgroundCanvas(root, "resources/images/background2.png", "Campaign Challenges");
@@ -65,40 +67,15 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
     {
         buttons.clear();
 
-        challenges = CampaignChallengesData.originalChallenges;
-
-        List<File> files = CampaignChallengesData.files;
-
-        for (int i = 0; i < GameConstants.CAMPAIGN_CHALLENGES_COUNT; i++)
+        for(int i = 0; i < campaignChallenges.size(); i++)
         {
-            File challengeFile = files.get(i);
-
-            try {
-                code = new String(Files.readAllBytes(Paths.get(challengeFile.getAbsolutePath())));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-
-        for(int i = 0; i < challenges.size(); i++)
-        {
-            Button btn = new Button(challenges.get(i).getName());
+            final int index = i;
+            Button btn = new Button(campaignChallenges.get(i).getName());
             btn.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    try {
-                        ChallengeData challenge = EncodeUtils.decode(code).createCopy();
-                        CampaignChallengesScreen.super.startChallenge(challenge);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-
+                    ChallengeData challenge = campaignChallenges.get(index).createCopy();
+                    CampaignChallengesScreen.super.startChallenge(challenge);
                 }
             });
             buttons.add(btn);

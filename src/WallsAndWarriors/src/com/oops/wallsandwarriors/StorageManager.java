@@ -1,20 +1,45 @@
 package com.oops.wallsandwarriors;
 
-import com.oops.wallsandwarriors.data.CampaignChallengesData;
-import com.oops.wallsandwarriors.data.CustomChallengesData;
-import com.oops.wallsandwarriors.data.SettingsData;
+import java.io.File;
+import java.io.IOException;
 
 public class StorageManager {
 
-    private CampaignChallengesData campaignChallengesData;
-    private CustomChallengesData customChallengesData;
-    private SettingsData settingsData;
+    public static File wnwData;
+    public static File campaignChallengeData;
+    public static File customChallengeData;
 
 
     public StorageManager()
     {
-        campaignChallengesData = new CampaignChallengesData();
-        customChallengesData = new CustomChallengesData();
-        //settingsData;
+        makeDirectory();
     }
+
+
+    private void makeDirectory()
+    {
+        wnwData = new File("C:\\W&W");
+        wnwData.mkdirs();
+
+        campaignChallengeData= new File(wnwData,   "campaignChallenges.dat");
+
+        try {
+            campaignChallengeData.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        campaignChallengeData.setWritable(true);
+
+
+
+        customChallengeData= new File(wnwData,   "customChallenges.dat");
+
+        try {
+            customChallengeData.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
