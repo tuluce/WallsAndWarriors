@@ -1,6 +1,5 @@
 package com.oops.wallsandwarriors.screens;
 
-import com.oops.wallsandwarriors.GameConstants;
 import com.oops.wallsandwarriors.data.CampaignChallengesData;
 import com.oops.wallsandwarriors.game.model.ChallengeData;
 import com.oops.wallsandwarriors.game.model.HighTowerData;
@@ -10,43 +9,25 @@ import com.oops.wallsandwarriors.game.view.HighTowerView;
 import com.oops.wallsandwarriors.game.view.KnightView;
 import com.oops.wallsandwarriors.util.DebugUtils;
 import com.oops.wallsandwarriors.Game;
-import com.oops.wallsandwarriors.util.EncodeUtils;
-import com.oops.wallsandwarriors.util.FileUtils;
-import com.oops.wallsandwarriors.util.TestUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 public class CampaignChallengesScreen extends BaseChallengesScreen {
 
@@ -68,7 +49,7 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
         addBackgroundCanvas(root, "resources/images/background2.png", "Campaign Challenges");
         super.renderButtons(root);
 
-        Text title = new Text(200, 150, "Campaign Mode - Choose a Challenge");
+        Text title = new Text(30, 100, "Choose a challenge.");
         Font theFont = Font.font("Arial", FontWeight.BOLD, 20);
         title.setFont(theFont);
         root.getChildren().add(title);
@@ -86,7 +67,6 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
 
         HBox hBox = new HBox();
         int hBoxCount = 0;
-        boolean isFull = false;
 
         for(int i = 0; i < campaignChallenges.size(); i++)
         {
@@ -106,10 +86,9 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
                 }
             });
 
-            if(index / 4  <= hBoxCount)
+            if(index / 6  <= hBoxCount)
             {
                 hBox.getChildren().add(border);
-
             }
             else
             {
@@ -119,7 +98,7 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
                 hBoxCount++;
             }
 
-            if(index / 4 == hBoxCount )
+            if(index / 6 == hBoxCount )
             {
                 if (index == campaignChallenges.size() - 1)
                 {
@@ -127,16 +106,23 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
                 }
             }
 
-
         }
         System.out.println(hBoxes.size());
         ListView<HBox> list = new ListView<>();
-        list.setLayoutX(150);
-        list.setLayoutY(200);
+        list.setLayoutX(30);
+        list.setLayoutY(130);
         list.setOrientation(Orientation.VERTICAL);
-        list.setPrefHeight(250);
-        list.setPrefWidth(500);
+        list.setPrefHeight(440);
+        list.setPrefWidth(800 - 60);
         list.setItems(hBoxes);
+        
+        list.setStyle("-fx-control-inner-background: beige;");
+        list.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                event.consume();
+            }
+        });
 
         root.getChildren().add(list);
     }
@@ -153,7 +139,6 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
 
         GridView gridView = new GridView(3,3, 3, 18);
         gridView.draw(graphics, 1);
-
         for (KnightData knight : challenge.knights) {
             new KnightView(knight, 3, 3, 18).draw(graphics, 1);
         }

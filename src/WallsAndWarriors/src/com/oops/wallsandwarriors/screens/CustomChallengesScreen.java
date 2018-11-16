@@ -47,7 +47,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         addBackgroundCanvas(root, "resources/images/background2.png", "Custom Challenges");
         super.renderButtons(root);
 
-        Text title = new Text(50, 100, "Custom Mode - Choose a Challenge");
+        Text title = new Text(50, 100, "Choose a challenge.");
         Font theFont = Font.font("Arial", FontWeight.BOLD, 20);
         title.setFont(theFont);
         root.getChildren().add(title);
@@ -58,7 +58,6 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         Button importButton = new Button("Import");
         importButton.setLayoutX(50);
         importButton.setLayoutY(500);
-        importButton.setPrefSize(100,50);
 
         importButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override

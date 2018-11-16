@@ -55,7 +55,7 @@ public abstract class BaseChallengesScreen extends GeneralScreen {
 
 
     public void renderButtons(Group root) {
-        addTransactionButton(root, "Back", 700, 500, Game.getInstance().screenManager.mainMenu);
+        addTransactionButton(root, "Back", 700, 50, Game.getInstance().screenManager.mainMenu);
     }
 
     public void startChallenge(ChallengeData challengeData)
