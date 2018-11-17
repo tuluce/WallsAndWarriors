@@ -1,6 +1,11 @@
 package com.oops.wallsandwarriors;
 
-import com.oops.wallsandwarriors.game.model.*;
+import com.oops.wallsandwarriors.model.WallData;
+import com.oops.wallsandwarriors.model.WallPortion;
+import com.oops.wallsandwarriors.model.MarkedCoordinates;
+import com.oops.wallsandwarriors.model.Coordinate;
+import com.oops.wallsandwarriors.model.ChallengeData;
+import com.oops.wallsandwarriors.model.KnightData;
 import java.util.ArrayList;
 
 public class SolutionManager {

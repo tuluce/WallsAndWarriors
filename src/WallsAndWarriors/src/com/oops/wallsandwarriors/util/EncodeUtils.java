@@ -1,6 +1,6 @@
 package com.oops.wallsandwarriors.util;
 
-import com.oops.wallsandwarriors.game.model.ChallengeData;
+import com.oops.wallsandwarriors.model.ChallengeData;
 
 import java.io.*;
 import java.util.Base64;
@@ -10,18 +10,12 @@ public class EncodeUtils {
     private static String base64;
     private static ChallengeData data;
 
-    public static String encode(ChallengeData toEncode) throws FileNotFoundException, IOException
+    public static String encode(ChallengeData toEncode) throws IOException
     {
-        String tag = toEncode.getName() +".txt";
-        PrintWriter out = new PrintWriter(tag);
-
-
         data = toEncode;
         byte[] inBytes = getByteStream(data);
-
         base64 = Base64.getEncoder().encodeToString(inBytes);
-        out.println(base64);
-        out.close();
+        
         return base64;
     }
 
@@ -40,7 +34,7 @@ public class EncodeUtils {
                 bos.close();
             } catch (IOException ex) {
                 {
-                    System.out.println("TO BYTE STREAMING EXCEPTION");
+                    ex.printStackTrace();
                 }
             }
         }
@@ -50,11 +44,6 @@ public class EncodeUtils {
     {
         byte[] byteArray = Base64.getDecoder().decode(toDecode);
         data = fromByteStream(byteArray);
-
-        String tag = data.getName() +".txt";
-        PrintWriter out = new PrintWriter(tag);
-        out.println(toDecode);
-        out.close();
 
         return data;
 
@@ -74,7 +63,7 @@ public class EncodeUtils {
                     in.close();
                 }
             } catch (IOException ex) {
-                System.out.println("FROM BYTE STREAMING EXCEPTION");
+                ex.printStackTrace();
             }
         }
     }

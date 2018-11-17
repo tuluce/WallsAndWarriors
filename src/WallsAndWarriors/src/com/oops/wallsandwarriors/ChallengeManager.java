@@ -1,6 +1,7 @@
 package com.oops.wallsandwarriors;
 
-import com.oops.wallsandwarriors.game.model.ChallengeData;
+import com.oops.wallsandwarriors.model.ChallengeData;
+
 
 public class ChallengeManager {
     

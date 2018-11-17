@@ -1,11 +1,11 @@
 package com.oops.wallsandwarriors;
 
-import com.oops.wallsandwarriors.game.model.ChallengeData;
-import com.oops.wallsandwarriors.game.model.Coordinate;
-import com.oops.wallsandwarriors.game.model.GridPiece;
-import com.oops.wallsandwarriors.game.model.HighTowerData;
-import com.oops.wallsandwarriors.game.model.KnightData;
-import com.oops.wallsandwarriors.game.model.WallData;
+import com.oops.wallsandwarriors.model.ChallengeData;
+import com.oops.wallsandwarriors.model.Coordinate;
+import com.oops.wallsandwarriors.model.GridPiece;
+import com.oops.wallsandwarriors.model.HighTowerData;
+import com.oops.wallsandwarriors.model.KnightData;
+import com.oops.wallsandwarriors.model.WallData;
 import com.oops.wallsandwarriors.util.Point;
 import java.awt.geom.Point2D;
 
