@@ -15,7 +15,7 @@ public class MainMenuScreen extends GeneralScreen {
         Scene scene = new Scene(root);
         
         DebugUtils.initClickDebugger(scene);
-        addBackgroundCanvas(root, "resources/images/background.png", "Walls & Warriors");
+        addBackgroundCanvas(root, "/com/oops/wallsandwarriors/resources/images/background.png", "Walls & Warriors");
         addButtons(root);
         
         return scene;

@@ -4,6 +4,7 @@ import com.oops.wallsandwarriors.Game;
 import com.oops.wallsandwarriors.StorageManager;
 import com.oops.wallsandwarriors.model.ChallengeData;
 import com.oops.wallsandwarriors.util.EncodeUtils;
+import com.oops.wallsandwarriors.util.FileUtils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -27,8 +28,7 @@ public class CampaignChallengesData {
             StorageManager storageManager = Game.getInstance().storageManager;
             FileWriter fileWriter = new FileWriter(storageManager.campaignChallengeData);
             
-            File campaignChallengesFile = new File("resources/challenges/campaign_challenges.dat");
-            Scanner campaignChallengeScanner = new Scanner(campaignChallengesFile);
+            Scanner campaignChallengeScanner = new Scanner(FileUtils.getInputStream("/com/oops/wallsandwarriors/resources/challenges/campaign_challenges.dat"));
             while (campaignChallengeScanner.hasNext()) {
                 String challengeCode = campaignChallengeScanner.nextLine();
                 fileWriter.write(challengeCode + "\n");

@@ -18,7 +18,7 @@ public class BackgroundView implements ViewObject {
     private final boolean inEditMode;
     
     public BackgroundView(boolean inEditMode) {
-        backgroundImage = new Image(FileUtils.getInputStream("resources/images/background2.png"));
+        backgroundImage = new Image(FileUtils.getInputStream("/com/oops/wallsandwarriors/resources/images/background2.png"));
         titleFont = Font.font("Arial", FontWeight.BOLD, 48);
         this.inEditMode = inEditMode;
     }

@@ -45,7 +45,7 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
         campaignChallenges = campaignChallengesData.getCampaignChallenges();
 
         DebugUtils.initClickDebugger(scene);
-        addBackgroundCanvas(root, "resources/images/background2.png", "Campaign Challenges");
+        addBackgroundCanvas(root, "/com/oops/wallsandwarriors/resources/images/background2.png", "Campaign Challenges");
         super.renderButtons(root);
 
         Text title = new Text(30, 100, "Choose a challenge.");

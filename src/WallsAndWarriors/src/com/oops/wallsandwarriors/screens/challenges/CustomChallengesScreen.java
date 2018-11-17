@@ -44,7 +44,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         customChallenges = customChallengesData.getCustomChallenges();
 
         DebugUtils.initClickDebugger(scene);
-        addBackgroundCanvas(root, "resources/images/background2.png", "Custom Challenges");
+        addBackgroundCanvas(root, "/com/oops/wallsandwarriors/resources/images/background2.png", "Custom Challenges");
         super.renderButtons(root);
 
         Text title = new Text(50, 100, "Choose a challenge.");

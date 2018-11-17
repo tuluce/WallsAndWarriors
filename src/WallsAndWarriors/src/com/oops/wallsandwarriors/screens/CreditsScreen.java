@@ -16,7 +16,7 @@ public class CreditsScreen extends GeneralScreen {
         Scene scene = new Scene(root);
         
         DebugUtils.initClickDebugger(scene);
-        addBackgroundCanvas(root, "resources/images/background2.png", "Credits");
+        addBackgroundCanvas(root, "/com/oops/wallsandwarriors/resources/images/background2.png", "Credits");
         addTransactionButton(root, "Back", 700, 550, Game.getInstance().screenManager.mainMenu);
         addNameList(root);
 

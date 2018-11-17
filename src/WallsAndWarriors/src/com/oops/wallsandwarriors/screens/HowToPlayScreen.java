@@ -117,7 +117,7 @@ public class HowToPlayScreen extends GeneralScreen {
     public Scene getScene() {
         Group root = new Group();
         Scene scene = new Scene(root);
-        GraphicsContext g = addBackgroundCanvas(root, "resources/images/background2.png", "How To Play");
+        GraphicsContext g = addBackgroundCanvas(root, "/com/oops/wallsandwarriors/resources/images/background2.png", "How To Play");
         g.setFill(Color.BEIGE);
         g.fillRoundRect(180,180,440,340,30,30);
         DebugUtils.initClickDebugger(scene);

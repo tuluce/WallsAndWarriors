@@ -89,7 +89,7 @@ public class SettingsScreen extends GeneralScreen {
         Game.getInstance().settingsManager.setVolume(sl.getValue());
         Game.getInstance().settingsManager.setMusicVolume(slmusic.getValue());
 
-        addBackgroundCanvas(root, "resources/images/background2.png", "Settings");
+        addBackgroundCanvas(root, "/com/oops/wallsandwarriors/resources/images/background2.png", "Settings");
         addTransactionButton(root, "Back", 700, 550, Game.getInstance().screenManager.mainMenu);
         root.getChildren().addAll(cb,sl,slmusic,colorLabel,musicLabel,soundLabel);
         return scene;
