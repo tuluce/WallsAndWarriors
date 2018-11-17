@@ -1,15 +1,16 @@
 package com.oops.wallsandwarriors.view;
 
+import com.oops.wallsandwarriors.Game;
 import com.oops.wallsandwarriors.GameConstants;
-import com.oops.wallsandwarriors.model.Coordinate;
-import com.oops.wallsandwarriors.model.KnightData;
 import com.oops.wallsandwarriors.util.DrawUtils;
 import com.oops.wallsandwarriors.util.Rectangle;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import com.oops.wallsandwarriors.model.Coordinate;
+import com.oops.wallsandwarriors.model.KnightData;
 
 public class KnightView extends GridPieceView {
-    
+
     private final KnightData model;
     private final RectangleBounds bounds;
     
@@ -73,7 +74,7 @@ public class KnightView extends GridPieceView {
     
     private void drawKnight(GraphicsContext graphics, boolean setBounds, boolean drawCross) {
         Coordinate currentPosition = (model.getPosition() != null) ? model.getPosition() : Coordinate.ZERO;
-        final double RAD_RATIO = GameConstants.KNIGHT_RADIUS;
+        final double RAD_RATIO = 0.5;
         double a = screenX + (currentPosition.x + 0.5) * blockLength;
         double b = screenY + (currentPosition.y + 0.5) * blockLength;
         double x = a - blockLength * RAD_RATIO * 0.5;
@@ -90,9 +91,11 @@ public class KnightView extends GridPieceView {
             bounds.setBound(new Rectangle(x, y, width, height));
         }
     }
+
     
     private Color getColor() {
-        return model.isEnemy ? Color.RED : Color.BLUE;
+            return model.isEnemy ? Game.getInstance().settingsManager.getEnemyColor():
+                    Game.getInstance().settingsManager.getAllyColor();
     }
     
 }

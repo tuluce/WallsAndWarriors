@@ -1,12 +1,13 @@
 package com.oops.wallsandwarriors.view;
 
+import com.oops.wallsandwarriors.Game;
 import com.oops.wallsandwarriors.GameConstants;
-import com.oops.wallsandwarriors.model.HighTowerData;
 import com.oops.wallsandwarriors.util.DrawUtils;
 import com.oops.wallsandwarriors.util.Point;
 import com.oops.wallsandwarriors.util.Rectangle;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import com.oops.wallsandwarriors.model.HighTowerData;
 
 public class HighTowerView extends GridPieceView {
     
@@ -61,15 +62,15 @@ public class HighTowerView extends GridPieceView {
             if (isSelected) {
                 setParameters(dragX - gridB / 2, dragY - gridB / 2, gridB);
                 DrawUtils.setAttributes(graphics,
-                        previewSuitable ? Color.BLACK : Color.DARKGRAY, Color.BLUE, 1);
+                        previewSuitable ? Color.BLACK : Color.DARKGRAY, getColor(), 1);
             } else {
                 onPalette = true;
                 setParameters(centerX, centerY, GameConstants.EDITOR_GRID_B);
-                DrawUtils.setAttributes(graphics, Color.BLACK, Color.BLUE, 1);
+                DrawUtils.setAttributes(graphics, Color.BLACK, getColor(), 1);
             }
         } else {
             setParameters(gridX, gridY, gridB);
-            DrawUtils.setAttributes(graphics, Color.BLACK, Color.BLUE, 1);
+            DrawUtils.setAttributes(graphics, Color.BLACK, getColor(), 1);
         }
         
         graphics.setLineWidth(blockLength / 3.0);
@@ -83,7 +84,7 @@ public class HighTowerView extends GridPieceView {
         double a = screenX + (part.x + 0.5) * blockLength;
         double b = screenY + (part.y + 0.5) * blockLength;
         double l = blockLength;
-        final double RAD_RATIO = GameConstants.HIGH_TOWER_RADIUS;
+        final double RAD_RATIO = 0.6;
         DrawUtils.drawOval(graphics, a - l * RAD_RATIO * 0.5,
                 b - l * RAD_RATIO * 0.5, l * RAD_RATIO, l * RAD_RATIO);
         if (isPlaced) {
@@ -120,6 +121,10 @@ public class HighTowerView extends GridPieceView {
             return new Point(0, 1);
         }
         return new Point(1, 0);
+    }
+
+    private Color getColor() {
+        return Game.getInstance().settingsManager.getAllyColor();
     }
     
 }
