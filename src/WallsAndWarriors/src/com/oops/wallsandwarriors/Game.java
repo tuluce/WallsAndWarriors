@@ -14,6 +14,7 @@ public class Game {
     public final ScreenManager screenManager;
     public final SolutionManager solutionManager;
     public final StorageManager storageManager;
+    public final SettingsManager settingsManager;
 
     public static Game getInstance() {
         if (instance == null) {
@@ -28,6 +29,7 @@ public class Game {
         screenManager = new ScreenManager();
         solutionManager = new SolutionManager();
         storageManager = new StorageManager();
+        settingsManager = new SettingsManager();
     }
     
     public void initGame(Stage stage) {
