@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.oops.wallsandwarriors.util.EncodeUtils;
+import javafx.scene.paint.Color;
 
 public class CustomChallengesScreen extends BaseChallengesScreen {
 
@@ -57,7 +58,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
 
         Button importButton = new Button("Import");
         importButton.setLayoutX(50);
-        importButton.setLayoutY(500);
+        importButton.setLayoutY(520);
 
         importButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -87,7 +88,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         list.setLayoutY(150);
         list.setOrientation(Orientation.VERTICAL);
         list.setPrefWidth(350);
-        list.setPrefHeight(300);
+        list.setPrefHeight(350);
         list.setItems(challengeNames);
         root.getChildren().add(list);
 
@@ -113,8 +114,11 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         Game.getInstance().challengeManager.setChallengeData(challenge);
         
         super.displayChallengePreview(challenge);
-        Label creatorLabel = new Label("Creator:  " + challenge.getCreator());
-        Label warriorLabel = new Label("Info:  " + challenge.knights.size() + " Knights.");
+        Label nameLabel = new Label("Name: " + challenge.getName());
+        Label descLabel = new Label("Description: " + challenge.getDescription());
+        Label creatorLabel = new Label("Creator: " + challenge.getCreator());
+        Label typeLabel = new Label("Type: " + "Standard");
+        Label warriorLabel = new Label("Info: " + challenge.knights.size() + " Knights");
 
         Button playButton = new Button("Play");
         playButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -140,11 +144,25 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
             }
         });
 
+        Font theFont = Font.font("Arial", FontWeight.MEDIUM, 14);
+        nameLabel.setTextFill(Color.BEIGE);
+        descLabel.setTextFill(Color.BEIGE);
+        creatorLabel.setTextFill(Color.BEIGE);
+        typeLabel.setTextFill(Color.BEIGE);
+        warriorLabel.setTextFill(Color.BEIGE);
+        nameLabel.setFont(theFont);
+        descLabel.setFont(theFont);
+        creatorLabel.setFont(theFont);
+        typeLabel.setFont(theFont);
+        warriorLabel.setFont(theFont);
 
-        grid.add(creatorLabel,0,1);
-        grid.add(warriorLabel,0,2);
-        grid.add(shareButton, 0, 4);
-        grid.add(playButton, 1,4);
+        grid.add(nameLabel,0,1);
+        grid.add(descLabel,0,2);
+        grid.add(creatorLabel,0,3);
+        grid.add(typeLabel,0,4);
+        grid.add(warriorLabel,0,5);
+        grid.add(playButton, 0,8);
+        grid.add(shareButton, 1, 8);
 
     }
 
