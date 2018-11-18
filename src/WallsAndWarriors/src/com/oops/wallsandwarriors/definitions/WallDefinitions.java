@@ -1,10 +1,10 @@
 package com.oops.wallsandwarriors.definitions;
 
-import com.oops.wallsandwarriors.game.model.Coordinate;
-import com.oops.wallsandwarriors.game.model.WallBastion;
-import com.oops.wallsandwarriors.game.model.WallData;
-import com.oops.wallsandwarriors.game.model.WallDefinition;
-import com.oops.wallsandwarriors.game.model.WallPortion;
+import com.oops.wallsandwarriors.model.Coordinate;
+import com.oops.wallsandwarriors.model.WallBastion;
+import com.oops.wallsandwarriors.model.WallData;
+import com.oops.wallsandwarriors.model.WallDefinition;
+import com.oops.wallsandwarriors.model.WallPortion;
 import java.util.ArrayList;
 import java.util.List;
 

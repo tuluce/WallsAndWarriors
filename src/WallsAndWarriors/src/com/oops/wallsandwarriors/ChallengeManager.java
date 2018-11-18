@@ -1,6 +1,7 @@
 package com.oops.wallsandwarriors;
 
-import com.oops.wallsandwarriors.game.model.ChallengeData;
+import com.oops.wallsandwarriors.model.ChallengeData;
+
 
 public class ChallengeManager {
     
@@ -12,6 +13,11 @@ public class ChallengeManager {
     
     public ChallengeData getChallengeData() {
         return challengeData;
+    }
+    
+    public void initChallengeData() {
+        challengeData = new ChallengeData();
+        challengeData.walls.clear();
     }
     
 }
