@@ -107,11 +107,11 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
 
         }
         ListView<HBox> list = new ListView<>();
-        list.setLayoutX(30);
+        list.setLayoutX(20);
         list.setLayoutY(130);
         list.setOrientation(Orientation.VERTICAL);
-        list.setPrefHeight(440);
-        list.setPrefWidth(800 - 60);
+        list.setPrefHeight(460);
+        list.setPrefWidth(800 - 40);
         list.setItems(hBoxes);
         
         list.setStyle("-fx-control-inner-background: beige;");

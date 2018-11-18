@@ -117,8 +117,8 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         creatorField.setPrefWidth(250);
         descriptionField.setPrefWidth(250);
         setLayoutPos(nameField, 520, 450);
-        setLayoutPos(creatorField, 520, 480);
-        setLayoutPos(descriptionField, 520, 510);
+        setLayoutPos(descriptionField, 520, 480);
+        setLayoutPos(creatorField, 520, 510);
         
         root.getChildren().add(nameLabel);
         root.getChildren().add(descriptionLabel);
@@ -242,7 +242,7 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         ChallengeData exportedChallenge = Game.getInstance().challengeManager.getChallengeData().createCopy();
         exportedChallenge.resetWalls();
         exportedChallenge.setName(nameField.getText());
-        exportedChallenge.setDescription(nameField.getText());
+        exportedChallenge.setDescription(descriptionField.getText());
         exportedChallenge.setCreator(creatorField.getText());
         
         TextArea textArea = new TextArea(EncodeUtils.encode(exportedChallenge));
