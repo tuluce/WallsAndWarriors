@@ -12,7 +12,7 @@ public class RectangleBounds implements ScreenBounds {
     
     @Override
     public boolean contains(double x, double y) {
-        return bound.contains(x, y);
+        return bound != null && bound.contains(x, y);
     }
 
 }

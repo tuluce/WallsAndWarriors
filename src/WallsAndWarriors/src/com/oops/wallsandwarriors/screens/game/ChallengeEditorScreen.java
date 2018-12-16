@@ -1,5 +1,6 @@
 package com.oops.wallsandwarriors.screens.game;
 
+import com.oops.wallsandwarriors.ChallengeManager;
 import com.oops.wallsandwarriors.Game;
 import com.oops.wallsandwarriors.GameConstants;
 import com.oops.wallsandwarriors.definitions.WallDefinitions;
@@ -15,6 +16,7 @@ import com.oops.wallsandwarriors.view.BackgroundView;
 import com.oops.wallsandwarriors.view.BoundedViewObject;
 import com.oops.wallsandwarriors.view.EditorPaletteElementView;
 import com.oops.wallsandwarriors.view.EditorPaletteView;
+import com.oops.wallsandwarriors.view.GridPieceView;
 import com.oops.wallsandwarriors.view.GridView;
 import com.oops.wallsandwarriors.view.HighTowerView;
 import com.oops.wallsandwarriors.view.KnightView;
@@ -151,13 +153,7 @@ public class ChallengeEditorScreen extends BaseGameScreen {
             if (button == MouseButton.PRIMARY) {
                 if (selectedPiece == null) {
                     selectedPiece = clickedPiece;
-                    if (selectedPiece instanceof KnightData) {
-                        previewView = new KnightView((KnightData) selectedPiece, true);
-                    } else if (selectedPiece instanceof HighTowerData) {
-                        previewView = new HighTowerView((HighTowerData) selectedPiece, true);
-                    } else if (selectedPiece instanceof WallData) {
-                        previewView = new WallView((WallData) selectedPiece, true);
-                    }
+                    refreshPreview();
                     previewView.setIndex(clickables.indexOf(clickedView));
                 } else {
                     selectedPiece = null;
@@ -165,8 +161,37 @@ public class ChallengeEditorScreen extends BaseGameScreen {
                 }
                 return true;
             }
+        } else if (clickedView instanceof GridPieceView) {
+            GridPieceView clickedGridPieceView = (GridPieceView) clickedView;
+            GridPiece clickedGridPiece = clickedGridPieceView.getModel();
+            if (button == MouseButton.PRIMARY || button == MouseButton.SECONDARY) {
+                ChallengeManager challengeManager = Game.getInstance().challengeManager;
+                challengeManager.getChallengeData().removePiece(clickedGridPiece);
+                selectedPiece = null;
+                previewView = null;
+            }
+            if (button == MouseButton.PRIMARY) {
+                selectedPiece = clickedGridPiece.createCopy();
+                refreshPreview();
+                previewView.getModel().setPosition(null);
+                previewView.setIndex(-1);
+            }
+            if (button == MouseButton.PRIMARY || button == MouseButton.SECONDARY) {
+                updateViewList();
+                return true;
+            }
         }
         return false;
+    }
+    
+    private void refreshPreview() {
+        if (selectedPiece instanceof KnightData) {
+            previewView = new KnightView((KnightData) selectedPiece, true);
+        } else if (selectedPiece instanceof HighTowerData) {
+            previewView = new HighTowerView((HighTowerData) selectedPiece, true);
+        } else if (selectedPiece instanceof WallData) {
+            previewView = new WallView((WallData) selectedPiece, true);
+        }
     }
     
     @Override
@@ -238,6 +263,12 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         for (HighTowerData highTower : challenge.highTowers) {
             highTowerViews.add(new HighTowerView(highTower, true));
         }
+        
+        clickables.clear();
+        clickables.addAll(paletteElementViews);
+        clickables.addAll(wallViews);
+        clickables.addAll(knightViews);
+        clickables.addAll(highTowerViews);
     }
     
     private void exportChallenge() throws IOException {

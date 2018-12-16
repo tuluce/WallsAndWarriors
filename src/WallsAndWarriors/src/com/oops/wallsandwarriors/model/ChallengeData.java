@@ -2,11 +2,9 @@ package com.oops.wallsandwarriors.model;
 
 import com.oops.wallsandwarriors.definitions.GridDefinitions;
 import com.oops.wallsandwarriors.definitions.WallDefinitions;
-import com.oops.wallsandwarriors.util.EncodeUtils;
+import com.oops.wallsandwarriors.util.AlgorithmUtils;
 import com.oops.wallsandwarriors.util.Point;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +61,23 @@ public class ChallengeData implements Serializable {
         }
         if (piece instanceof BorderPiece) {
             borderPieces.add((BorderPiece) piece);
+        }
+    }
+    
+    public void removePiece(GridPiece piece) {
+        if (piece instanceof WallData) {
+            AlgorithmUtils.concurrentRemove(walls, piece);
+        } else if (piece instanceof KnightData) {
+            AlgorithmUtils.concurrentRemove(knights, piece);
+        } else if (piece instanceof HighTowerData) {
+            AlgorithmUtils.concurrentRemove(highTowers, piece);
+        }
+        
+        if (piece instanceof BlockPiece) {
+            AlgorithmUtils.concurrentRemove(blockPieces, piece);
+        }
+        if (piece instanceof BorderPiece) {
+            AlgorithmUtils.concurrentRemove(borderPieces, piece);
         }
     }
     

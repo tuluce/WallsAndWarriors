@@ -14,6 +14,7 @@ import com.oops.wallsandwarriors.view.KnightView;
 import com.oops.wallsandwarriors.view.WallView;
 import com.oops.wallsandwarriors.util.Rectangle;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
@@ -133,7 +134,9 @@ public abstract class BaseGameScreen extends GeneralScreen {
     }
     
     private boolean checkObjectClick(double mouseX, double mouseY, MouseButton button) {
-        for (BoundedViewObject clickableObjects : clickables) {
+        Iterator<BoundedViewObject> iterator = clickables.iterator();
+        while (iterator.hasNext()) {
+            BoundedViewObject clickableObjects = iterator.next();
             if (clickableObjects.getBounds().contains(mouseX, mouseY)) {
                 if (handleViewClick(clickableObjects, button)) {
                     return true;

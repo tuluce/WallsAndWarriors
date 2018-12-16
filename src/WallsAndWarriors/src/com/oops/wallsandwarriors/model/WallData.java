@@ -27,6 +27,7 @@ public class WallData implements BorderPiece, Serializable {
         return position;
     }
     
+    @Override
     public void setPosition(Coordinate position) {
         this.position = position;
     }

@@ -35,6 +35,9 @@ public class GamePaletteView implements ViewObject {
     }
     
     protected static Rectangle getPaletteBox(int index) {
+        if (index == -1) {
+            return new Rectangle(-1, -1, 0, 0);
+        }
         double boxHeight = GameConstants.PALETTE_ELEMENT_HEIGHT;
         double boxWidth = GameConstants.PALETTE_WIDTH;
         Rectangle box = new Rectangle(

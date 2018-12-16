@@ -59,7 +59,7 @@ public class WallView extends GridPieceView {
             int centerY = (int) (box.y + box.height / 2 - GameConstants.PALETTE_B / 2);
             GamePaletteView.drawPaletteFrame(graphics, box, isSelected);
             bounds.addBound(box);
-            if (isSelected) {
+            if (isSelected || index == -1) {
                 // Draw the wall on the mouse
                 DrawUtils.setAttributes(graphics,
                         previewSuitable ? Color.GREEN : Color.RED, Color.WHITE, 1);

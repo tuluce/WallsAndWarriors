@@ -19,6 +19,7 @@ public class KnightData implements BlockPiece,Serializable {
         return position;
     }
     
+    @Override
     public void setPosition(Coordinate position) {
         this.position = position;
     }

@@ -32,6 +32,11 @@ public class HighTowerData implements BorderPiece, BlockPiece, Serializable {
     }
     
     @Override
+    public void setPosition(Coordinate position) {
+        setPosition(position, null);
+    }
+    
+    @Override
     public HighTowerData createCopy() {
         return new HighTowerData(firstPosition, secondPosition);
     }
