@@ -15,6 +15,10 @@ import javafx.scene.paint.Color;
 
 public class WallView extends GridPieceView {
     
+    enum TipType {
+        END, FIRST, SECOND, THIRD, FORTH 
+    }
+    
     private final WallData model;
     private final MultiRectangleBounds bounds;
     
@@ -85,9 +89,63 @@ public class WallView extends GridPieceView {
             Coordinate block2 = position.plus(portion.secondRelativePos);
             drawWallPortion(graphics, block1, block2, model.getPosition() != null);
         }
+        for (WallPortion portion : model.getWallDefinition().portions) {
+            Coordinate block1 = position.plus(portion.firstRelativePos);
+            Coordinate block2 = position.plus(portion.secondRelativePos);
+            TipType[] tips = getTipTypes(portion);
+            drawWallTip(graphics, block1, block2, tips[0], tips[1]);
+        }
         for (WallBastion bastion : model.getWallDefinition().bastions) {
             Coordinate block = position.plus(bastion.relativePos);
             drawWallBastion(graphics, block, model.getPosition() != null);
+        }
+    }
+    
+    private void drawWallTip(GraphicsContext graphics, Coordinate block1, Coordinate block2, TipType tip1, TipType tip2) {
+        if (blockLength > 45) {
+            Coordinate b1 = getSmaller(block1, block2);
+            Coordinate b2 = getBigger(block1, block2);
+
+            double a = screenX + (b1.x + 0.5) * blockLength;
+            double b = screenY + (b1.y + 0.5) * blockLength;
+            double c = screenX + (b2.x + 0.5) * blockLength;
+            double d = screenY + (b2.y + 0.5) * blockLength;
+            double l = blockLength;
+
+            Point difference = new Point(Math.abs(a - c), Math.abs(b - d));
+            final Point HORIZONTAL = new Point(l, 0);
+            final Point VERTICAL = new Point(0, l);
+            double thickness = blockLength * GameConstants.WALL_THICKNESS;
+            double t = thickness / 2;
+            double tt = thickness;
+            double ttt = thickness * 1.5;
+            graphics.setFill(Color.WHITE);
+            if (MathUtils.equals(difference, HORIZONTAL)) {
+                if (tip1 == TipType.END) {
+                    DrawUtils.drawArc(graphics, (a + c) / 2 - t, b - l / 2, tt, tt, 0, 180);
+                } else if (tip1 == TipType.FIRST) {
+                    DrawUtils.drawArc(graphics, (a + c) / 2 - tt, b - l / 2 - t, ttt, ttt, 0, 90);
+                } else if (tip1 == TipType.SECOND) {
+                    DrawUtils.drawArc(graphics, (a + c) / 2 - t, b - l / 2 - t, ttt, ttt, 90, 90);
+                }
+
+                if (tip2 == TipType.END) {
+                    DrawUtils.drawArc(graphics, (a + c) / 2 - t, b + l / 2 - tt, tt, tt, 180, 180);
+                } if (tip2 == TipType.THIRD) {
+                    DrawUtils.drawArc(graphics, (a + c) / 2 - t, b + l / 2 - tt, ttt, ttt, 180, 90);
+                } else if (tip2 == TipType.FORTH) {
+                    DrawUtils.drawArc(graphics, (a + c) / 2 - tt, b + l / 2 - tt, ttt, ttt, 270, 90);
+                }
+            } else if (MathUtils.equals(difference, VERTICAL)) {
+                if (tip1 == TipType.END) {
+                    DrawUtils.drawArc(graphics, a - l / 2, (b + d) / 2 - t, tt, tt, 90, 180);
+                }
+                if (tip2 == TipType.END) {
+                    DrawUtils.drawArc(graphics, a + l / 2 - tt, (b + d) / 2 - t, tt, tt, 270, 180);
+                }
+            } else {
+                throw new RuntimeException("Unexpected wall difference: " + difference);
+            }
         }
     }
     
@@ -109,7 +167,14 @@ public class WallView extends GridPieceView {
                 double y = b - l / 2;
                 double w = thickness;
                 double h = blockLength;
-                DrawUtils.drawRoundRect(graphics, x, y, w, h, 20);
+                double t = thickness / 2;
+                
+                graphics.fillRect(x, y + t / 2 - 1, w, h - t + 2);
+                graphics.strokeLine((a + c) / 2 + t, b - l / 2 + t,
+                                    (a + c) / 2 + t, b + l / 2 - t);
+                graphics.strokeLine((a + c) / 2 - t, b - l / 2 + t,
+                                    (a + c) / 2 - t, b + l / 2 - t);
+                
                 if (addBounds) {
                     bounds.addBound(new Rectangle(x, y, w, h));
                 }
@@ -122,7 +187,14 @@ public class WallView extends GridPieceView {
                 double y = ((b + d) / 2) - (thickness / 2);
                 double w = blockLength;
                 double h = thickness;
-                DrawUtils.drawRoundRect(graphics, x, y, w, h, 20);
+                double t = thickness / 2;
+                
+                graphics.fillRect(x + t / 2 - 1, y, w - t + 2, h);
+                graphics.strokeLine(a - l / 2 + t, (b + d) / 2 + t,
+                                    a + l / 2 - t, (b + d) / 2 + t);
+                graphics.strokeLine(a - l / 2 + t, (b + d) / 2 - t,
+                                    a + l / 2 - t, (b + d) / 2 - t);
+                
                 if (addBounds) {
                     bounds.addBound(new Rectangle(x, y, w, h));
                 }
@@ -148,4 +220,88 @@ public class WallView extends GridPieceView {
         }
     }
 
+    
+    private TipType[] getTipTypes(WallPortion portion) {
+        
+        TipType[] tips = { TipType.END, TipType.END };
+        
+        Coordinate block1 = getSmaller(portion.firstRelativePos, portion.secondRelativePos);
+        Coordinate block2 = getBigger(portion.firstRelativePos, portion.secondRelativePos);
+        
+        for (WallPortion otherPortion : model.getWallDefinition().portions) {
+            Coordinate other1 = getSmaller(otherPortion.firstRelativePos, otherPortion.secondRelativePos);
+            Coordinate other2 = getBigger(otherPortion.firstRelativePos, otherPortion.secondRelativePos);
+            
+            // If the wall is horizontal and the other is vertical,
+            if (block1.x == block2.x && other1.y == other2.y) {
+                
+                if (block1.equals(other1)) {
+                    tips[1] = TipType.FORTH;
+                }
+                else if (block1.equals(other2)) {
+                    tips[0] = TipType.THIRD;
+                }
+                else if (block2.equals(other1)) {
+                    tips[1] = TipType.FIRST;
+                }
+                else if (block2.equals(other2)) {
+                    tips[0] = TipType.SECOND;
+                }
+                
+            }
+            
+            // If the wall is vertical and the other is horizontal,
+            else if (block1.y == block2.y && other1.x == other2.x) {
+                
+                if (block1.equals(other1)) {
+                    tips[1] = TipType.FORTH;
+                }
+                else if (block1.equals(other2)) {
+                    tips[0] = TipType.FIRST;
+                }
+                else if (block2.equals(other1)) {
+                    tips[1] = TipType.THIRD;
+                }
+                else if (block2.equals(other2)) {
+                    tips[0] = TipType.SECOND;
+                }
+                
+            }
+        }
+        
+        return tips;
+    }
+    
+    private Coordinate getSmaller(Coordinate block1, Coordinate block2) {
+        if (block1.x == block2.x) {
+            if (block1.y < block2.y) {
+                return block1;
+            } else {
+                return block2;
+            }
+        } else {
+            if (block1.x < block2.x) {
+                return block1;
+            } else {
+                return block2;
+            }
+        }
+    }
+    
+     private Coordinate getBigger(Coordinate block1, Coordinate block2) {
+        if (block1.x == block2.x) {
+            if (block1.y > block2.y) {
+                return block1;
+            } else {
+                return block2;
+            }
+        } else {
+            if (block1.x > block2.x) {
+                return block1;
+            } else {
+                return block2;
+            }
+        }
+    }
+     
 }
