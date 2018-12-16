@@ -318,7 +318,6 @@ public class ChallengeEditorScreen extends BaseGameScreen {
                 alert.setContentText("There are no red knights in the challenge");
             else if(incorrectRedKnights == null) {
                 alert.setContentText("Solution is incomplete");
-                System.out.println("QAQA NIYE GIRMIRSEN");
             }
             else if(!incorrectRedKnights.isEmpty())
                 alert.setContentText("Solution is not correct");
