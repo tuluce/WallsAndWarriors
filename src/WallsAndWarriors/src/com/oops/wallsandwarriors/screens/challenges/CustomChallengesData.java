@@ -59,7 +59,45 @@ public class CustomChallengesData {
         }catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
+    
+    public void remove(ChallengeData challengeData) {
+        try {
+            StorageManager storageManager = Game.getInstance().storageManager;
+            File inputFile = storageManager.customChallengeData;
+            File tempFile = new File(storageManager.wnwData, "temp.dat");
+
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(tempFile));
+
+            String removeCode = EncodeUtils.encode(challengeData);
+            boolean deleted = false;
+            for (String lineCode; (lineCode = bufferedReader.readLine()) != null;) {
+                String trimmedLineCode = lineCode.trim();
+                if((trimmedLineCode.equals(removeCode)) && !(deleted)) {
+                    deleted = true;
+                }
+                else {
+                    bufferedWriter.write(lineCode + System.getProperty("line.separator"));
+                }
+            }
+            bufferedReader.close();
+            bufferedWriter.close();
+            if (!inputFile.delete()) {
+                System.out.println("Could not delete file");
+                return;
+            }
+
+            //Rename the new file to the filename the original file had.
+            if (!tempFile.renameTo(inputFile)) {
+                System.out.println("Could not rename file");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
