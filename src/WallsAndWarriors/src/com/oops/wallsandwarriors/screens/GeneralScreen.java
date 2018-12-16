@@ -33,10 +33,9 @@ public abstract class GeneralScreen implements Screen {
         addButton(root, text, x, y, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                    Game.getInstance().setScreen(nextScreen);
-                }
+                Game.getInstance().setScreen(nextScreen);
             }
-        );
+        });
     }
     
     protected void setLayoutPos(Node componentNode, double x, double y) {

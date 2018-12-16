@@ -6,6 +6,7 @@ import com.oops.wallsandwarriors.model.HighTowerData;
 import com.oops.wallsandwarriors.model.KnightData;
 import com.oops.wallsandwarriors.screens.GeneralScreen;
 import com.oops.wallsandwarriors.screens.Screen;
+import com.oops.wallsandwarriors.screens.game.GameScreen;
 import com.oops.wallsandwarriors.view.GridView;
 import com.oops.wallsandwarriors.view.HighTowerView;
 import com.oops.wallsandwarriors.view.KnightView;
@@ -63,6 +64,7 @@ public abstract class BaseChallengesScreen extends GeneralScreen {
     public void startChallenge(ChallengeData challengeData)
     {
         Screen gameScreen = Game.getInstance().screenManager.gameScreen;
+        ((GameScreen) gameScreen).setPreviousScreen(this);
         Game.getInstance().challengeManager.setChallengeData(challengeData);
         Game.getInstance().setScreen(gameScreen);
     }

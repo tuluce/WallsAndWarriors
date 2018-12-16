@@ -8,8 +8,9 @@ import com.oops.wallsandwarriors.model.GridPiece;
 import com.oops.wallsandwarriors.model.HighTowerData;
 import com.oops.wallsandwarriors.model.KnightData;
 import com.oops.wallsandwarriors.model.WallData;
-import com.oops.wallsandwarriors.screens.Screen;
 import com.oops.wallsandwarriors.screens.challenges.CustomChallengesData;
+import com.oops.wallsandwarriors.util.CopyUtils;
+import com.oops.wallsandwarriors.util.EncodeUtils;
 import com.oops.wallsandwarriors.view.BackgroundView;
 import com.oops.wallsandwarriors.view.BoundedViewObject;
 import com.oops.wallsandwarriors.view.EditorPaletteElementView;
@@ -25,13 +26,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.oops.wallsandwarriors.util.CopyUtils;
-import com.oops.wallsandwarriors.util.EncodeUtils;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.*;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -88,15 +87,13 @@ public class ChallengeEditorScreen extends BaseGameScreen {
                     e.printStackTrace();
                 }
             }
-            }
-        );
+        });
         addButton(root, "Reset", 650, 550, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                    resetState();
-                }
+                resetState();
             }
-        );
+        });
         addTextComponents(root);
     }
     
@@ -243,7 +240,7 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         }
     }
     
-    private void exportChallenge() throws FileNotFoundException,IOException{
+    private void exportChallenge() throws IOException {
         ChallengeData exportedChallenge = Game.getInstance().challengeManager.getChallengeData().createCopy();
         exportedChallenge.resetWalls();
         exportedChallenge.setName(nameField.getText());
@@ -255,46 +252,47 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         textArea.setWrapText(true);
         GridPane gridPane = new GridPane();
         gridPane.add(textArea, 0, 0);
-        ButtonType clipboard = new ButtonType("Copy To Clipboard!");
+        ButtonType clipboard = new ButtonType("Copy To Clipboard");
         ButtonType addToCustom = new ButtonType( "Add To Custom Challenges");
+        ButtonType ok = new ButtonType("OK", ButtonData.CANCEL_CLOSE);
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setTitle("Copy the exported challenge code.");
         alert.setHeaderText(null);
         alert.getDialogPane().setContent(gridPane);
         alert.getButtonTypes().add(clipboard);
         alert.getButtonTypes().add(addToCustom);
-
+        alert.getButtonTypes().add(ok);
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        if(result.get() == clipboard )
-        {
+        if (result.get() == clipboard) {
             CopyUtils.copyToClipboard(textArea.getText());
         }
-        else if(result.get() == addToCustom)
-        {
-            CustomChallengesData customChallengesData = new CustomChallengesData();
-            customChallenges = customChallengesData.getCustomChallenges();
-
-            ChallengeData toImp = null;
-            try {
-                toImp = EncodeUtils.decode(textArea.getText());
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-
-            if(customChallenges.add(toImp)) {
-                customChallengesData.update(toImp);
-
-                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                alert2.setTitle("Successful");
-                alert2.setContentText("The new challenge added to your \"Custom Challenges\" list successfully!");
-                alert2.setHeaderText(null);
-                alert2.showAndWait();
-            }
+        else if (result.get() == addToCustom) {
+            addToCustomChallenges(textArea.getText());
         }
-        //alert.showAndWait();
+    }
+    
+    private void addToCustomChallenges(String challengeData) throws IOException {
+        CustomChallengesData customChallengesData = new CustomChallengesData();
+        customChallenges = customChallengesData.getCustomChallenges();
+
+        ChallengeData toImp = null;
+        try {
+            toImp = EncodeUtils.decode(challengeData);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        if(customChallenges.add(toImp)) {
+            customChallengesData.update(toImp);
+            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+            alert2.setTitle("Successful");
+            alert2.setContentText("The new challenge added to your \"Custom Challenges\" list successfully!");
+            alert2.setHeaderText(null);
+            alert2.showAndWait();
+        }
     }
     
 }

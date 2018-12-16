@@ -7,6 +7,7 @@ import com.oops.wallsandwarriors.model.ChallengeData;
 import com.oops.wallsandwarriors.model.HighTowerData;
 import com.oops.wallsandwarriors.model.KnightData;
 import com.oops.wallsandwarriors.model.WallData;
+import com.oops.wallsandwarriors.screens.Screen;
 import com.oops.wallsandwarriors.view.BackgroundView;
 import com.oops.wallsandwarriors.view.BoundedViewObject;
 import com.oops.wallsandwarriors.view.GridView;
@@ -14,18 +15,27 @@ import com.oops.wallsandwarriors.view.HighTowerView;
 import com.oops.wallsandwarriors.view.KnightView;
 import com.oops.wallsandwarriors.view.GamePaletteView;
 import com.oops.wallsandwarriors.view.WallView;
+
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseButton;
 
 
 public class GameScreen extends BaseGameScreen {
 
     private GamePaletteView wallPaletteView;
+    private Screen previousScreen;
+    
+    public void setPreviousScreen(Screen previousScreen) {
+        this.previousScreen = previousScreen;
+    }
 
     @Override
     protected void initViewObjects() {
@@ -49,7 +59,12 @@ public class GameScreen extends BaseGameScreen {
 
     @Override
     protected void addComponents(Group root) {
-        addTransactionButton(root, "Back", 700, 50, Game.getInstance().screenManager.mainMenu);
+        addButton(root, "Back", 700, 50, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Game.getInstance().setScreen(previousScreen);
+            }
+        });
         addButton(root, "Check", 700, 550, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -59,7 +74,7 @@ public class GameScreen extends BaseGameScreen {
         addButton(root, "Reset", 650, 550, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                    resetState();
+                resetState();
             }
         });
     }
@@ -150,17 +165,33 @@ public class GameScreen extends BaseGameScreen {
         } else if (!incorrectRedKnights.isEmpty()) {
             handleAlert("Mistake", "Problem with red Knights: " + incorrectRedKnights.size(), showMistake);
         } else {
-            handleAlert("WIN!", "Congratulations!!! You solved the challenge", true);
+            handleAlert("WIN", "Congratulations! You solved the challenge.", true);
         }
     }
     
     private void handleAlert(String title, String content, boolean show) {
         if (show) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            ButtonType stayType = new ButtonType("Stay Here", ButtonBar.ButtonData.CANCEL_CLOSE);
+            ButtonType backType = new ButtonType("Go Back to Challenges");
+            ButtonType nextType = new ButtonType("Go to the Next Challenge");
+            
+            Alert alert = new Alert(Alert.AlertType.NONE);
             alert.setTitle(title);
             alert.setHeaderText(null);
             alert.setContentText(content);
-            alert.showAndWait();
+            alert.getButtonTypes().add(stayType);
+            alert.getButtonTypes().add(backType);
+            if (previousScreen == Game.getInstance().screenManager.campaignChallenges) {
+                alert.getButtonTypes().add(nextType);
+            }
+            
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == nextType) {
+               Game.getInstance().setScreen(previousScreen);
+            } else if (result.get() == backType) {
+               Game.getInstance().setScreen(previousScreen);
+            }
         }
     }
     
