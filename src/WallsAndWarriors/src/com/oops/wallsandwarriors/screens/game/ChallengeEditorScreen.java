@@ -292,9 +292,23 @@ public class ChallengeEditorScreen extends BaseGameScreen {
     private void exportChallenge() throws IOException {
         ChallengeData exportedChallenge = Game.getInstance().challengeManager.getChallengeData().createCopy();
         exportedChallenge.resetWalls();
-        exportedChallenge.setName(nameField.getText());
-        exportedChallenge.setDescription(descriptionField.getText());
-        exportedChallenge.setCreator(creatorField.getText());
+        int max_LENGTH = 20;
+        if(descriptionField.getText().length() <= max_LENGTH && nameField.getText().length() <= max_LENGTH &&  creatorField.getText().length() <= max_LENGTH && nameField.getText().length() != 0) {
+            exportedChallenge.setDescription(descriptionField.getText());
+            exportedChallenge.setName(nameField.getText());
+            exportedChallenge.setCreator(creatorField.getText());
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("ERROR");
+            if (nameField.getText().length() == 0)
+                alert.setContentText("Length of Challenge's name field cannot be blank");
+            else
+                alert.setContentText("Length of each text cannot be more than " + max_LENGTH + "characters");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+            return;
+        }
         
         TextArea textArea = new TextArea(EncodeUtils.encode(exportedChallenge));
         textArea.setEditable(false);
