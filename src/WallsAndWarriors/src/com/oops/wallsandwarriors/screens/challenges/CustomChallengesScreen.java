@@ -141,7 +141,18 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
                 }
             }
         });
-
+        
+        Button removeButton = new Button( "Remove");
+        removeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                removeChallenge(challenge);
+                playButton.setDisable(true);
+                shareButton.setDisable(true);
+                removeButton.setDisable(true);
+            }
+        });
+        
         Font theFont = Font.font("Arial", FontWeight.MEDIUM, 14);
         nameLabel.setTextFill(Color.BEIGE);
         descLabel.setTextFill(Color.BEIGE);
@@ -153,6 +164,11 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         creatorLabel.setFont(theFont);
         typeLabel.setFont(theFont);
         warriorLabel.setFont(theFont);
+        nameLabel.setMaxWidth(350);
+        descLabel.setMaxWidth(350);
+        creatorLabel.setMaxWidth(350);
+        typeLabel.setMaxWidth(350);
+        warriorLabel.setMaxWidth(350);
 
         grid.add(nameLabel,0,1);
         grid.add(descLabel,0,2);
@@ -160,7 +176,8 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         grid.add(typeLabel,0,4);
         grid.add(warriorLabel,0,5);
         grid.add(playButton, 0,8);
-        grid.add(shareButton, 1, 8);
+        grid.add(shareButton, 0, 9);
+        grid.add(removeButton,0,10);
 
     }
 
@@ -213,6 +230,14 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
 
         Screen refresh = Game.getInstance().screenManager.customChallenges;
         Game.getInstance().setScreen(refresh);
+    }
+    
+    public void removeChallenge(ChallengeData challengeToRemove) {
+            ChallengeData toRemove = challengeToRemove;
+            customChallenges.remove(toRemove);
+            customChallengesData.remove(toRemove);
+            Screen refresh = Game.getInstance().screenManager.customChallenges;
+            Game.getInstance().setScreen(refresh);
     }
 
 
