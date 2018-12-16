@@ -3,6 +3,7 @@ package com.oops.wallsandwarriors.screens.game;
 import com.oops.wallsandwarriors.ChallengeManager;
 import com.oops.wallsandwarriors.Game;
 import com.oops.wallsandwarriors.GameConstants;
+import com.oops.wallsandwarriors.SolutionManager;
 import com.oops.wallsandwarriors.definitions.WallDefinitions;
 import com.oops.wallsandwarriors.model.ChallengeData;
 import com.oops.wallsandwarriors.model.GridPiece;
@@ -290,26 +291,45 @@ public class ChallengeEditorScreen extends BaseGameScreen {
     }
     
     private void exportChallenge() throws IOException {
-        ChallengeData exportedChallenge = Game.getInstance().challengeManager.getChallengeData().createCopy();
-        exportedChallenge.resetWalls();
+        ChallengeData exportedChallenge = Game.getInstance().challengeManager.getChallengeData();
+        SolutionManager solutionManager = Game.getInstance().solutionManager;
+        ArrayList<KnightData> incorrectRedKnights = solutionManager.checkSolution(exportedChallenge);
+
         int max_LENGTH = 20;
-        if(descriptionField.getText().length() <= max_LENGTH && nameField.getText().length() <= max_LENGTH &&  creatorField.getText().length() <= max_LENGTH && nameField.getText().length() != 0) {
-            exportedChallenge.setDescription(descriptionField.getText());
-            exportedChallenge.setName(nameField.getText());
-            exportedChallenge.setCreator(creatorField.getText());
+        if((descriptionField.getText().length() <= max_LENGTH && nameField.getText().length() <= max_LENGTH &&  creatorField.getText().length() <= max_LENGTH && nameField.getText().length() != 0 && descriptionField.getText().length() != 0 && creatorField.getText().length() != 0 && exportedChallenge.knights.size() != 0 && exportedChallenge.redKnights() && exportedChallenge.blueKnights() && incorrectRedKnights != null) && (incorrectRedKnights.isEmpty())) {
+                exportedChallenge.setDescription(descriptionField.getText());
+                exportedChallenge.setName(nameField.getText());
+                exportedChallenge.setCreator(creatorField.getText());
         }
         else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("ERROR");
             if (nameField.getText().length() == 0)
-                alert.setContentText("Length of Challenge's name field cannot be blank");
-            else
+                alert.setContentText("Challenge name cannot be blank");
+            else if(descriptionField.getText().length() == 0)
+                alert.setContentText("Challenge description cannot be blank");
+            else if(creatorField.getText().length() == 0)
+                alert.setContentText("Challenge creator cannot be blank");
+            else if (max_LENGTH  <= descriptionField.getText().length() && max_LENGTH  <= nameField.getText().length() && max_LENGTH  <= creatorField.getText().length() )
                 alert.setContentText("Length of each text cannot be more than " + max_LENGTH + "characters");
+            else if(!exportedChallenge.blueKnights())
+                alert.setContentText("There are no blue knights in the challenge");
+            else if(!exportedChallenge.redKnights())
+                alert.setContentText("There are no red knights in the challenge");
+            else if(incorrectRedKnights == null) {
+                alert.setContentText("Solution is incomplete");
+                System.out.println("QAQA NIYE GIRMIRSEN");
+            }
+            else if(!incorrectRedKnights.isEmpty())
+                alert.setContentText("Solution is not correct");
+
             alert.setHeaderText(null);
             alert.showAndWait();
             return;
         }
-        
+
+        exportedChallenge.resetWalls();
+
         TextArea textArea = new TextArea(EncodeUtils.encode(exportedChallenge));
         textArea.setEditable(false);
         textArea.setWrapText(true);
