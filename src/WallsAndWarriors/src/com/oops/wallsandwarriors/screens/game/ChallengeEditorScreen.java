@@ -153,8 +153,21 @@ public class ChallengeEditorScreen extends BaseGameScreen {
             if (button == MouseButton.PRIMARY) {
                 if (selectedPiece == null) {
                     selectedPiece = clickedPiece;
-                    refreshPreview();
-                    previewView.setIndex(clickables.indexOf(clickedView));
+                    boolean canPick = true;
+                    if (selectedPiece instanceof WallData) {
+                        canPick = checkWallCount();
+                    }
+                    if (canPick) {
+                        refreshPreview();
+                        previewView.setIndex(clickables.indexOf(clickedView));
+                    } else {
+                        selectedPiece = null;
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Wall Count");
+                        alert.setContentText("There can be at most 4 walls in a challenge.");
+                        alert.setHeaderText(null);
+                        alert.showAndWait();
+                    }
                 } else {
                     selectedPiece = null;
                     previewView = null;
@@ -192,6 +205,11 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         } else if (selectedPiece instanceof WallData) {
             previewView = new WallView((WallData) selectedPiece, true);
         }
+    }
+    
+    private boolean checkWallCount() {
+        int wallCount = Game.getInstance().challengeManager.getChallengeData().walls.size();
+        return wallCount < 4;
     }
     
     @Override
