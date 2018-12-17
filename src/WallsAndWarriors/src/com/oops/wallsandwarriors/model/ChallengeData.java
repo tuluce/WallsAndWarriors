@@ -161,4 +161,24 @@ public class ChallengeData implements Serializable {
         return false;
     }
 
+    public boolean isWild(){
+        int count = 0;
+
+        for(int i = 0; i < walls.size();i++)
+        {
+            for ( int j = 0; j<walls.size() ;j++)
+                if( !walls.get(i).getWallDefinition().equals(walls.get(j).getWallDefinition()))
+                    count++;
+        }
+
+        return (4 < count) ;
+    }
+
+    public String getType(){
+        if(isWild())
+            return "Wild";
+        else
+            return "Standard";
+    }
+
 }
