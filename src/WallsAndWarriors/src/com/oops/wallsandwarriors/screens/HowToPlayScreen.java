@@ -87,8 +87,9 @@ public class HowToPlayScreen extends GeneralScreen {
         Text control = new Text("\n\n\nFor moving the knights, high tower and" +
                 " walls in the Challenge Editor you can grab the object by " +
                 "clicking once again.\n\n\nIn the Challenge Screens, you can only " +
-                "drag & drop the walls. You can rotate the pieces 90 degree by" +
-                "grapping and pressing space bar ");
+                "drag & drop the walls.\n\n\nYou can rotate the pieces 90 degree by " +
+                "grabing and clicking the right mouse click."+ "To replace an object, left click on the object." +
+                "For removing an object from the grid, right click on the object.  ");
 
         cEditor.setWrappingWidth(350);
         control.setWrappingWidth(350);
