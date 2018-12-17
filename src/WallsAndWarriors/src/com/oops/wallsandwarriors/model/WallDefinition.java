@@ -12,5 +12,14 @@ public class WallDefinition implements Serializable{
         this.portions = portions;
         this.bastions = bastions;
     }
-    
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof WallDefinition) {
+            WallDefinition otherWallDef = (WallDefinition) other;
+            return (otherWallDef.portions == this.portions) &&
+                    (otherWallDef.bastions == this.bastions);
+        }
+        return false;
+    }
 }
