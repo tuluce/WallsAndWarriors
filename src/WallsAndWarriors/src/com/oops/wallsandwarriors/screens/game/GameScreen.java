@@ -83,6 +83,7 @@ public class GameScreen extends BaseGameScreen {
     protected boolean attemptPlacement() {
         if (hoveredBlock != null && selectedPiece != null &&
             Game.getInstance().gridManager.attemptPlacement(hoveredBlock, selectedPiece)) {
+            updateProgress();
             checkSolution(false);
             return true;
         }
@@ -192,6 +193,49 @@ public class GameScreen extends BaseGameScreen {
             } else if (result.get() == backType) {
                Game.getInstance().setScreen(previousScreen);
             }
+        }
+    }
+    
+    public void updateProgress() {
+        try {
+            ChallengeData challengeData = Game.getInstance().challengeManager.getChallengeData();
+            StorageManager storageManager = Game.getInstance().storageManager;
+            storageManager.makeProgressFile();
+            File inputFile = storageManager.progressData;
+            File tempFile = new File(storageManager.wnwData, "tempProgress.dat");
+
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(tempFile));
+
+
+            //boolean isUpdated = false;
+            //for (String lineCode; (lineCode = bufferedReader.readLine()) != null;) {
+               //String trimmedLineCode = lineCode.trim();
+                //if((trimmedLineCode.equals(removeCode)) && !(deleted)) {
+                //    deleted = true;
+                //}
+                //else {
+                //bufferedWriter.write(lineCode + System.getProperty("line.separator"));
+                //}
+            //}
+            String code = EncodeUtils.encode(challengeData);
+            bufferedWriter.write(code + "\n");
+            bufferedReader.close();
+            bufferedWriter.close();
+            if (!inputFile.delete()) {
+                System.out.println("Could not delete file");
+                return;
+            }
+
+            //Rename the new file to the filename the original file had.
+            if (!tempFile.renameTo(inputFile)) {
+                System.out.println("Could not rename file");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
         }
     }
     
