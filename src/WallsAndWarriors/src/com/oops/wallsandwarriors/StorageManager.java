@@ -8,6 +8,7 @@ public class StorageManager {
     public File wnwData;
     public File campaignChallengeData;
     public File customChallengeData;
+    public File progressData;
 
     public StorageManager()
     {
@@ -39,6 +40,17 @@ public class StorageManager {
             e.printStackTrace();
         }
     }
+    
+    public void makeProgressFile()
+    {
+        progressData = new File(wnwData,   "progress.dat");
 
+        try {
+            progressData.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        progressData.setWritable(true);
+    }
 
 }
