@@ -152,20 +152,10 @@ public class ChallengeData implements Serializable {
         this.creator = creator;
     }
 
-    public boolean blueKnights(){
+    public boolean hasBlueKnights(){
         for( int i = 0; i < knights.size(); i++)
         {
             if ( !knights.get(i).isEnemy )
-                return true;
-        }
-        return false;
-    }
-
-
-    public boolean redKnights(){
-        for( int i = 0; i < knights.size(); i++)
-        {
-            if ( knights.get(i).isEnemy )
                 return true;
         }
         return false;

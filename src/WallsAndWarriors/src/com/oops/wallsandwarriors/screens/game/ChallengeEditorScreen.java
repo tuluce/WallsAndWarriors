@@ -296,7 +296,12 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         ArrayList<KnightData> incorrectRedKnights = solutionManager.checkSolution(exportedChallenge);
 
         int max_LENGTH = 20;
-        if((descriptionField.getText().length() <= max_LENGTH && nameField.getText().length() <= max_LENGTH &&  creatorField.getText().length() <= max_LENGTH && nameField.getText().length() != 0 && descriptionField.getText().length() != 0 && creatorField.getText().length() != 0 && exportedChallenge.knights.size() != 0 && exportedChallenge.redKnights() && exportedChallenge.blueKnights() && incorrectRedKnights != null) && (incorrectRedKnights.isEmpty())) {
+        if((descriptionField.getText().length() <= max_LENGTH &&
+            nameField.getText().length() <= max_LENGTH && 
+            creatorField.getText().length() <= max_LENGTH && nameField.getText().length() != 0 &&
+            descriptionField.getText().length() != 0 && creatorField.getText().length() != 0 &&
+            exportedChallenge.knights.size() != 0 && exportedChallenge.hasBlueKnights() &&
+            incorrectRedKnights != null) && (incorrectRedKnights.isEmpty())) {
                 exportedChallenge.setDescription(descriptionField.getText());
                 exportedChallenge.setName(nameField.getText());
                 exportedChallenge.setCreator(creatorField.getText());
@@ -312,10 +317,8 @@ public class ChallengeEditorScreen extends BaseGameScreen {
                 alert.setContentText("Challenge creator cannot be blank");
             else if (max_LENGTH  <= descriptionField.getText().length() && max_LENGTH  <= nameField.getText().length() && max_LENGTH  <= creatorField.getText().length() )
                 alert.setContentText("Length of each text cannot be more than " + max_LENGTH + "characters");
-            else if(!exportedChallenge.blueKnights())
+            else if(!exportedChallenge.hasBlueKnights())
                 alert.setContentText("There are no blue knights in the challenge");
-            else if(!exportedChallenge.redKnights())
-                alert.setContentText("There are no red knights in the challenge");
             else if(incorrectRedKnights == null) {
                 alert.setContentText("Solution is incomplete");
             }
