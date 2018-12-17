@@ -117,7 +117,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         Label nameLabel = new Label("Name: " + challenge.getName());
         Label descLabel = new Label("Description: " + challenge.getDescription());
         Label creatorLabel = new Label("Creator: " + challenge.getCreator());
-        Label typeLabel = new Label("Type: " + "Standard");
+        Label typeLabel = new Label("Type: " + challenge.getType());
         Label warriorLabel = new Label("Info: " + challenge.knights.size() + " Knights");
 
         Button playButton = new Button("Play");
