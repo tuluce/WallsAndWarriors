@@ -5,8 +5,9 @@ import com.oops.wallsandwarriors.StorageManager;
 import com.oops.wallsandwarriors.model.ChallengeData;
 import com.oops.wallsandwarriors.util.EncodeUtils;
 import com.oops.wallsandwarriors.util.FileUtils;
+import java.io.FileWriter;
+import java.io.IOException;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;

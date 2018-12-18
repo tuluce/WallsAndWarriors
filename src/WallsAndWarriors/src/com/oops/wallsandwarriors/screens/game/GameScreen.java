@@ -101,20 +101,22 @@ public class GameScreen extends BaseGameScreen {
 
     @Override
     protected boolean handleViewClick(BoundedViewObject clickedView, MouseButton button) {
-        if (clickedView instanceof WallView) {
-            WallView wallView = (WallView) clickedView;
-            WallData clickedWall = wallView.getModel();
-            if (button == MouseButton.PRIMARY) {
-                if (selectedPiece == clickedWall) {
-                    selectedPiece = null;
-                } else {
+        if (selectedPiece == null) {
+            if (clickedView instanceof WallView) {
+                WallView wallView = (WallView) clickedView;
+                WallData clickedWall = wallView.getModel();
+                if (button == MouseButton.PRIMARY) {
+                    if (selectedPiece == clickedWall) {
+                        selectedPiece = null;
+                    } else {
+                        clickedWall.setPosition(null);
+                        selectedPiece = clickedWall;
+                    }
+                    return true;
+                } else if (button == MouseButton.SECONDARY) {
                     clickedWall.setPosition(null);
-                    selectedPiece = clickedWall;
+                    return true;
                 }
-                return true;
-            } else if (button == MouseButton.SECONDARY) {
-                clickedWall.setPosition(null);
-                return true;
             }
         }
         return false;

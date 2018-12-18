@@ -11,7 +11,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
@@ -24,6 +23,13 @@ import java.util.List;
 import java.util.Optional;
 
 import com.oops.wallsandwarriors.util.EncodeUtils;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.paint.Color;
 
 public class CustomChallengesScreen extends BaseChallengesScreen {
@@ -191,7 +197,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         ButtonType clipboard = new ButtonType("Copy To Clipboard!");
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Copy the exported challenge code.");
+        alert.setTitle("Share the challenge code.");
         alert.setHeaderText(null);
         alert.getDialogPane().setContent(gridPane);
         alert.getButtonTypes().add(clipboard);

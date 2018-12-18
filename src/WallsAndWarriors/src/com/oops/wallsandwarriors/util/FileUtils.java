@@ -20,7 +20,7 @@ public class FileUtils {
     private InputStream getClassInputStream(String filePath) {
         return getClass().getResourceAsStream(filePath);
     }
-
+    
     public static InputStream getInputStream(String filePath) {
         return getInstance().getClassInputStream(filePath);
     }
