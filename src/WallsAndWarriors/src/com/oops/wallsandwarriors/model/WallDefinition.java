@@ -17,9 +17,11 @@ public class WallDefinition implements Serializable{
     public boolean equals(Object other) {
         if (other instanceof WallDefinition) {
             WallDefinition otherWallDef = (WallDefinition) other;
-            return (otherWallDef.portions == this.portions) &&
-                    (otherWallDef.bastions == this.bastions);
+            System.out.println(otherWallDef.bastions.equals(this.bastions));
+            return ((otherWallDef.portions.equals(this.portions)) &&
+                    (otherWallDef.bastions.equals(this.bastions)));
         }
         return false;
     }
+
 }
