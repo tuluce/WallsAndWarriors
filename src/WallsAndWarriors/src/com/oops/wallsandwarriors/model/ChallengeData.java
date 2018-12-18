@@ -154,25 +154,44 @@ public class ChallengeData implements Serializable {
     }
 
     public boolean hasBlueKnights(){
-        for( int i = 0; i < knights.size(); i++)
-        {
-            if ( !knights.get(i).isEnemy )
-                return true;
-        }
+        if(0<noOfBlueKnights())
+            return true;
         return false;
     }
 
-    public boolean isWild(){
+    public int noOfBlueKnights(){
         int count = 0;
 
-        for(int i = 0; i < walls.size();i++)
+        for( int i = 0; i < knights.size(); i++)
         {
-            for ( int j = 0; j<walls.size() ;j++)
-                if( !walls.get(i).getWallDefinition().equals(walls.get(j).getWallDefinition()))
-                    count++;
+            if ( !knights.get(i).isEnemy )
+                count++;
         }
+        return count;
+    }
 
-        return (4 < count) ;
+    public boolean isWild(){
+
+        int blueKnightsSize = noOfBlueKnights();
+        //Checking number of Knights -- In Std: 3 Red Knigthts, 4 Blue Knight, 1 High Tower
+
+        if(4<blueKnightsSize)
+            return true;
+        else if ( 3 < knights.size()-blueKnightsSize )
+            return true;
+        else if (1<highTowers.size())
+            return true;
+
+
+        //Checking if there are more than two instances of the same wall
+        for( int i = 0; i< walls.size(); i++)
+        {
+            for ( int j =  i+1 ; j < walls.size();j++)
+               if( walls.get(i).isPieceEqual(walls.get(j)) ){
+                    return true;
+               }
+        }
+        return false ;
     }
 
     public String getType(){

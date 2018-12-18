@@ -10,5 +10,14 @@ public class WallBastion implements Serializable {
     public WallBastion(Coordinate relativePos) {
         this.relativePos = relativePos;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof WallBastion) {
+            WallBastion otherBastion = (WallBastion) other;
+            return (otherBastion.relativePos.equals(this.relativePos));
+        }
+        return false;
+    }
     
 }

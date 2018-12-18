@@ -83,5 +83,17 @@ public class WallData implements BorderPiece, Serializable {
         }
         return occupies;
     }
+
+    public boolean isPieceEqual( WallData otherWall )
+    {
+        WallData copyWall = otherWall.createCopy();
+        for( int i = 0; i < 4; i++)
+        {
+            if( this.getWallDefinition().equals(copyWall.getWallDefinition()) )
+                return true;
+            copyWall.rotate();
+        }
+        return false;
+    }
     
 }
