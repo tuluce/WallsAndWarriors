@@ -3,6 +3,7 @@ package com.oops.wallsandwarriors.screens.challenges;
 import com.oops.wallsandwarriors.model.ChallengeData;
 import com.oops.wallsandwarriors.model.HighTowerData;
 import com.oops.wallsandwarriors.model.KnightData;
+import com.oops.wallsandwarriors.util.FileUtils;
 import com.oops.wallsandwarriors.view.GridView;
 import com.oops.wallsandwarriors.view.HighTowerView;
 import com.oops.wallsandwarriors.view.KnightView;
@@ -16,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -24,6 +26,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+import java.awt.*;
 import java.util.List;
 
 import javafx.event.EventHandler;
@@ -71,19 +74,37 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
         {
             final int index = i;
 
+
+            javafx.scene.image.Image lock = new javafx.scene.image.Image(FileUtils.getInputStream(
+                    "/com/oops/wallsandwarriors/resources/images/lock.png"));
+            ImageView imageView = new ImageView();
+            imageView.setFitHeight(30);
+            imageView.setFitWidth(40);
+            imageView.setImage(lock);
+
             ChallengeData challengeData = campaignChallenges.get(i);
+
 
             BorderPane border = new BorderPane();
             Canvas canvas = drawAndGetCanvas(challengeData);
             border.setCenter(canvas);
             border.setBottom(new Text("     " + challengeData.getName()));
 
-            border.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    CampaignChallengesScreen.super.startChallenge(challengeData.createCopy(true));
-                }
-            });
+            if(CampaignChallengesData.campaignChallengesProgress.get(i).equals("0") && i != 0)
+            {
+                border.setTop(imageView);
+            }
+            else
+            {
+                border.setTop(null);
+                border.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        CampaignChallengesScreen.super.startChallenge(challengeData.createCopy(true));
+                    }
+                });
+            }
+
 
             if(index / 6  <= hBoxCount)
             {

@@ -22,7 +22,7 @@ public class Game {
         }
         return instance;
     }
-    
+
     private Game() {
         challengeManager = new ChallengeManager();
         gridManager = new GridManager();

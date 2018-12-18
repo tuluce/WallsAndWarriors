@@ -9,7 +9,9 @@ import com.oops.wallsandwarriors.model.HighTowerData;
 import com.oops.wallsandwarriors.model.KnightData;
 import com.oops.wallsandwarriors.model.WallData;
 import com.oops.wallsandwarriors.screens.Screen;
+import com.oops.wallsandwarriors.screens.challenges.CampaignChallengesData;
 import com.oops.wallsandwarriors.util.EncodeUtils;
+import com.oops.wallsandwarriors.util.FileUtils;
 import com.oops.wallsandwarriors.view.BackgroundView;
 import com.oops.wallsandwarriors.view.BoundedViewObject;
 import com.oops.wallsandwarriors.view.GridView;
@@ -27,6 +29,7 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Scanner;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -175,6 +178,7 @@ public class GameScreen extends BaseGameScreen {
         } else if (!incorrectRedKnights.isEmpty()) {
             handleAlert("Mistake", "Problem with red Knights: " + incorrectRedKnights.size(), showMistake);
         } else {
+            editProgressInfo(challenge, true);
             handleAlert("WIN", "Congratulations! You solved the challenge.", true);
         }
     }
@@ -247,5 +251,49 @@ public class GameScreen extends BaseGameScreen {
             e.printStackTrace();
         }
     }
-    
+
+
+
+    public void editProgressInfo(ChallengeData challengeData, boolean isSolved)
+    {
+        FileWriter fileWriter;
+        StorageManager storageManager = Game.getInstance().storageManager;
+
+        try {
+            fileWriter = new FileWriter(storageManager.progressData);
+
+            int index = getIndex(challengeData);
+            if(isSolved)
+            {
+                if(index < CampaignChallengesData.campaignChallengesProgress.size() - 1)
+                {
+                    CampaignChallengesData.campaignChallengesProgress.set(index + 1, "1");
+                }
+            }
+            else
+            {
+                CampaignChallengesData.campaignChallengesProgress.set(index + 1, "0");
+            }
+
+            fileWriter.write(CampaignChallengesData.campaignChallengesProgress.toString() + "\n");
+            fileWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int getIndex(ChallengeData challengeData)
+    {
+        for (int i = 0; i < CampaignChallengesData.campaignChallenges.size(); i++)
+        {
+            if(challengeData.getName().equals(CampaignChallengesData.campaignChallenges.get(i).getName()))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
 }
