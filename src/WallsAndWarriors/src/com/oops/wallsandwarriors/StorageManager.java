@@ -43,6 +43,8 @@ public class StorageManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
+        makeSessionFile();
     }
     
     public void makeSessionFile()
