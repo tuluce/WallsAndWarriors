@@ -92,7 +92,7 @@ public class GameScreen extends BaseGameScreen {
     protected boolean attemptPlacement() {
         if (hoveredBlock != null && selectedPiece != null &&
             Game.getInstance().gridManager.attemptPlacement(hoveredBlock, selectedPiece)) {
-            updateProgress();
+            saveSession();
             checkSolution(false);
             return true;
         }
@@ -205,13 +205,13 @@ public class GameScreen extends BaseGameScreen {
         }
     }
     
-    public void updateProgress() {
+    public void saveSession() {
         try {
             ChallengeData challengeData = Game.getInstance().challengeManager.getChallengeData();
             StorageManager storageManager = Game.getInstance().storageManager;
-            storageManager.makeProgressFile();
-            File inputFile = storageManager.progressData;
-            File tempFile = new File(storageManager.wnwData, "tempProgress.dat");
+            storageManager.makeSessionFile();
+            File inputFile = storageManager.sessionData;
+            File tempFile = new File(storageManager.wnwData, "tempSession.dat");
 
             BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFile));
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(tempFile));
