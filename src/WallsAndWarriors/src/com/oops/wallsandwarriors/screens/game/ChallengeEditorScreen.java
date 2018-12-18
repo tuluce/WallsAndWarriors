@@ -48,9 +48,9 @@ public class ChallengeEditorScreen extends BaseGameScreen {
     private EditorPaletteView paletteView;
     private List<EditorPaletteElementView> paletteElementViews;
     private TextField nameField;
-    private TextField creatorField;
     private TextField descriptionField;
-
+    private TextField creatorField;
+    
     List<ChallengeData> customChallenges;
     
     @Override
@@ -120,11 +120,13 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         setLayoutPos(creatorLabel, 350, 510);
         
         nameField = new TextField();
-        creatorField = new TextField();
         descriptionField = new TextField();
+        creatorField = new TextField();
+        
         nameField.setPrefWidth(250);
-        creatorField.setPrefWidth(250);
         descriptionField.setPrefWidth(250);
+        creatorField.setPrefWidth(250);
+        
         setLayoutPos(nameField, 520, 450);
         setLayoutPos(descriptionField, 520, 480);
         setLayoutPos(creatorField, 520, 510);
@@ -132,9 +134,11 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         root.getChildren().add(nameLabel);
         root.getChildren().add(descriptionLabel);
         root.getChildren().add(creatorLabel);
+        
         root.getChildren().add(nameField);
-        root.getChildren().add(creatorField);
         root.getChildren().add(descriptionField);
+        root.getChildren().add(creatorField);
+        
     }
     
     @Override

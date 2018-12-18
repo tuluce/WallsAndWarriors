@@ -1,6 +1,11 @@
 package com.oops.wallsandwarriors;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class StorageManager {
@@ -21,7 +26,7 @@ public class StorageManager {
         wnwData = new File(userHome + "/.wnwdata");
         wnwData.mkdirs();
 
-        campaignChallengeData= new File(wnwData,   "campaign_challenges.dat");
+        campaignChallengeData= new File(wnwData, "campaign_challenges.dat");
 
         try {
             campaignChallengeData.createNewFile();
@@ -31,8 +36,7 @@ public class StorageManager {
         campaignChallengeData.setWritable(true);
 
 
-
-        customChallengeData= new File(wnwData,   "custom_challenges.dat");
+        customChallengeData= new File(wnwData, "custom_challenges.dat");
 
         try {
             customChallengeData.createNewFile();
@@ -43,7 +47,7 @@ public class StorageManager {
     
     public void makeSessionFile()
     {
-        sessionData = new File(wnwData,   "session.dat");
+        sessionData = new File(wnwData, "session.dat");
 
         try {
             sessionData.createNewFile();
@@ -51,6 +55,23 @@ public class StorageManager {
             e.printStackTrace();
         }
         sessionData.setWritable(true);
+    }
+    
+    public void clearSessionFile() {
+        try {
+            sessionData = new File(wnwData, "session.dat");
+            sessionData.createNewFile();
+            BufferedWriter bufferedWriter = new BufferedWriter(
+                    new FileWriter(new File(wnwData, "session.dat")));
+            bufferedWriter.write("");
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public BufferedReader getSessionReader() throws FileNotFoundException {
+        return new BufferedReader(new FileReader(new File(wnwData, "session.dat")));
     }
 
 }

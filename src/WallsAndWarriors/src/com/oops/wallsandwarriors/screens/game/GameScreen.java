@@ -71,6 +71,7 @@ public class GameScreen extends BaseGameScreen {
         addButton(root, "Back", 700, 50, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                Game.getInstance().storageManager.clearSessionFile();
                 Game.getInstance().setScreen(previousScreen);
             }
         });
@@ -115,6 +116,7 @@ public class GameScreen extends BaseGameScreen {
                     return true;
                 } else if (button == MouseButton.SECONDARY) {
                     clickedWall.setPosition(null);
+                    saveSession();
                     return true;
                 }
             }
@@ -184,7 +186,7 @@ public class GameScreen extends BaseGameScreen {
     private void handleAlert(String title, String content, boolean show) {
         if (show) {
             ButtonType stayType = new ButtonType("Stay Here", ButtonBar.ButtonData.CANCEL_CLOSE);
-            ButtonType backType = new ButtonType("Go Back to Challenges");
+            ButtonType backType = new ButtonType("Go Back");
             ButtonType nextType = new ButtonType("Go to the Next Challenge");
             
             Alert alert = new Alert(Alert.AlertType.NONE);
@@ -218,17 +220,6 @@ public class GameScreen extends BaseGameScreen {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFile));
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(tempFile));
 
-
-            //boolean isUpdated = false;
-            //for (String lineCode; (lineCode = bufferedReader.readLine()) != null;) {
-               //String trimmedLineCode = lineCode.trim();
-                //if((trimmedLineCode.equals(removeCode)) && !(deleted)) {
-                //    deleted = true;
-                //}
-                //else {
-                //bufferedWriter.write(lineCode + System.getProperty("line.separator"));
-                //}
-            //}
             String code = EncodeUtils.encode(challengeData);
             bufferedWriter.write(code + "\n");
             bufferedReader.close();

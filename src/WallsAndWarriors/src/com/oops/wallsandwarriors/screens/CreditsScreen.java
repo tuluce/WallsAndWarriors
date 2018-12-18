@@ -6,7 +6,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ListView;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class CreditsScreen extends GeneralScreen {
     
@@ -16,11 +20,28 @@ public class CreditsScreen extends GeneralScreen {
         Scene scene = new Scene(root);
         
         DebugUtils.initClickDebugger(scene);
-        addBackgroundCanvas(root, "/com/oops/wallsandwarriors/resources/images/background2.png", "Credits");
+        GraphicsContext graphics = addBackgroundCanvas(root, "/com/oops/wallsandwarriors/resources/images/background2.png", "Credits");
         addTransactionButton(root, "Back", 700, 550, Game.getInstance().screenManager.mainMenu);
-        addNameList(root);
+        drawContent(graphics);
 
         return scene;
+    }
+    
+    private void drawContent(GraphicsContext graphics) {
+        String contentText =
+              "Walls & Warriors is a term project done for 'Object-Oriented\n"
+            + "Software Engineering' course in Bilkent University.\n\n"
+            + "-- Contributors --\n"
+            + " Ali Babayev\n"
+            + " Tunar Mahmudov\n"
+            + " Merve Sagyatanlar\n"
+            + " Cagla Sozen\n"
+            + " Emin Bahadir Tuluce\n";
+        graphics.setFill(Color.BEIGE);
+        graphics.fillRoundRect(60, 160, 670, 300, 50, 50);
+        graphics.setFont(Font.font("Arial", FontWeight.NORMAL, 24));
+        graphics.setFill(Color.BLACK);
+        graphics.fillText(contentText, 80, 200);
     }
 
     public void addNameList(Group root){
