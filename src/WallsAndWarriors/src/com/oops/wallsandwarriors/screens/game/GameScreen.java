@@ -71,8 +71,7 @@ public class GameScreen extends BaseGameScreen {
         addButton(root, "Back", 700, 50, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Game.getInstance().storageManager.clearSessionFile();
-                Game.getInstance().setScreen(previousScreen);
+                changeScreen(previousScreen);
             }
         });
         addButton(root, "Check", 700, 550, new EventHandler<ActionEvent>() {
@@ -202,14 +201,19 @@ public class GameScreen extends BaseGameScreen {
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.get() == nextType) {
-               Game.getInstance().setScreen(previousScreen);
+               changeScreen(previousScreen);
             } else if (result.get() == backType) {
-               Game.getInstance().setScreen(previousScreen);
+               changeScreen(previousScreen);
             }
         }
     }
     
-    public void saveSession() {
+    private void changeScreen(Screen screen) {
+        Game.getInstance().storageManager.clearSessionFile();
+        Game.getInstance().setScreen(screen);
+    }
+    
+    private void saveSession() {
         try {
             ChallengeData challengeData = Game.getInstance().challengeManager.getChallengeData();
             StorageManager storageManager = Game.getInstance().storageManager;
