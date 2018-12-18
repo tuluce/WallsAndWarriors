@@ -81,7 +81,7 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
             border.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    CampaignChallengesScreen.super.startChallenge(challengeData.createCopy());
+                    CampaignChallengesScreen.super.startChallenge(challengeData.createCopy(true));
                 }
             });
 

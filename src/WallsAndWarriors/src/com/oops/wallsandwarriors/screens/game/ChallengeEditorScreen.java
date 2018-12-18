@@ -291,7 +291,7 @@ public class ChallengeEditorScreen extends BaseGameScreen {
     }
     
     private void exportChallenge() throws IOException {
-        ChallengeData exportedChallenge = Game.getInstance().challengeManager.getChallengeData();
+        ChallengeData exportedChallenge = Game.getInstance().challengeManager.getChallengeData().createCopy(false);
         SolutionManager solutionManager = Game.getInstance().solutionManager;
         ArrayList<KnightData> incorrectRedKnights = solutionManager.checkSolution(exportedChallenge);
 

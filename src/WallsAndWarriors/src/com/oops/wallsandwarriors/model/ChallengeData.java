@@ -40,7 +40,6 @@ public class ChallengeData implements Serializable {
         for (WallData wall : walls) {
             addPiece(wall.createCopy());
         }
-        resetWalls();
     }
     
     public ChallengeData() {
@@ -111,7 +110,7 @@ public class ChallengeData implements Serializable {
         return occupiedList;
     }
     
-    public ChallengeData createCopy()  {
+    public ChallengeData createCopy(boolean reset)  {
         ChallengeData copyChallenge = new ChallengeData(blocks, walls);
         copyChallenge.name = name;
         copyChallenge.description = description;
@@ -122,7 +121,9 @@ public class ChallengeData implements Serializable {
         for (HighTowerData highTower : highTowers) {
             copyChallenge.addPiece(highTower.createCopy());
         }
-        copyChallenge.resetWalls();
+        if (reset) {
+            copyChallenge.resetWalls();
+        }
         
         return copyChallenge;
     }
