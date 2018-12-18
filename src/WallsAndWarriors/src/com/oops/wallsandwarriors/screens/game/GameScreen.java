@@ -217,7 +217,6 @@ public class GameScreen extends BaseGameScreen {
         try {
             ChallengeData challengeData = Game.getInstance().challengeManager.getChallengeData();
             StorageManager storageManager = Game.getInstance().storageManager;
-            storageManager.makeSessionFile();
             File inputFile = storageManager.sessionData;
             File tempFile = new File(storageManager.wnwData, "tempSession.dat");
 
