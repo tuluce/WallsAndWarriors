@@ -30,6 +30,7 @@ import java.awt.*;
 import java.util.List;
 
 import javafx.event.EventHandler;
+import javafx.scene.control.ListView;
 
 public class CampaignChallengesScreen extends BaseChallengesScreen {
 

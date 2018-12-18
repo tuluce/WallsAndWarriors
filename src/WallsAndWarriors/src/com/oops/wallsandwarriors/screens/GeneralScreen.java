@@ -18,24 +18,39 @@ import javafx.scene.text.FontWeight;
 
 public abstract class GeneralScreen implements Screen {
     
-    protected void addButton(Group root, String text, double x, double y, EventHandler<ActionEvent> action) {
+    protected Button addButton(Group root, String text, double x, double y, EventHandler<ActionEvent> action) {
         Button button = new Button(text);
         setLayoutPos(button, x , y);
         button.setOnAction(action);
         root.getChildren().add(button);
+        return button;
     }
     
-    protected void addButton(Group root, String text, double x, double y) {
-        addButton(root, text, x, y, null);
+    protected Button addButton(Group root, String text, double x, double y, double width, double height, EventHandler<ActionEvent> action) {
+        Button button = addButton(root, text, x, y, action);
+        button.setMinWidth(width);
+        button.setMinHeight(height);
+        return button;
     }
     
-    protected void addTransactionButton(Group root, String text, double x, double y, Screen nextScreen) {
-        addButton(root, text, x, y, new EventHandler<ActionEvent>() {
+    protected Button addButton(Group root, String text, double x, double y) {
+        return addButton(root, text, x, y, null);
+    }
+    
+    protected Button addTransactionButton(Group root, String text, double x, double y, Screen nextScreen) {
+        return addButton(root, text, x, y, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 Game.getInstance().setScreen(nextScreen);
             }
         });
+    }
+    
+    protected Button addTransactionButton(Group root, String text, double x, double y, double width, double height, Screen nextScreen) {
+        Button button = addTransactionButton(root, text, x, y, nextScreen);
+        button.setMinWidth(width);
+        button.setMinHeight(height);
+        return button;
     }
     
     protected void setLayoutPos(Node componentNode, double x, double y) {

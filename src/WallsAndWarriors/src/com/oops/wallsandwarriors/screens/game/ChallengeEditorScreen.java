@@ -32,8 +32,12 @@ import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -44,9 +48,9 @@ public class ChallengeEditorScreen extends BaseGameScreen {
     private EditorPaletteView paletteView;
     private List<EditorPaletteElementView> paletteElementViews;
     private TextField nameField;
-    private TextField creatorField;
     private TextField descriptionField;
-
+    private TextField creatorField;
+    
     List<ChallengeData> customChallenges;
     
     @Override
@@ -116,11 +120,13 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         setLayoutPos(creatorLabel, 350, 510);
         
         nameField = new TextField();
-        creatorField = new TextField();
         descriptionField = new TextField();
+        creatorField = new TextField();
+        
         nameField.setPrefWidth(250);
-        creatorField.setPrefWidth(250);
         descriptionField.setPrefWidth(250);
+        creatorField.setPrefWidth(250);
+        
         setLayoutPos(nameField, 520, 450);
         setLayoutPos(descriptionField, 520, 480);
         setLayoutPos(creatorField, 520, 510);
@@ -128,9 +134,11 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         root.getChildren().add(nameLabel);
         root.getChildren().add(descriptionLabel);
         root.getChildren().add(creatorLabel);
+        
         root.getChildren().add(nameField);
-        root.getChildren().add(creatorField);
         root.getChildren().add(descriptionField);
+        root.getChildren().add(creatorField);
+        
     }
     
     @Override
@@ -148,51 +156,53 @@ public class ChallengeEditorScreen extends BaseGameScreen {
     
     @Override
     protected boolean handleViewClick(BoundedViewObject clickedView, MouseButton button) {
-        if (clickedView instanceof EditorPaletteElementView) {
-            EditorPaletteElementView paletteElement = (EditorPaletteElementView) clickedView;
-            GridPiece clickedPiece = paletteElement.generateModel();
-            if (button == MouseButton.PRIMARY) {
-                if (selectedPiece == null) {
-                    selectedPiece = clickedPiece;
-                    boolean canPick = true;
-                    if (selectedPiece instanceof WallData) {
-                        canPick = checkWallCount();
-                    }
-                    if (canPick) {
-                        refreshPreview();
-                        previewView.setIndex(clickables.indexOf(clickedView));
+        if (selectedPiece == null) {
+            if (clickedView instanceof EditorPaletteElementView) {
+                EditorPaletteElementView paletteElement = (EditorPaletteElementView) clickedView;
+                GridPiece clickedPiece = paletteElement.generateModel();
+                if (button == MouseButton.PRIMARY) {
+                    if (selectedPiece == null) {
+                        selectedPiece = clickedPiece;
+                        boolean canPick = true;
+                        if (selectedPiece instanceof WallData) {
+                            canPick = checkWallCount();
+                        }
+                        if (canPick) {
+                            refreshPreview();
+                            previewView.setIndex(clickables.indexOf(clickedView));
+                        } else {
+                            selectedPiece = null;
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Wall Count");
+                            alert.setContentText("There can be at most 4 walls in a challenge.");
+                            alert.setHeaderText(null);
+                            alert.showAndWait();
+                        }
                     } else {
                         selectedPiece = null;
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Wall Count");
-                        alert.setContentText("There can be at most 4 walls in a challenge.");
-                        alert.setHeaderText(null);
-                        alert.showAndWait();
+                        previewView = null;
                     }
-                } else {
+                    return true;
+                }
+            } else if (clickedView instanceof GridPieceView) {
+                GridPieceView clickedGridPieceView = (GridPieceView) clickedView;
+                GridPiece clickedGridPiece = clickedGridPieceView.getModel();
+                if (button == MouseButton.PRIMARY || button == MouseButton.SECONDARY) {
+                    ChallengeManager challengeManager = Game.getInstance().challengeManager;
+                    challengeManager.getChallengeData().removePiece(clickedGridPiece);
                     selectedPiece = null;
                     previewView = null;
                 }
-                return true;
-            }
-        } else if (clickedView instanceof GridPieceView) {
-            GridPieceView clickedGridPieceView = (GridPieceView) clickedView;
-            GridPiece clickedGridPiece = clickedGridPieceView.getModel();
-            if (button == MouseButton.PRIMARY || button == MouseButton.SECONDARY) {
-                ChallengeManager challengeManager = Game.getInstance().challengeManager;
-                challengeManager.getChallengeData().removePiece(clickedGridPiece);
-                selectedPiece = null;
-                previewView = null;
-            }
-            if (button == MouseButton.PRIMARY) {
-                selectedPiece = clickedGridPiece.createCopy();
-                refreshPreview();
-                previewView.getModel().setPosition(null);
-                previewView.setIndex(-1);
-            }
-            if (button == MouseButton.PRIMARY || button == MouseButton.SECONDARY) {
-                updateViewList();
-                return true;
+                if (button == MouseButton.PRIMARY) {
+                    selectedPiece = clickedGridPiece.createCopy();
+                    refreshPreview();
+                    previewView.getModel().setPosition(null);
+                    previewView.setIndex(-1);
+                }
+                if (button == MouseButton.PRIMARY || button == MouseButton.SECONDARY) {
+                    updateViewList();
+                    return true;
+                }
             }
         }
         return false;
@@ -296,38 +306,35 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         ArrayList<KnightData> incorrectRedKnights = solutionManager.checkSolution(exportedChallenge);
 
         int max_LENGTH = 20;
-        if((descriptionField.getText().length() <= max_LENGTH &&
-            nameField.getText().length() <= max_LENGTH && 
-            creatorField.getText().length() <= max_LENGTH && nameField.getText().length() != 0 &&
-            descriptionField.getText().length() != 0 && creatorField.getText().length() != 0 &&
-            exportedChallenge.knights.size() != 0 && exportedChallenge.hasBlueKnights() &&
-            incorrectRedKnights != null) && (incorrectRedKnights.isEmpty())) {
-                exportedChallenge.setDescription(descriptionField.getText());
-                exportedChallenge.setName(nameField.getText());
-                exportedChallenge.setCreator(creatorField.getText());
-        }
-        else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("ERROR");
-            if (nameField.getText().length() == 0)
-                alert.setContentText("Challenge name cannot be blank");
-            else if(descriptionField.getText().length() == 0)
-                alert.setContentText("Challenge description cannot be blank");
-            else if(creatorField.getText().length() == 0)
-                alert.setContentText("Challenge creator cannot be blank");
-            else if (max_LENGTH  <= descriptionField.getText().length() && max_LENGTH  <= nameField.getText().length() && max_LENGTH  <= creatorField.getText().length() )
-                alert.setContentText("Length of each text cannot be more than " + max_LENGTH + "characters");
-            else if(!exportedChallenge.hasBlueKnights())
-                alert.setContentText("There are no blue knights in the challenge");
-            else if(incorrectRedKnights == null) {
-                alert.setContentText("Solution is incomplete");
-            }
-            else if(!incorrectRedKnights.isEmpty())
-                alert.setContentText("Solution is not correct");
+        boolean isValid = false;
+        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        
+        if (nameField.getText().length() == 0)
+            alert.setContentText("Challenge name cannot be blank");
+        else if(descriptionField.getText().length() == 0)
+            alert.setContentText("Challenge description cannot be blank");
+        else if(creatorField.getText().length() == 0)
+            alert.setContentText("Challenge creator cannot be blank");
+        else if (max_LENGTH  <= descriptionField.getText().length() && max_LENGTH  <= nameField.getText().length() && max_LENGTH  <= creatorField.getText().length() )
+            alert.setContentText("Length of each text cannot be more than " + max_LENGTH + "characters");
+        else if(!exportedChallenge.hasBlueKnights())
+            alert.setContentText("There are no blue knights in the challenge");
+        else if(incorrectRedKnights == null)
+            alert.setContentText("Solution is incomplete");
+        else if(!incorrectRedKnights.isEmpty())
+            alert.setContentText("Solution is not correct");
+        else
+            isValid = true;
 
+        if (isValid) {
+            exportedChallenge.setDescription(descriptionField.getText());
+            exportedChallenge.setName(nameField.getText());
+            exportedChallenge.setCreator(creatorField.getText());
+        } else {
+            alert.setTitle("ERROR");
             alert.setHeaderText(null);
             alert.showAndWait();
-            return;
         }
 
         exportedChallenge.resetWalls();
@@ -341,15 +348,15 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         ButtonType addToCustom = new ButtonType( "Add To Custom Challenges");
         ButtonType ok = new ButtonType("OK", ButtonData.CANCEL_CLOSE);
 
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setTitle("Copy the exported challenge code.");
-        alert.setHeaderText(null);
-        alert.getDialogPane().setContent(gridPane);
-        alert.getButtonTypes().add(clipboard);
-        alert.getButtonTypes().add(addToCustom);
-        alert.getButtonTypes().add(ok);
+        Alert exportAlert = new Alert(Alert.AlertType.NONE);
+        exportAlert.setTitle("Copy the exported challenge code.");
+        exportAlert.setHeaderText(null);
+        exportAlert.getDialogPane().setContent(gridPane);
+        exportAlert.getButtonTypes().add(clipboard);
+        exportAlert.getButtonTypes().add(addToCustom);
+        exportAlert.getButtonTypes().add(ok);
 
-        Optional<ButtonType> result = alert.showAndWait();
+        Optional<ButtonType> result = exportAlert.showAndWait();
 
         if (result.get() == clipboard) {
             CopyUtils.copyToClipboard(textArea.getText());

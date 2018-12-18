@@ -74,7 +74,7 @@ public class GameScreen extends BaseGameScreen {
         addButton(root, "Back", 700, 50, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Game.getInstance().setScreen(previousScreen);
+                changeScreen(previousScreen);
             }
         });
         addButton(root, "Check", 700, 550, new EventHandler<ActionEvent>() {
@@ -104,20 +104,23 @@ public class GameScreen extends BaseGameScreen {
 
     @Override
     protected boolean handleViewClick(BoundedViewObject clickedView, MouseButton button) {
-        if (clickedView instanceof WallView) {
-            WallView wallView = (WallView) clickedView;
-            WallData clickedWall = wallView.getModel();
-            if (button == MouseButton.PRIMARY) {
-                if (selectedPiece == clickedWall) {
-                    selectedPiece = null;
-                } else {
+        if (selectedPiece == null) {
+            if (clickedView instanceof WallView) {
+                WallView wallView = (WallView) clickedView;
+                WallData clickedWall = wallView.getModel();
+                if (button == MouseButton.PRIMARY) {
+                    if (selectedPiece == clickedWall) {
+                        selectedPiece = null;
+                    } else {
+                        clickedWall.setPosition(null);
+                        selectedPiece = clickedWall;
+                    }
+                    return true;
+                } else if (button == MouseButton.SECONDARY) {
                     clickedWall.setPosition(null);
-                    selectedPiece = clickedWall;
+                    saveSession();
+                    return true;
                 }
-                return true;
-            } else if (button == MouseButton.SECONDARY) {
-                clickedWall.setPosition(null);
-                return true;
             }
         }
         return false;
@@ -186,7 +189,7 @@ public class GameScreen extends BaseGameScreen {
     private void handleAlert(String title, String content, boolean show) {
         if (show) {
             ButtonType stayType = new ButtonType("Stay Here", ButtonBar.ButtonData.CANCEL_CLOSE);
-            ButtonType backType = new ButtonType("Go Back to Challenges");
+            ButtonType backType = new ButtonType("Go Back");
             ButtonType nextType = new ButtonType("Go to the Next Challenge");
             
             Alert alert = new Alert(Alert.AlertType.NONE);
@@ -202,35 +205,28 @@ public class GameScreen extends BaseGameScreen {
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.get() == nextType) {
-               Game.getInstance().setScreen(previousScreen);
+               changeScreen(previousScreen);
             } else if (result.get() == backType) {
-               Game.getInstance().setScreen(previousScreen);
+               changeScreen(previousScreen);
             }
         }
     }
     
-    public void saveSession() {
+    private void changeScreen(Screen screen) {
+        Game.getInstance().storageManager.clearSessionFile();
+        Game.getInstance().setScreen(screen);
+    }
+    
+    private void saveSession() {
         try {
             ChallengeData challengeData = Game.getInstance().challengeManager.getChallengeData();
             StorageManager storageManager = Game.getInstance().storageManager;
-            storageManager.makeSessionFile();
             File inputFile = storageManager.sessionData;
             File tempFile = new File(storageManager.wnwData, "tempSession.dat");
 
             BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFile));
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(tempFile));
 
-
-            //boolean isUpdated = false;
-            //for (String lineCode; (lineCode = bufferedReader.readLine()) != null;) {
-               //String trimmedLineCode = lineCode.trim();
-                //if((trimmedLineCode.equals(removeCode)) && !(deleted)) {
-                //    deleted = true;
-                //}
-                //else {
-                //bufferedWriter.write(lineCode + System.getProperty("line.separator"));
-                //}
-            //}
             String code = EncodeUtils.encode(challengeData);
             bufferedWriter.write(code + "\n");
             bufferedReader.close();
