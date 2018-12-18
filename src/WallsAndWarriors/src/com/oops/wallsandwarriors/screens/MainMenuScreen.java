@@ -56,13 +56,15 @@ public class MainMenuScreen extends GeneralScreen {
     
     private ChallengeData checkLastSession() {
         try {
-            BufferedReader sessionReader = Game.getInstance().storageManager.getSessionReader();
-            if (sessionReader != null) {
-                String sessionCode = sessionReader.readLine();
-                sessionReader.close();
-                if (sessionCode != null && !sessionCode.isEmpty()) {
-                    ChallengeData importedSession = EncodeUtils.decode(sessionCode);
-                    return importedSession;
+            if(Game.getInstance().storageManager.sessionData != null) {
+                BufferedReader sessionReader = Game.getInstance().storageManager.getSessionReader();
+                if (sessionReader != null) {
+                    String sessionCode = sessionReader.readLine();
+                    sessionReader.close();
+                    if (sessionCode != null && !sessionCode.isEmpty()) {
+                        ChallengeData importedSession = EncodeUtils.decode(sessionCode);
+                        return importedSession;
+                    }
                 }
             }
         } catch (Exception ex) {
