@@ -8,7 +8,7 @@ public class StorageManager {
     public File wnwData;
     public File campaignChallengeData;
     public File customChallengeData;
-    public File progressData;
+    public File sessionData;
 
     public StorageManager()
     {
@@ -41,16 +41,16 @@ public class StorageManager {
         }
     }
     
-    public void makeProgressFile()
+    public void makeSessionFile()
     {
-        progressData = new File(wnwData,   "progress.dat");
+        sessionData = new File(wnwData,   "session.dat");
 
         try {
-            progressData.createNewFile();
+            sessionData.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        progressData.setWritable(true);
+        sessionData.setWritable(true);
     }
 
 }
