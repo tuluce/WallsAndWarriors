@@ -204,6 +204,7 @@ public class GameScreen extends BaseGameScreen {
         } else if (!incorrectRedKnights.isEmpty()) {
             handleAlert("Mistake", "Problem with red Knights: " + incorrectRedKnights.size(), showMistake);
         } else {
+            Game.getInstance().soundManager.playCongrats();
             handleAlert("WIN", "Congratulations! You solved the challenge.", true);
             if (previousScreen == Game.getInstance().screenManager.campaignChallenges) {
                 editProgressInfo(challenge, true);
