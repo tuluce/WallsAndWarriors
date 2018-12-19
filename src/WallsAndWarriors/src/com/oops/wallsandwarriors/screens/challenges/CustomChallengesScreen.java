@@ -171,15 +171,16 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         creatorLabel.setFont(theFont);
         typeLabel.setFont(theFont);
         warriorLabel.setFont(theFont);
-        nameLabel.setPrefWidth(350.00);
+        double prefferedWidth = 220.00;
+        nameLabel.setPrefWidth(prefferedWidth);
         nameLabel.setWrapText(true);
-        descLabel.setPrefWidth(350.00);
+        descLabel.setPrefWidth(prefferedWidth);
         descLabel.setWrapText(true);
-        creatorLabel.setPrefWidth(350.00);
+        creatorLabel.setPrefWidth(prefferedWidth);
         creatorLabel.setWrapText(true);
-        typeLabel.setPrefWidth(350.00);
+        typeLabel.setPrefWidth(prefferedWidth);
         typeLabel.setWrapText(true);
-        warriorLabel.setPrefWidth(350.00);
+        warriorLabel.setPrefWidth(prefferedWidth);
         warriorLabel.setWrapText(true);
 
         grid.add(nameLabel,0,1);
@@ -187,9 +188,9 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         grid.add(creatorLabel,0,3);
         grid.add(typeLabel,0,4);
         grid.add(warriorLabel,0,5);
-        grid.add(playButton, 0,8);
-        grid.add(shareButton, 0, 9);
-        grid.add(removeButton,0,10);
+        grid.add(playButton, 0,6);
+        grid.add(shareButton, 1, 6);
+        grid.add(removeButton,2,6);
     }
 
     private void shareChallenge(ChallengeData challenge ) throws FileNotFoundException,IOException{
