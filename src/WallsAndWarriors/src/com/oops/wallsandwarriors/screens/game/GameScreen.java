@@ -29,6 +29,7 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Scanner;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -81,10 +82,10 @@ public class GameScreen extends BaseGameScreen {
                 changeScreen(previousScreen);
             }
         });
-        addButton(root, "Check", 700, 550, new EventHandler<ActionEvent>() {
+        addButton(root, "Hint", 700, 550, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                checkSolution(true);
+                showHint();
             }
         });
         addButton(root, "Reset", 650, 550, new EventHandler<ActionEvent>() {
@@ -209,7 +210,24 @@ public class GameScreen extends BaseGameScreen {
             }
         }
     }
-    
+    private void showHint(){
+            ChallengeData challengeData = Game.getInstance().challengeManager.getChallengeData();
+            ChallengeData solutionData = Game.getInstance().challengeSolutionManager.getChallengeData();
+
+            challengeData.walls.get(1).setWallDefinition(solutionData.walls.get(1).getWallDefinition());
+
+            boolean placable =  Game.getInstance().gridManager.isPiecePlacable(solutionData.walls.get(1).getPosition(),challengeData.walls.get(1));
+            if (!placable)
+            {
+                resetState();
+            }
+
+            Game.getInstance().gridManager.attemptPlacement(solutionData.walls.get(1).getPosition(),challengeData.walls.get(1));
+            saveSession();
+            checkSolution(false);
+            return;
+    }
+
     private void handleAlert(String title, String content, boolean show) {
         if (show) {
             ButtonType stayType = new ButtonType("Stay Here", ButtonBar.ButtonData.CANCEL_CLOSE);

@@ -61,11 +61,12 @@ public abstract class BaseChallengesScreen extends GeneralScreen {
         addTransactionButton(root, "Back", 700, 50, Game.getInstance().screenManager.mainMenu);
     }
 
-    public void startChallenge(ChallengeData challengeData)
+    public void startChallenge(ChallengeData challengeData, ChallengeData solutionData)
     {
         Screen gameScreen = Game.getInstance().screenManager.gameScreen;
         ((GameScreen) gameScreen).setPreviousScreen(this);
         Game.getInstance().challengeManager.setChallengeData(challengeData);
+        Game.getInstance().challengeSolutionManager.setChallengeData(solutionData);
         Game.getInstance().setScreen(gameScreen);
     }
 

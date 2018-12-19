@@ -175,9 +175,9 @@ public class ChallengeData implements Serializable {
         int blueKnightsSize = noOfBlueKnights();
         //Checking number of Knights -- In Std: 3 Red Knigthts, 4 Blue Knight, 1 High Tower
 
-        if(4<blueKnightsSize)
+        if(3 < blueKnightsSize)
             return true;
-        else if ( 3 < knights.size()-blueKnightsSize )
+        else if ( 4 < knights.size()-blueKnightsSize )
             return true;
         else if (1<highTowers.size())
             return true;

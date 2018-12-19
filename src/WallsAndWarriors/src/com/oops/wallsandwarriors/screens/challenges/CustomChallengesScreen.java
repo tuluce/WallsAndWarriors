@@ -133,7 +133,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         playButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                startChallenge(challenge.createCopy(true));
+                startChallenge(challenge.createCopy(true),challenge.createCopy(false));
             }
         });
 

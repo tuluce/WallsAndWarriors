@@ -31,6 +31,10 @@ public class WallData implements BorderPiece, Serializable {
     public void setPosition(Coordinate position) {
         this.position = position;
     }
+
+    public void setWallDefinition(WallDefinition definition){
+        this.definition = definition;
+    }
     
     @Override
     public WallData createCopy() {
