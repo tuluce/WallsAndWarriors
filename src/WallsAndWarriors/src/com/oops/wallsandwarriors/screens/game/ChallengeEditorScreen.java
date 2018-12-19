@@ -335,6 +335,7 @@ public class ChallengeEditorScreen extends BaseGameScreen {
             alert.setTitle("ERROR");
             alert.setHeaderText(null);
             alert.showAndWait();
+            return;
         }
 
         exportedChallenge.resetWalls();
@@ -379,11 +380,11 @@ public class ChallengeEditorScreen extends BaseGameScreen {
 
         if(customChallenges.add(toImp)) {
             customChallengesData.update(toImp);
-            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-            alert2.setTitle("Successful");
-            alert2.setContentText("The new challenge added to your \"Custom Challenges\" list successfully!");
-            alert2.setHeaderText(null);
-            alert2.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Successful");
+            alert.setContentText("The new challenge added to your \"Custom Challenges\" list successfully!");
+            alert.setHeaderText(null);
+            alert.showAndWait();
         }
     }
     

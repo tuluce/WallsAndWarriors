@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.oops.wallsandwarriors.util.EncodeUtils;
+import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -30,6 +31,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 public class CustomChallengesScreen extends BaseChallengesScreen {
@@ -182,15 +184,17 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         typeLabel.setWrapText(true);
         warriorLabel.setPrefWidth(prefferedWidth);
         warriorLabel.setWrapText(true);
+        
+        HBox buttons = new HBox();
+        buttons.setSpacing(20);
+        buttons.getChildren().addAll(playButton, shareButton, removeButton);
 
         grid.add(nameLabel,0,1);
         grid.add(descLabel,0,2);
         grid.add(creatorLabel,0,3);
         grid.add(typeLabel,0,4);
         grid.add(warriorLabel,0,5);
-        grid.add(playButton, 0,6);
-        grid.add(shareButton, 1, 6);
-        grid.add(removeButton,2,6);
+        grid.add(buttons, 0, 6);
     }
 
     private void shareChallenge(ChallengeData challenge ) throws FileNotFoundException,IOException{
