@@ -1,7 +1,6 @@
 package com.oops.wallsandwarriors;
 
 import com.oops.wallsandwarriors.util.FileUtils;
-import com.sun.tools.example.debug.tty.EventHandler;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
