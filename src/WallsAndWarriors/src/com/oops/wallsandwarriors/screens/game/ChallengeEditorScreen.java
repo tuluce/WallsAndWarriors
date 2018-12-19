@@ -338,8 +338,6 @@ public class ChallengeEditorScreen extends BaseGameScreen {
             return;
         }
 
-        exportedChallenge.resetWalls();
-
         TextArea textArea = new TextArea(EncodeUtils.encode(exportedChallenge));
         textArea.setEditable(false);
         textArea.setWrapText(true);
