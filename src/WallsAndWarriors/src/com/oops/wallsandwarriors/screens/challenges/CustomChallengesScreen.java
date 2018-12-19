@@ -122,6 +122,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         super.displayChallengePreview(challenge);
         Label nameLabel = new Label("Name: " + challenge.getName());
         Label descLabel = new Label("Description: " + challenge.getDescription());
+
         Label creatorLabel = new Label("Creator: " + challenge.getCreator());
         Label typeLabel = new Label("Type: " + challenge.getType());
         Label warriorLabel = new Label("Info: " + challenge.knights.size() + " Knights");
@@ -170,11 +171,16 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         creatorLabel.setFont(theFont);
         typeLabel.setFont(theFont);
         warriorLabel.setFont(theFont);
-        nameLabel.setMaxWidth(350);
-        descLabel.setMaxWidth(350);
-        creatorLabel.setMaxWidth(350);
-        typeLabel.setMaxWidth(350);
-        warriorLabel.setMaxWidth(350);
+        nameLabel.setPrefWidth(350.00);
+        nameLabel.setWrapText(true);
+        descLabel.setPrefWidth(350.00);
+        descLabel.setWrapText(true);
+        creatorLabel.setPrefWidth(350.00);
+        creatorLabel.setWrapText(true);
+        typeLabel.setPrefWidth(350.00);
+        typeLabel.setWrapText(true);
+        warriorLabel.setPrefWidth(350.00);
+        warriorLabel.setWrapText(true);
 
         grid.add(nameLabel,0,1);
         grid.add(descLabel,0,2);
@@ -184,7 +190,6 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         grid.add(playButton, 0,8);
         grid.add(shareButton, 0, 9);
         grid.add(removeButton,0,10);
-
     }
 
     private void shareChallenge(ChallengeData challenge ) throws FileNotFoundException,IOException{

@@ -305,7 +305,7 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         SolutionManager solutionManager = Game.getInstance().solutionManager;
         ArrayList<KnightData> incorrectRedKnights = solutionManager.checkSolution(exportedChallenge);
 
-        int max_LENGTH = 20;
+        int max_LENGTH = 100;
         boolean isValid = false;
         
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
