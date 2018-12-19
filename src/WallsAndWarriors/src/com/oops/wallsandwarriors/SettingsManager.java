@@ -2,10 +2,12 @@ package com.oops.wallsandwarriors;
 import javafx.scene.paint.Color;
 
 public class SettingsManager {
+
     Color enemyColor = Color.RED;
     Color allyColor = Color.BLUE;
-    double volume;
-    double musicVolume;
+
+    double volume = 1;
+    double musicVolume = 0.5;
 
     public Color getEnemyColor(){
         return enemyColor;
@@ -38,7 +40,8 @@ public class SettingsManager {
 
     public double getMusicVolume(){
         return musicVolume;
-
     }
+
+
 
 }

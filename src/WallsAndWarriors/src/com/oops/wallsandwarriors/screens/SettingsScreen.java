@@ -6,6 +6,8 @@ import com.oops.wallsandwarriors.Game;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
@@ -67,6 +69,7 @@ public class SettingsScreen extends GeneralScreen {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
                 Game.getInstance().settingsManager.setVolume(new_val.doubleValue());
+                Game.getInstance().soundManager.updateSoundVolume();
             }
         });
         sl.setMax(1);
@@ -78,19 +81,29 @@ public class SettingsScreen extends GeneralScreen {
         slmusic.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
-                Game.getInstance().settingsManager.setVolume(new_val.doubleValue());
+                Game.getInstance().settingsManager.setMusicVolume(new_val.doubleValue());
+                Game.getInstance().soundManager.updateMusicVolume();
             }
         });
         slmusic.setMax(1);
         slmusic.setMin(0);
         slmusic.setLayoutX(300);
         slmusic.setLayoutY(250);
+        showOldValueSlider(sl, slmusic);
 
         Game.getInstance().settingsManager.setVolume(sl.getValue());
         Game.getInstance().settingsManager.setMusicVolume(slmusic.getValue());
 
+
         addBackgroundCanvas(root, "/com/oops/wallsandwarriors/resources/images/background2.png", "Settings");
-        addTransactionButton(root, "Back", 700, 550, Game.getInstance().screenManager.mainMenu);
+            addButton(root, "Back", 700, 550, new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    Game.getInstance().storageManager.writeSettings(sl.getValue(),slmusic.getValue());
+                    Game.getInstance().setScreen(Game.getInstance().screenManager.mainMenu);
+                }
+            });
+
         root.getChildren().addAll(cb,sl,slmusic,colorLabel,musicLabel,soundLabel);
         return scene;
     }
@@ -112,6 +125,14 @@ public class SettingsScreen extends GeneralScreen {
         }
         return themeNames;
     }
+    private void showOldValueSlider(Slider sl, Slider slmusic) {
+        double slvalue = Game.getInstance().settingsManager.getVolume();
+        sl.setValue(slvalue);
+        double slval2= Game.getInstance().settingsManager.getMusicVolume();
+        slmusic.setValue(slval2);
+
+    }
+
     
     private void showOldValue(ChoiceBox cb) {
         Color allyColor = Game.getInstance().settingsManager.getAllyColor();

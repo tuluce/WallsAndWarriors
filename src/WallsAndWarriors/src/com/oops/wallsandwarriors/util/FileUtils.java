@@ -1,6 +1,7 @@
 package com.oops.wallsandwarriors.util;
 
 import java.io.InputStream;
+import java.net.URISyntaxException;
 
 public class FileUtils {
     
@@ -20,9 +21,21 @@ public class FileUtils {
     private InputStream getClassInputStream(String filePath) {
         return getClass().getResourceAsStream(filePath);
     }
-    
+
     public static InputStream getInputStream(String filePath) {
         return getInstance().getClassInputStream(filePath);
     }
-    
+
+    private String getClassURI(String filePath) {
+        try {
+            return getClass().getResource(filePath).toURI().toString();
+        } catch (URISyntaxException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getURI(String filePath) {
+        return getInstance().getClassURI(filePath);
+    }
 }

@@ -11,6 +11,7 @@ import com.oops.wallsandwarriors.model.WallData;
 import com.oops.wallsandwarriors.screens.Screen;
 import com.oops.wallsandwarriors.screens.challenges.CampaignChallengesData;
 import com.oops.wallsandwarriors.util.EncodeUtils;
+import com.oops.wallsandwarriors.util.FileUtils;
 import com.oops.wallsandwarriors.view.BackgroundView;
 import com.oops.wallsandwarriors.view.BoundedViewObject;
 import com.oops.wallsandwarriors.view.GridView;
@@ -36,9 +37,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseButton;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 
 public class GameScreen extends BaseGameScreen {
+
+
 
     private GamePaletteView wallPaletteView;
     private Screen previousScreen;
@@ -46,6 +51,7 @@ public class GameScreen extends BaseGameScreen {
     public void setPreviousScreen(Screen previousScreen) {
         this.previousScreen = previousScreen;
     }
+
 
     @Override
     protected void initViewObjects() {
@@ -87,15 +93,31 @@ public class GameScreen extends BaseGameScreen {
                 resetState();
             }
         });
+
+        addButton(root, "Mute", 500, 50, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(Game.getInstance().soundManager.soundCheck()){
+                    Game.getInstance().soundManager.mute();
+                }
+                else
+                    Game.getInstance().soundManager.setInitialVolume();
+            }
+        });
     }
 
     @Override
     protected boolean attemptPlacement() {
         if (hoveredBlock != null && selectedPiece != null &&
             Game.getInstance().gridManager.attemptPlacement(hoveredBlock, selectedPiece)) {
+            Game.getInstance().soundManager.playCorrect();
             saveSession();
             checkSolution(false);
             return true;
+        }
+        else if (hoveredBlock != null && selectedPiece != null &&
+                !Game.getInstance().gridManager.attemptPlacement(hoveredBlock, selectedPiece)) {
+            Game.getInstance().soundManager.playReset();
         }
         return false;
     }
@@ -119,6 +141,7 @@ public class GameScreen extends BaseGameScreen {
                     saveSession();
                     return true;
                 }
+                Game.getInstance().soundManager.playReset();
             }
         }
         return false;
@@ -126,6 +149,7 @@ public class GameScreen extends BaseGameScreen {
 
     @Override
     protected void resetState() {
+        Game.getInstance().soundManager.playReset();
         selectedPiece = null;
         Game.getInstance().challengeManager.getChallengeData().resetWalls();
     }

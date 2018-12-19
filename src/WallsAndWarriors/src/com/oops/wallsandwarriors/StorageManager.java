@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class StorageManager {
 
@@ -15,6 +16,7 @@ public class StorageManager {
     public File customChallengeData;
     public File sessionData;
     public File progressData;
+    public File settingsData;
 
     public StorageManager()
     {
@@ -30,13 +32,72 @@ public class StorageManager {
         makeCampaignChallengesFile();
         makeCustomChallengesFile();
         makeProgressFile();
+        makeSettingsFile();
     }
+
+    public void makeSettingsFile(){
+        settingsData = new File (wnwData,"settings.dat");
+
+        try {
+            settingsData.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        settingsData.setWritable(true);
+
+    }
+
+    public void writeSettings(double sound, double music){
+        try {
+            settingsData = new File(wnwData, "settings.dat");
+            settingsData.createNewFile();
+            BufferedWriter bufferedWriter = new BufferedWriter(
+                    new FileWriter(new File(wnwData, "settings.dat")));
+            bufferedWriter.write(sound + " " + music);
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public double readSoundSetting(){
+
+        try {
+            BufferedReader soundReader = new BufferedReader(new FileReader(new File(wnwData, "settings.dat")));
+            String soundSetting = soundReader.readLine();
+            Scanner soundScanner = new Scanner(soundSetting);
+            return Double.parseDouble(soundScanner.next());
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public double readMusicSetting(){
+        try {
+            BufferedReader soundReader = new BufferedReader(new FileReader(new File(wnwData, "settings.dat")));
+            String soundSetting = soundReader.readLine();
+            Scanner soundScanner = new Scanner(soundSetting);
+            soundScanner.next();
+            return Double.parseDouble(soundScanner.next());
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 
 
     public void makeCampaignChallengesFile()
     {
         campaignChallengeData= new File(wnwData,   "campaign_challenges.dat");
-        campaignChallengeData= new File(wnwData, "campaign_challenges.dat");
+
 
         try {
             campaignChallengeData.createNewFile();
@@ -50,14 +111,14 @@ public class StorageManager {
     public void makeCustomChallengesFile()
     {
         customChallengeData= new File(wnwData,   "custom_challenges.dat");
-        customChallengeData= new File(wnwData, "custom_challenges.dat");
+
 
         try {
             customChallengeData.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         makeSessionFile();
     }
 
@@ -90,7 +151,7 @@ public class StorageManager {
         }
         sessionData.setWritable(true);
     }
-    
+
     public void clearSessionFile() {
         try {
             sessionData = new File(wnwData, "session.dat");
@@ -103,7 +164,7 @@ public class StorageManager {
             e.printStackTrace();
         }
     }
-    
+
     public BufferedReader getSessionReader() throws FileNotFoundException {
         return new BufferedReader(new FileReader(new File(wnwData, "session.dat")));
     }
