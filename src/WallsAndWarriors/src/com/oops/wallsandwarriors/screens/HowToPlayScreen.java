@@ -128,7 +128,7 @@ public class HowToPlayScreen extends GeneralScreen {
         DebugUtils.initClickDebugger(scene);
         addtab(root,scene);
 
-        addTransactionButton(root, "Back", 700, 550, Game.getInstance().screenManager.mainMenu);
+        addTransitionScreen(root, "Back", 700, 550, Game.getInstance().screenManager.mainMenu);
 
         return scene;
     }

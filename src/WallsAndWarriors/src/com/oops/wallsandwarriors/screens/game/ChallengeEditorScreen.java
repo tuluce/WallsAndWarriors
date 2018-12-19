@@ -82,7 +82,7 @@ public class ChallengeEditorScreen extends BaseGameScreen {
     
     @Override
     protected void addComponents(Group root) {
-        addTransactionButton(root, "Back", 700, 50, Game.getInstance().screenManager.mainMenu);
+        addTransitionScreen(root, "Back", 700, 50, Game.getInstance().screenManager.mainMenu);
         addButton(root, "Export", 700, 550, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

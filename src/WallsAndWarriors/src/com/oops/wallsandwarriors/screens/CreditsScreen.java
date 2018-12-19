@@ -21,7 +21,7 @@ public class CreditsScreen extends GeneralScreen {
         
         DebugUtils.initClickDebugger(scene);
         GraphicsContext graphics = addBackgroundCanvas(root, "/com/oops/wallsandwarriors/resources/images/background2.png", "Credits");
-        addTransactionButton(root, "Back", 700, 550, Game.getInstance().screenManager.mainMenu);
+        addTransitionScreen(root, "Back", 700, 550, Game.getInstance().screenManager.mainMenu);
         drawContent(graphics);
 
         return scene;
