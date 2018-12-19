@@ -11,7 +11,6 @@ import com.oops.wallsandwarriors.model.WallData;
 import com.oops.wallsandwarriors.screens.Screen;
 import com.oops.wallsandwarriors.screens.challenges.CampaignChallengesData;
 import com.oops.wallsandwarriors.util.EncodeUtils;
-import com.oops.wallsandwarriors.util.FileUtils;
 import com.oops.wallsandwarriors.view.BackgroundView;
 import com.oops.wallsandwarriors.view.BoundedViewObject;
 import com.oops.wallsandwarriors.view.GridView;
@@ -29,7 +28,6 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.Scanner;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

@@ -3,7 +3,6 @@ package com.oops.wallsandwarriors.screens.challenges;
 import com.oops.wallsandwarriors.Game;
 import com.oops.wallsandwarriors.StorageManager;
 import com.oops.wallsandwarriors.model.ChallengeData;
-import com.oops.wallsandwarriors.screens.game.GameScreen;
 import com.oops.wallsandwarriors.util.EncodeUtils;
 import com.oops.wallsandwarriors.util.FileUtils;
 
@@ -13,7 +12,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -52,13 +50,11 @@ public class CampaignChallengesData {
                         campaignChallengesProgress.add(String.valueOf(text.charAt(i)));
                     }
                 }
-                System.out.println(campaignChallengesProgress.toString());
+                
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
-            System.out.println(campaignChallengesProgress.toString());
 
     }
 

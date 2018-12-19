@@ -16,7 +16,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -26,11 +25,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-import java.awt.*;
 import java.util.List;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.ListView;
+import javafx.scene.text.TextAlignment;
 
 public class CampaignChallengesScreen extends BaseChallengesScreen {
 
@@ -70,34 +71,42 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
 
         HBox hBox = new HBox();
         int hBoxCount = 0;
+        
+        javafx.scene.image.Image lock = new javafx.scene.image.Image(FileUtils.getInputStream(
+                    "/com/oops/wallsandwarriors/resources/images/lock.png"));
 
         for(int i = 0; i < campaignChallenges.size(); i++)
         {
             final int index = i;
 
-
-            javafx.scene.image.Image lock = new javafx.scene.image.Image(FileUtils.getInputStream(
-                    "/com/oops/wallsandwarriors/resources/images/lock.png"));
             ImageView imageView = new ImageView();
-            imageView.setFitHeight(30);
-            imageView.setFitWidth(40);
+            imageView.setFitHeight(80);
+            imageView.setFitWidth(95);
             imageView.setImage(lock);
 
             ChallengeData challengeData = campaignChallenges.get(i);
 
 
-            BorderPane border = new BorderPane();
+            
             Canvas canvas = drawAndGetCanvas(challengeData);
-            border.setCenter(canvas);
-            border.setBottom(new Text("     " + challengeData.getName()));
+            Text challengeNameText = new Text(challengeData.getName());
+            
+            BorderPane border = new BorderPane();
+            
+            BorderPane.setAlignment(challengeNameText, Pos.CENTER);
+            BorderPane.setMargin(challengeNameText, new Insets(0, 0, 20, 0));
+            border.setBottom(challengeNameText);
 
+            
             if(CampaignChallengesData.campaignChallengesProgress.get(i).equals("0") && i != 0)
             {
-                border.setTop(imageView);
+                BorderPane.setMargin(imageView, new Insets(5, 10, 5, 10));
+                border.setCenter(imageView);
             }
             else
             {
-                border.setTop(null);
+                BorderPane.setMargin(canvas, new Insets(5, 10, 5, 10));
+                border.setCenter(canvas);
                 border.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
@@ -105,7 +114,6 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
                     }
                 });
             }
-
 
             if(index / 6  <= hBoxCount)
             {
@@ -153,11 +161,11 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
         Game.getInstance().challengeManager.setChallengeData(challenge);
 
         Canvas previewCanvas = new Canvas();
-        previewCanvas.setHeight(90);
-        previewCanvas.setWidth(120);
+        previewCanvas.setHeight(80);
+        previewCanvas.setWidth(95);
         GraphicsContext graphics = previewCanvas.getGraphicsContext2D();
 
-        GridView gridView = new GridView(3,3, 3, 18);
+        GridView gridView = new GridView(3, 3, 3, 18);
         gridView.draw(graphics, 1);
         for (KnightData knight : challenge.knights) {
             new KnightView(knight, 3, 3, 18).draw(graphics, 1);

@@ -9,6 +9,7 @@ import com.oops.wallsandwarriors.screens.game.GameScreen;
 import com.oops.wallsandwarriors.util.EncodeUtils;
 import com.oops.wallsandwarriors.util.FileUtils;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -67,6 +68,8 @@ public class MainMenuScreen extends GeneralScreen {
                     }
                 }
             }
+        } catch (FileNotFoundException ex) {
+            
         } catch (Exception ex) {
             ex.printStackTrace();
         }
