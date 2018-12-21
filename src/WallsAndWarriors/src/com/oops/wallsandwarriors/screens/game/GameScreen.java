@@ -100,7 +100,6 @@ public class GameScreen extends BaseGameScreen {
                 }
                 else {
                     Game.getInstance().soundManager.setInitialVolume();
-                    Game.getInstance().soundManager.unmute();
                     muteButton.setText("Mute");
                 }
             }

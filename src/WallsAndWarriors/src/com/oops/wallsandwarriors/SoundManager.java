@@ -30,11 +30,7 @@ public class SoundManager {
         mediaplayer.setVolume(0);
         correctSound.setVolume(0);
         resetSound.setVolume(0);
-    }
-    
-    public void unmute() {
-        updateSoundVolume();
-        updateMusicVolume();
+        congrats.setVolume(0);
     }
 
     public boolean soundCheck(){
@@ -45,9 +41,10 @@ public class SoundManager {
     }
 
     public void setInitialVolume(){
-        mediaplayer.setVolume(0.1);
-        correctSound.setVolume(1);
-        resetSound.setVolume(1);
+        mediaplayer.setVolume(Game.getInstance().storageManager.readMusicSetting());
+        correctSound.setVolume(Game.getInstance().storageManager.readSoundSetting());
+        resetSound.setVolume(Game.getInstance().storageManager.readSoundSetting());
+        congrats.setVolume(Game.getInstance().storageManager.readSoundSetting());
     }
 
     public void startPlayMusic(){
@@ -63,18 +60,17 @@ public class SoundManager {
     public void updateSoundVolume(){
         correctSound.setVolume(Game.getInstance().settingsManager.getVolume());
         resetSound.setVolume(Game.getInstance().settingsManager.getVolume());
+        congrats.setVolume(Game.getInstance().settingsManager.getVolume());
     }
 
     public void playCorrect(){
-        correctSound.setVolume(1);
         correctSound.seek(Duration.ZERO);
         correctSound.play();
     }
 
     public void playReset(){
-        resetSound.play();
         resetSound.seek(Duration.ZERO);
+        resetSound.play();
     }
-
 
 }
