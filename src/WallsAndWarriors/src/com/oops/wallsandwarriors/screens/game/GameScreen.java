@@ -35,6 +35,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseButton;
@@ -95,16 +96,26 @@ public class GameScreen extends BaseGameScreen {
             }
         });
 
-        addButton(root, "Mute", 500, 50, new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if(Game.getInstance().soundManager.soundCheck()){
-                    Game.getInstance().soundManager.mute();
-                }
-                else
-                    Game.getInstance().soundManager.setInitialVolume();
-            }
-        });
+       Button mute =  new Button();
+       mute.setText("Mute");
+       mute.setLayoutX(500);
+       mute.setLayoutY(50);
+       mute.setOnAction(new EventHandler<ActionEvent>() {
+           @Override
+           public void handle(ActionEvent event) {
+               if(Game.getInstance().soundManager.soundCheck()){
+                   Game.getInstance().soundManager.mute();
+                   mute.setText("Unmute");
+               }
+               else {
+                   Game.getInstance().soundManager.setInitialVolume();
+                   mute.setText("Mute");
+               }
+           }
+       });
+
+        root.getChildren().add(mute);
+
     }
 
     @Override
