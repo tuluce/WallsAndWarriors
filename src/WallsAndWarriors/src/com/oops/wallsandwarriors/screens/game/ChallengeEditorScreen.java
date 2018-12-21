@@ -144,15 +144,15 @@ public class ChallengeEditorScreen extends BaseGameScreen {
     @Override
     protected boolean attemptPlacement() {
         if (hoveredBlock != null && selectedPiece != null) {
+            Game.getInstance().soundManager.playPrimary();
+        }
+        if (hoveredBlock != null && selectedPiece != null) {
             boolean placed = Game.getInstance().gridManager.attemptPlacement(hoveredBlock, selectedPiece);
             if (placed) {
-                Game.getInstance().soundManager.playCorrect();
                 Game.getInstance().challengeManager.getChallengeData().addPiece(selectedPiece);
                 updateViewList();
                 return true;
             }
-            else
-                Game.getInstance().soundManager.playReset();
         }
         return false;
     }
@@ -160,6 +160,7 @@ public class ChallengeEditorScreen extends BaseGameScreen {
     @Override
     protected boolean handleViewClick(BoundedViewObject clickedView, MouseButton button) {
         if (selectedPiece == null) {
+            Game.getInstance().soundManager.playSecondary();
             if (clickedView instanceof EditorPaletteElementView) {
                 EditorPaletteElementView paletteElement = (EditorPaletteElementView) clickedView;
                 GridPiece clickedPiece = paletteElement.generateModel();
@@ -176,7 +177,6 @@ public class ChallengeEditorScreen extends BaseGameScreen {
                         } else {
                             selectedPiece = null;
                             Alert alert = new Alert(Alert.AlertType.ERROR);
-                            Game.getInstance().soundManager.playReset();
                             alert.setTitle("Wall Count");
                             alert.setContentText("There can be at most 4 walls in a challenge.");
                             alert.setHeaderText(null);
@@ -229,6 +229,7 @@ public class ChallengeEditorScreen extends BaseGameScreen {
     
     @Override
     protected void resetState() {
+        Game.getInstance().soundManager.playSecondary();
         selectedPiece = null;
         previewView = null;
         Game.getInstance().challengeManager.getChallengeData().resetAll();
@@ -315,31 +316,26 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         
         if (nameField.getText().length() == 0) {
-            Game.getInstance().soundManager.playReset();
             alert.setContentText("Challenge name cannot be blank");
         }
         else if(descriptionField.getText().length() == 0) {
-            Game.getInstance().soundManager.playReset();
             alert.setContentText("Challenge description cannot be blank");
         }
         else if(creatorField.getText().length() == 0) {
             alert.setContentText("Challenge creator cannot be blank");
-            Game.getInstance().soundManager.playReset();
         }
-        else if (max_LENGTH  <= descriptionField.getText().length() && max_LENGTH  <= nameField.getText().length() && max_LENGTH  <= creatorField.getText().length() ) {
-            Game.getInstance().soundManager.playReset();
+        else if (max_LENGTH  <= descriptionField.getText().length() &&
+                max_LENGTH  <= nameField.getText().length() &&
+                max_LENGTH  <= creatorField.getText().length() ) {
             alert.setContentText("Length of each text cannot be more than " + max_LENGTH + "characters");
         }
         else if(!exportedChallenge.hasBlueKnights()) {
-            Game.getInstance().soundManager.playReset();
             alert.setContentText("There are no blue knights in the challenge");
         }
         else if(incorrectRedKnights == null) {
-            Game.getInstance().soundManager.playReset();
             alert.setContentText("Solution is incomplete");
         }
         else if(!incorrectRedKnights.isEmpty()) {
-            Game.getInstance().soundManager.playReset();
             alert.setContentText("Solution is not correct");
         }
         else
@@ -350,7 +346,6 @@ public class ChallengeEditorScreen extends BaseGameScreen {
             exportedChallenge.setName(nameField.getText());
             exportedChallenge.setCreator(creatorField.getText());
         } else {
-            Game.getInstance().soundManager.playReset();
             alert.setTitle("ERROR");
             alert.setHeaderText(null);
             alert.showAndWait();

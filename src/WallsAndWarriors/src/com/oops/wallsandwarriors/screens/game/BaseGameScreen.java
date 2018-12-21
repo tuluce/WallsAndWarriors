@@ -101,6 +101,7 @@ public abstract class BaseGameScreen extends GeneralScreen {
                         attemptPlacement();
                     }
                     else if (e.getButton() == MouseButton.SECONDARY && selectedPiece != null) {
+                        Game.getInstance().soundManager.playRotate();
                         selectedPiece.rotate();
                         checkPlacement();
                         return;

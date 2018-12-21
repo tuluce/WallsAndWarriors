@@ -12,6 +12,7 @@ public class SettingsManager {
     public Color getEnemyColor(){
         return enemyColor;
     }
+    
     public void setEnemyColor(Color color){
         enemyColor = color;
     }
@@ -40,6 +41,11 @@ public class SettingsManager {
 
     public double getMusicVolume(){
         return musicVolume;
+    }
+    
+    public void readSettings() {
+        setVolume(Game.getInstance().storageManager.readSoundSetting());
+        setMusicVolume(Game.getInstance().storageManager.readMusicSetting());
     }
 
 

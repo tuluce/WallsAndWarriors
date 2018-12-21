@@ -21,7 +21,16 @@ public abstract class GeneralScreen implements Screen {
     protected Button addButton(Group root, String text, double x, double y, EventHandler<ActionEvent> action) {
         Button button = new Button(text);
         setLayoutPos(button, x , y);
-        button.setOnAction(action);
+        
+        EventHandler<ActionEvent> soundedAction = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Game.getInstance().soundManager.playClick();
+                action.handle(event);
+            }
+        };
+        button.setOnAction(soundedAction);
+        
         root.getChildren().add(button);
         return button;
     }

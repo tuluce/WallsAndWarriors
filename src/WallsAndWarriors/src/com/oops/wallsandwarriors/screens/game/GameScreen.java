@@ -108,16 +108,14 @@ public class GameScreen extends BaseGameScreen {
 
     @Override
     protected boolean attemptPlacement() {
+        if (hoveredBlock != null && selectedPiece != null) {
+            Game.getInstance().soundManager.playPrimary();
+        } 
         if (hoveredBlock != null && selectedPiece != null &&
             Game.getInstance().gridManager.attemptPlacement(hoveredBlock, selectedPiece)) {
-            Game.getInstance().soundManager.playCorrect();
             saveSession();
             checkSolution(false);
             return true;
-        }
-        else if (hoveredBlock != null && selectedPiece != null &&
-                !Game.getInstance().gridManager.attemptPlacement(hoveredBlock, selectedPiece)) {
-            Game.getInstance().soundManager.playReset();
         }
         return false;
     }
@@ -125,6 +123,7 @@ public class GameScreen extends BaseGameScreen {
     @Override
     protected boolean handleViewClick(BoundedViewObject clickedView, MouseButton button) {
         if (selectedPiece == null) {
+            Game.getInstance().soundManager.playSecondary();
             if (clickedView instanceof WallView) {
                 WallView wallView = (WallView) clickedView;
                 WallData clickedWall = wallView.getModel();
@@ -141,7 +140,6 @@ public class GameScreen extends BaseGameScreen {
                     saveSession();
                     return true;
                 }
-                Game.getInstance().soundManager.playReset();
             }
         }
         return false;
@@ -149,7 +147,7 @@ public class GameScreen extends BaseGameScreen {
 
     @Override
     protected void resetState() {
-        Game.getInstance().soundManager.playReset();
+        Game.getInstance().soundManager.playSecondary();
         selectedPiece = null;
         Game.getInstance().challengeManager.getChallengeData().resetWalls();
     }

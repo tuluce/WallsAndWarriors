@@ -109,6 +109,7 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
                 border.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
+                        Game.getInstance().soundManager.playClick();
                         CampaignChallengesScreen.super.startChallenge(challengeData.createCopy(true), challengeData.createCopy(false));
                     }
                 });

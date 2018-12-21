@@ -42,8 +42,7 @@ public class Game {
         stage.setTitle("Walls & Warriors");
         stage.setResizable(false);
         stage.show();
-        settingsManager.setVolume(Game.getInstance().storageManager.readSoundSetting());
-        settingsManager.setMusicVolume(Game.getInstance().storageManager.readMusicSetting());
+        settingsManager.readSettings();
         soundManager.startPlayMusic();
     }
     
