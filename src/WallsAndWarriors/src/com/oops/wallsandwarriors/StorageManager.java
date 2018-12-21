@@ -63,10 +63,15 @@ public class StorageManager {
     public double readSoundSetting(){
 
         try {
-            BufferedReader soundReader = new BufferedReader(new FileReader(new File(wnwData, "settings.dat")));
+            FileReader fileReader = new FileReader(settingsData);
+            BufferedReader soundReader = new BufferedReader(fileReader);
             String soundSetting = soundReader.readLine();
-            Scanner soundScanner = new Scanner(soundSetting);
-            return Double.parseDouble(soundScanner.next());
+            if(soundSetting != null) {
+                Scanner soundScanner = new Scanner(soundSetting);
+                return Double.parseDouble(soundScanner.next());
+            }
+            else
+                return 0.5;
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -78,11 +83,16 @@ public class StorageManager {
 
     public double readMusicSetting(){
         try {
-            BufferedReader soundReader = new BufferedReader(new FileReader(new File(wnwData, "settings.dat")));
+            FileReader fileReader = new FileReader(settingsData);
+            BufferedReader soundReader = new BufferedReader(fileReader);
             String soundSetting = soundReader.readLine();
-            Scanner soundScanner = new Scanner(soundSetting);
-            soundScanner.next();
-            return Double.parseDouble(soundScanner.next());
+            if (soundSetting != null) {
+                Scanner soundScanner = new Scanner(soundSetting);
+                soundScanner.next();
+                return Double.parseDouble(soundScanner.next());
+            }
+            else
+                return 0.5;
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -91,8 +101,6 @@ public class StorageManager {
         }
         return 0;
     }
-
-
 
     public void makeCampaignChallengesFile()
     {
@@ -106,7 +114,6 @@ public class StorageManager {
         }
         campaignChallengeData.setWritable(true);
     }
-
 
     public void makeCustomChallengesFile()
     {
@@ -122,9 +129,6 @@ public class StorageManager {
         makeSessionFile();
     }
 
-
-
-
     public void makeProgressFile()
     {
         progressData = new File(wnwData, "progress.dat");
@@ -138,7 +142,6 @@ public class StorageManager {
 
         progressData.setWritable(true);
     }
-
 
     public void makeSessionFile()
     {
@@ -168,7 +171,6 @@ public class StorageManager {
     public BufferedReader getSessionReader() throws FileNotFoundException {
         return new BufferedReader(new FileReader(new File(wnwData, "session.dat")));
     }
-
 
     public File getProgressData()
     {
