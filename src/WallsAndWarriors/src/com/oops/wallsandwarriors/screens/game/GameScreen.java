@@ -11,7 +11,6 @@ import com.oops.wallsandwarriors.model.WallData;
 import com.oops.wallsandwarriors.screens.Screen;
 import com.oops.wallsandwarriors.screens.challenges.CampaignChallengesData;
 import com.oops.wallsandwarriors.util.EncodeUtils;
-import com.oops.wallsandwarriors.util.FileUtils;
 import com.oops.wallsandwarriors.view.BackgroundView;
 import com.oops.wallsandwarriors.view.BoundedViewObject;
 import com.oops.wallsandwarriors.view.GridView;
@@ -28,31 +27,28 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.Scanner;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseButton;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 
 public class GameScreen extends BaseGameScreen {
 
-
-
     private GamePaletteView wallPaletteView;
     private Screen previousScreen;
+    private Button muteButton;
     
     public void setPreviousScreen(Screen previousScreen) {
         this.previousScreen = previousScreen;
     }
-
 
     @Override
     protected void initViewObjects() {
@@ -95,14 +91,18 @@ public class GameScreen extends BaseGameScreen {
             }
         });
 
-        addButton(root, "Mute", 500, 50, new EventHandler<ActionEvent>() {
+        muteButton = addButton(root, "Mute", 630, 50, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 if(Game.getInstance().soundManager.soundCheck()){
                     Game.getInstance().soundManager.mute();
+                    muteButton.setText("Unmute");
                 }
-                else
+                else {
                     Game.getInstance().soundManager.setInitialVolume();
+                    Game.getInstance().soundManager.unmute();
+                    muteButton.setText("Mute");
+                }
             }
         });
     }
@@ -248,7 +248,7 @@ public class GameScreen extends BaseGameScreen {
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.get() == nextType) {
-               changeScreen(previousScreen);
+               goNextChallenge();
             } else if (result.get() == backType) {
                changeScreen(previousScreen);
             }
@@ -291,8 +291,6 @@ public class GameScreen extends BaseGameScreen {
         }
     }
 
-
-
     public void editProgressInfo(ChallengeData challengeData, boolean isSolved)
     {
         FileWriter fileWriter;
@@ -333,6 +331,20 @@ public class GameScreen extends BaseGameScreen {
         }
         return -1;
     }
-
+    
+    private void goNextChallenge() {
+        ChallengeData current = Game.getInstance().challengeManager.getChallengeData();
+        List<String> progress = CampaignChallengesData.campaignChallengesProgress;
+        int nextIndex = getIndex(current) + 1;
+        if (nextIndex == 0 || nextIndex >= progress.size()) {
+            changeScreen(previousScreen);
+        } else {
+            ChallengeData next = CampaignChallengesData.campaignChallenges.get(nextIndex);
+            Game.getInstance().challengeManager.setChallengeData(next.createCopy(true));
+            Game.getInstance().challengeSolutionManager.setChallengeData(next.createCopy(false));
+            Game.getInstance().setScreen(this);
+        }
+        
+    }
 
 }

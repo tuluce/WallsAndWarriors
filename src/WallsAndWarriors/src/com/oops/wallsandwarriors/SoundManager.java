@@ -31,6 +31,11 @@ public class SoundManager {
         correctSound.setVolume(0);
         resetSound.setVolume(0);
     }
+    
+    public void unmute() {
+        updateSoundVolume();
+        updateMusicVolume();
+    }
 
     public boolean soundCheck(){
         if(mediaplayer.getVolume()> 0 || correctSound.getVolume() > 0 || resetSound.getVolume() > 0){
@@ -49,8 +54,6 @@ public class SoundManager {
         mediaplayer.setCycleCount(Integer.MAX_VALUE);
         mediaplayer.setVolume(Game.getInstance().settingsManager.getMusicVolume());
         mediaplayer.play();
-
-
     }
 
     public void updateMusicVolume(){
@@ -64,16 +67,14 @@ public class SoundManager {
 
     public void playCorrect(){
         correctSound.setVolume(1);
-        correctSound.play();
         correctSound.seek(Duration.ZERO);
+        correctSound.play();
     }
 
     public void playReset(){
         resetSound.play();
         resetSound.seek(Duration.ZERO);
-
     }
-
 
 
 }

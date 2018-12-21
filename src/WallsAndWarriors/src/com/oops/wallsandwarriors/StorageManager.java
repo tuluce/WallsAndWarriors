@@ -37,14 +37,18 @@ public class StorageManager {
 
     public void makeSettingsFile(){
         settingsData = new File (wnwData,"settings.dat");
-
         try {
-            settingsData.createNewFile();
+            if (!settingsData.exists()) {
+                settingsData.createNewFile();
+                BufferedWriter bufferedWriter = new BufferedWriter(
+                    new FileWriter(settingsData));
+                bufferedWriter.write("1 0");
+                bufferedWriter.close();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
         settingsData.setWritable(true);
-
     }
 
     public void writeSettings(double sound, double music){
@@ -52,7 +56,7 @@ public class StorageManager {
             settingsData = new File(wnwData, "settings.dat");
             settingsData.createNewFile();
             BufferedWriter bufferedWriter = new BufferedWriter(
-                    new FileWriter(new File(wnwData, "settings.dat")));
+                    new FileWriter(settingsData));
             bufferedWriter.write(sound + " " + music);
             bufferedWriter.close();
         } catch (IOException e) {
@@ -60,8 +64,7 @@ public class StorageManager {
         }
     }
 
-    public double readSoundSetting(){
-
+    public double readSoundSetting() {
         try {
             BufferedReader soundReader = new BufferedReader(new FileReader(new File(wnwData, "settings.dat")));
             String soundSetting = soundReader.readLine();
@@ -76,7 +79,7 @@ public class StorageManager {
         return 0;
     }
 
-    public double readMusicSetting(){
+    public double readMusicSetting() {
         try {
             BufferedReader soundReader = new BufferedReader(new FileReader(new File(wnwData, "settings.dat")));
             String soundSetting = soundReader.readLine();
