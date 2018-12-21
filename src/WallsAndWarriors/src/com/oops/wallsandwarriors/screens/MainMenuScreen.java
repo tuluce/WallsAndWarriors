@@ -39,7 +39,7 @@ public class MainMenuScreen extends GeneralScreen {
     }
 
     private void addButtons(Group root) {
-        addTransactionButton(root, "Campaign Challenges", 300, 250, 160, 40, Game.getInstance().screenManager.campaignChallenges);
+        addTransactionButton(root, "Campaign Mode", 300, 250, 160, 40, Game.getInstance().screenManager.campaignChallenges);
         addTransactionButton(root, "Custom Challenges", 300, 300, 160, 40, Game.getInstance().screenManager.customChallenges);
         addTransactionButton(root, "Settings", 300, 400, 160, 40, Game.getInstance().screenManager.settings);
         addTransactionButton(root, "How to Play", 300, 450, 160, 40, Game.getInstance().screenManager.howToPlay);

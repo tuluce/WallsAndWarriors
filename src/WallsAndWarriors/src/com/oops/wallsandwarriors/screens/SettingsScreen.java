@@ -10,10 +10,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 
 public class SettingsScreen extends GeneralScreen {
@@ -35,6 +38,9 @@ public class SettingsScreen extends GeneralScreen {
     public Scene getScene() {
         Group root = new Group();
         Scene scene = new Scene(root);
+        GraphicsContext g = addBackgroundCanvas(root, "/com/oops/wallsandwarriors/resources/images/background2.png", "How To Play");
+        g.setFill(Color.BEIGE);
+        g.fillRoundRect(120,160,480,240,30,30);
         
         ColorTheme[] themes = initThemes();
 
@@ -52,17 +58,13 @@ public class SettingsScreen extends GeneralScreen {
             }
         });
 
-        cb.setLayoutX(300);
-        cb.setLayoutY(300);
-        Label colorLabel = new Label("Knight colors");
-        colorLabel.setLayoutX(200);
-        colorLabel.setLayoutY(300);
-        Label musicLabel = new Label("Music");
-        musicLabel.setLayoutY(250);
-        musicLabel.setLayoutX(200);
-        Label soundLabel = new Label("Sound");
-        soundLabel.setLayoutX(200);
-        soundLabel.setLayoutY(200);
+        cb.setLayoutX(330);
+        cb.setLayoutY(330);
+        cb.setPrefWidth(230);
+        
+        addLabel(root, "Sound Volume", 140, 190);
+        addLabel(root, "Music Volume", 140, 260);
+        addLabel(root, "Knight Colors", 140, 330);
 
         Slider sl = new Slider();
         sl.valueProperty().addListener(new ChangeListener<Number>() {
@@ -74,8 +76,9 @@ public class SettingsScreen extends GeneralScreen {
         });
         sl.setMax(1);
         sl.setMin(0);
-        sl.setLayoutX(300);
+        sl.setLayoutX(330);
         sl.setLayoutY(200);
+        sl.setPrefWidth(230);
 
         Slider slmusic = new Slider();
         slmusic.valueProperty().addListener(new ChangeListener<Number>() {
@@ -87,24 +90,24 @@ public class SettingsScreen extends GeneralScreen {
         });
         slmusic.setMax(1);
         slmusic.setMin(0);
-        slmusic.setLayoutX(300);
-        slmusic.setLayoutY(250);
+        slmusic.setLayoutX(330);
+        slmusic.setLayoutY(270);
+        slmusic.setPrefWidth(230);
+        
         showOldValueSlider(sl, slmusic);
 
         Game.getInstance().settingsManager.setVolume(sl.getValue());
         Game.getInstance().settingsManager.setMusicVolume(slmusic.getValue());
 
+        addButton(root, "Back", 700, 550, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Game.getInstance().storageManager.writeSettings(sl.getValue(),slmusic.getValue());
+                Game.getInstance().setScreen(Game.getInstance().screenManager.mainMenu);
+            }
+        });
 
-        addBackgroundCanvas(root, "/com/oops/wallsandwarriors/resources/images/background2.png", "Settings");
-            addButton(root, "Back", 700, 550, new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    Game.getInstance().storageManager.writeSettings(sl.getValue(),slmusic.getValue());
-                    Game.getInstance().setScreen(Game.getInstance().screenManager.mainMenu);
-                }
-            });
-
-        root.getChildren().addAll(cb,sl,slmusic,colorLabel,musicLabel,soundLabel);
+        root.getChildren().addAll(cb,sl,slmusic);
         return scene;
     }
     
@@ -151,6 +154,14 @@ public class SettingsScreen extends GeneralScreen {
             }
         }
         return null;
+    }
+    
+    private void addLabel(Group root, String text, double x, double y) {
+        Label label = new Label(text);
+        label.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 24));
+        label.setLayoutX(x);
+        label.setLayoutY(y);
+        root.getChildren().add(label);
     }
 
 }
