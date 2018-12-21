@@ -10,7 +10,7 @@ public class Game {
     private static Stage stage;
     
     public final ChallengeManager challengeManager;
-    public final ChallengeManager challengeSolutionManager;
+    public final HintManager hintManager;
     public final GridManager gridManager;
     public final ScreenManager screenManager;
     public final SolutionManager solutionManager;
@@ -27,7 +27,7 @@ public class Game {
 
     private Game() {
         challengeManager = new ChallengeManager();
-        challengeSolutionManager = new ChallengeManager();
+        hintManager = new HintManager();
         gridManager = new GridManager();
         screenManager = new ScreenManager();
         solutionManager = new SolutionManager();

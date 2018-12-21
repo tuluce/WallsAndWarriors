@@ -22,7 +22,8 @@ import javafx.scene.text.FontWeight;
 
 public class MainMenuScreen extends GeneralScreen {
     
-    private ChallengeData lastSession;
+    private ChallengeData lastSessionChallenge;
+    private ChallengeData lastSessionHint;
     
     @Override
     public Scene getScene() {
@@ -31,7 +32,7 @@ public class MainMenuScreen extends GeneralScreen {
         
         DebugUtils.initClickDebugger(scene);
         GraphicsContext graphics = addBackgroundCanvas(root);
-        lastSession = checkLastSession();
+        checkLastSession();
         drawUi(graphics);
         addButtons(root);
         
@@ -55,16 +56,18 @@ public class MainMenuScreen extends GeneralScreen {
         addLastSessionButton(root);
     }
     
-    private ChallengeData checkLastSession() {
+    private void checkLastSession() {
         try {
             if(Game.getInstance().storageManager.sessionData != null) {
                 BufferedReader sessionReader = Game.getInstance().storageManager.getSessionReader();
                 if (sessionReader != null) {
-                    String sessionCode = sessionReader.readLine();
+                    String challengeCode = sessionReader.readLine();
+                    String hintCode = sessionReader.readLine();
                     sessionReader.close();
-                    if (sessionCode != null && !sessionCode.isEmpty()) {
-                        ChallengeData importedSession = EncodeUtils.decode(sessionCode);
-                        return importedSession;
+                    if (challengeCode != null && hintCode != null &&
+                        !challengeCode.isEmpty() && !hintCode.isEmpty()) {
+                        lastSessionChallenge = EncodeUtils.decode(challengeCode);
+                        lastSessionHint = EncodeUtils.decode(hintCode);
                     }
                 }
             }
@@ -73,17 +76,17 @@ public class MainMenuScreen extends GeneralScreen {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return null;
     }
     
     private void addLastSessionButton(Group root) {
-        if (lastSession != null) {
+        if (lastSessionChallenge != null) {
             addButton(root, "Continue Last Game", 550, 250, 160, 40, new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     Screen gameScreen = Game.getInstance().screenManager.gameScreen;
                     ((GameScreen) gameScreen).setPreviousScreen(MainMenuScreen.this);
-                    Game.getInstance().challengeManager.setChallengeData(lastSession.createCopy(false));
+                    Game.getInstance().challengeManager.setChallengeData(lastSessionChallenge.createCopy(false));
+                    Game.getInstance().hintManager.setChallengeData(lastSessionHint.createCopy(false));
                     Game.getInstance().setScreen(gameScreen);
                 }
             });
@@ -91,7 +94,7 @@ public class MainMenuScreen extends GeneralScreen {
     }
     
     private void drawLastSessionBackground(GraphicsContext graphics) {
-        if (lastSession != null) {
+        if (lastSessionChallenge != null) {
             graphics.setFill(Color.BEIGE);
             graphics.fillRoundRect(530, 230, 200, 80, 20, 20);
         }

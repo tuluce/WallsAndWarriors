@@ -210,7 +210,7 @@ public class GameScreen extends BaseGameScreen {
     }
     private void showHint(){
             ChallengeData challengeData = Game.getInstance().challengeManager.getChallengeData();
-            ChallengeData solutionData = Game.getInstance().challengeSolutionManager.getChallengeData();
+            ChallengeData solutionData = Game.getInstance().hintManager.getChallengeData();
 
             challengeData.walls.get(1).setWallDefinition(solutionData.walls.get(1).getWallDefinition());
 
@@ -260,16 +260,16 @@ public class GameScreen extends BaseGameScreen {
     private void saveSession() {
         try {
             ChallengeData challengeData = Game.getInstance().challengeManager.getChallengeData();
+            ChallengeData hintData = Game.getInstance().hintManager.getChallengeData();
             StorageManager storageManager = Game.getInstance().storageManager;
             File inputFile = storageManager.sessionData;
             File tempFile = new File(storageManager.wnwData, "tempSession.dat");
 
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFile));
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(tempFile));
 
-            String code = EncodeUtils.encode(challengeData);
-            bufferedWriter.write(code + "\n");
-            bufferedReader.close();
+            String challengeCode = EncodeUtils.encode(challengeData);
+            String hintCode = EncodeUtils.encode(hintData);
+            bufferedWriter.write(challengeCode + "\n" + hintCode + "\n");
             bufferedWriter.close();
             if (!inputFile.delete()) {
                 System.out.println("Could not delete file");
@@ -338,7 +338,7 @@ public class GameScreen extends BaseGameScreen {
         } else {
             ChallengeData next = CampaignChallengesData.campaignChallenges.get(nextIndex);
             Game.getInstance().challengeManager.setChallengeData(next.createCopy(true));
-            Game.getInstance().challengeSolutionManager.setChallengeData(next.createCopy(false));
+            Game.getInstance().hintManager.setChallengeData(next.createCopy(false));
             Game.getInstance().setScreen(this);
         }
         

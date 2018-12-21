@@ -66,7 +66,7 @@ public abstract class BaseChallengesScreen extends GeneralScreen {
         Screen gameScreen = Game.getInstance().screenManager.gameScreen;
         ((GameScreen) gameScreen).setPreviousScreen(this);
         Game.getInstance().challengeManager.setChallengeData(challengeData);
-        Game.getInstance().challengeSolutionManager.setChallengeData(solutionData);
+        Game.getInstance().hintManager.setChallengeData(solutionData);
         Game.getInstance().setScreen(gameScreen);
     }
 
