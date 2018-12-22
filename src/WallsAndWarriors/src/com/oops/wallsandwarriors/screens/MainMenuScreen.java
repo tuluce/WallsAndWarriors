@@ -101,8 +101,7 @@ public class MainMenuScreen extends GeneralScreen {
     }
     
     private void drawUi(GraphicsContext graphics) {
-        Image background = new Image(FileUtils.getInputStream(
-                "/com/oops/wallsandwarriors/resources/images/background.png"));
+        Image background = getContentImage();
         graphics.drawImage(background, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         
         graphics.setFill(Color.BEIGE);
@@ -117,6 +116,14 @@ public class MainMenuScreen extends GeneralScreen {
         graphics.setFont(titleFont);
         graphics.fillText("Walls & Warriors", 200, 150);
         graphics.strokeText("Walls & Warriors", 200, 150);
+    }
+    
+    private static Image contentImage = null;
+    private static Image getContentImage() {
+        if (contentImage == null) {
+            contentImage = new Image(FileUtils.getInputStream("/com/oops/wallsandwarriors/resources/images/background.png"));
+        }
+        return contentImage;
     }
     
 }
