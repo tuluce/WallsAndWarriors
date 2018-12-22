@@ -68,6 +68,8 @@ public class StorageManager {
 
     /**
      * A method to write latest data to the settings.dat file
+     * @param sound double value representing volume(level) of the sound
+     * @param music double value representing volume(level) of the sound
      */
     public void writeSettings(double sound, double music) {
         try {

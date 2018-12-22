@@ -27,7 +27,7 @@ public class EncodeUtils {
      * Method to encode Challenge game object into Base64 String.
      * @param  toEncode  ChallengeData of the object to be encoded into Base64 String
      * @return Encoded String version of the object.
-     * @throws IOException
+     * @throws IOException if an input or output exception occurs during conversion.
      */
     public static String encode(ChallengeData toEncode) throws IOException
     {
@@ -42,7 +42,7 @@ public class EncodeUtils {
      * Method to get byte stream of a ChallengeData object
      * @param toByte, Challenge data object
      * @return objInBytes, bytes of ChallengeData object
-     * @throws IOException
+     * @throws IOException if an input or output exception occurs
      */
     private static byte[] getByteStream(ChallengeData toByte) throws IOException
     {
