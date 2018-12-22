@@ -1,8 +1,3 @@
-/**
- * A class to store the data to be represented in the CampaignChallengesScreen.
- * @author OOPs
- * @version 21.12.19
- */
 package com.oops.wallsandwarriors.screens.challenges;
 
 import com.oops.wallsandwarriors.Game;
@@ -20,6 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * A class to store the data to be represented in the CampaignChallengesScreen.
+ * @author OOPs
+ * @version 21.12.19
+ */
 public class CampaignChallengesData {
     private static final int ZERO = 0;
 
