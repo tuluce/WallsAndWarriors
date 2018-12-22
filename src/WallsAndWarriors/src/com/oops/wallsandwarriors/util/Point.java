@@ -7,8 +7,8 @@ public class Point extends Point2D.Double {
 
     /**
      * Constructor to initialize a point
-     * @param x, x parameter of the point
-     * @param y, y parameter of the point
+     * @param x x parameter of the point
+     * @param y y parameter of the point
      */
     public Point(double x, double y) {
         super(x, y);
@@ -16,7 +16,7 @@ public class Point extends Point2D.Double {
 
     /**
      * Constructor to initialize a point with a coordinate
-     * @param coordinate, the coordinate of the point
+     * @param coordinate the coordinate of the point
      */
     public Point(Coordinate coordinate) {
         super(coordinate.x, coordinate.y);
