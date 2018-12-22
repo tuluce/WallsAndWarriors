@@ -2,7 +2,7 @@ package com.oops.wallsandwarriors.model;
 
 /**
  * An interface to define a generic functionality on grid pieces.
- * @author OOPs
+ * @author Emin Bahadir Tuluce
  */
 public interface GridPiece {
 

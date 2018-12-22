@@ -7,7 +7,7 @@ import java.io.Serializable;
  * attribute of type Coordinate defines the relative positioning of the bastion with
  * respect to the wall origin.
  * Implements Serializable.
- * @author OOPs
+ * @author Emin Bahadir Tuluce
  */
 public class WallBastion implements Serializable {
     

@@ -8,7 +8,7 @@ import java.util.List;
  * objects, one of WallBastion type and the other of WallPortion type to define
  * the wall shape.
  * Implements Serializable
- * @author OOPs
+ * @author Emin Bahadir Tuluce
  */
 public class WallDefinition implements Serializable{
 

@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * A class  used to define and store the positions of game objects on the grid.
  * Implements Serializable
- * @author OOPs
+ * @author Emin Bahadir Tuluce
  */
 public class Coordinate implements Serializable{
     

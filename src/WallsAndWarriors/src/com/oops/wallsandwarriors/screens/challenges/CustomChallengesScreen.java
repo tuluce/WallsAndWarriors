@@ -38,8 +38,10 @@ import javafx.scene.paint.Color;
  * This class implements the distinguishable features for Custom Challenges Screen.
  * Extending the BaseChallengesScreen , it implements an additional methods for
  * the process of importing challenges.
- * @author OOPs
- * @version 21.12.19
+ * @author Tunar Mahmudov
+ * @author Ali Babayev
+ * @author Emin Bahadir Tuluce
+ * @author Cagla Sozen
  */
 public class CustomChallengesScreen extends BaseChallengesScreen {
 

@@ -12,6 +12,7 @@ public class ChallengeManager {
 
     /**
      * A method to set challenge data
+     * @param challengeData the new challenge data for the manager
      */
     public void setChallengeData(ChallengeData challengeData) {
         this.challengeData = challengeData;
@@ -19,7 +20,7 @@ public class ChallengeManager {
 
     /**
      * A method to get challenge data
-     * @return challenge data
+     * @return current challenge data
      */
     public ChallengeData getChallengeData() {
         return challengeData;

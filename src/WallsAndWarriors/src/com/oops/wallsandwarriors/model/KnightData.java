@@ -8,7 +8,7 @@ import java.util.List;
  * A class to be used to define the structure of a knight object. The information is
  * stored as a coordinate to define its position on the grid.
  * Implements BlockPiece, Serializable
- * @author OOPs
+ * @author Emin Bahadir Tuluce
  */
 public class KnightData implements BlockPiece,Serializable {
 

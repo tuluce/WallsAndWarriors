@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * A class to store the marked Coordinates on the grid.
- * @author OOPs
+ * @author Ali Babayev
  */
 public class MarkedCoordinates {
     public final ArrayList<Coordinate> markedCoordinates;

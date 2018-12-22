@@ -30,8 +30,7 @@ import javafx.scene.input.MouseEvent;
  * challenges using the mutual components. But the distinguishing methods will be
  * implemented separately in the sub-classes.
  * Extends GeneralScreen
- * @author OOPs
- * @version 21.12.19
+ * @author Emin Bahadir Tuluce
  */
 public abstract class BaseGameScreen extends GeneralScreen {
     

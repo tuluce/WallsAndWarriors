@@ -13,7 +13,7 @@ import java.util.List;
  * A class to model all different Challenge objects in the game and keeps the
  * regarding information.
  * Implements Serializable
- * @author OOPs
+ * @author Emin Bahadir Tuluce
  */
 public class ChallengeData implements Serializable {
 

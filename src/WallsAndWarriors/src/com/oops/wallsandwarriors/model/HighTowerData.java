@@ -9,7 +9,7 @@ import java.util.List;
  * A class to be used to define the structure of a high tower object. The information
  * is stored as two coordinates which define its position on the grid.
  * Implements BorderPiece, BlockPiece, Serializable
- * @author OOPs
+ * @author Emin Bahadir Tuluce
  */
 public class HighTowerData implements BorderPiece, BlockPiece, Serializable {
 

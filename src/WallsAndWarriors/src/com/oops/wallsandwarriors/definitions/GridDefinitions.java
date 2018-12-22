@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * A class to define the structure of the grid for different sizes.
- * @author OOPs
+ * @author Emin Bahadir Tuluce
  */
 public class GridDefinitions {
     

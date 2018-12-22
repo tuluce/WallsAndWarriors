@@ -11,7 +11,8 @@ import java.util.List;
  * type Coordinate. These two attributes define the shape of a particular wall as
  * described in the WallDefinition and its positioning on the grid.
  * Implements BorderPiece, Serializable
- * @author OOPs
+ * @author Emin Bahadir Tuluce
+ * @author Cagla Sozen
  */
 public class WallData implements BorderPiece, Serializable {
 

@@ -18,11 +18,9 @@ import com.oops.wallsandwarriors.view.HighTowerView;
 import com.oops.wallsandwarriors.view.KnightView;
 import com.oops.wallsandwarriors.view.GamePaletteView;
 import com.oops.wallsandwarriors.view.WallView;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -43,8 +41,10 @@ import javafx.scene.input.MouseButton;
  * This class defines the structure of the game screen (for both custom challenges and
  * campaign challenges)
  * Extends the BaseGameScreen .
- * @author OOPs
- * @version 21.12.19
+ * @author Emin Bahadir Tuluce
+ * @author Ali Babayev
+ * @author Cagla Sozen
+ * @author Merve Sagyatanlar
  */
 public class GameScreen extends BaseGameScreen {
 

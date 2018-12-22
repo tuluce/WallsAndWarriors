@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * A class to define the structure of standard wall types.
- * @author OOPs
+ * @author Emin Bahadir Tuluce
  */
 public class WallDefinitions {
     

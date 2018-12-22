@@ -7,7 +7,7 @@ import java.util.List;
  * An interface to define a generic structure for objects occupying some borders of
  * the grid.
  * Extends GridPiece
- * @author OOPs
+ * @author Emin Bahadir Tuluce
  */
 public interface BorderPiece extends GridPiece {
 

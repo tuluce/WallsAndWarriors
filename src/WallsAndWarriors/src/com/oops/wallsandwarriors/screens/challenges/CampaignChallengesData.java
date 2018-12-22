@@ -1,12 +1,6 @@
-/**
- * A class to store the data to be represented in the CampaignChallengesScreen.
- * @author OOPs
- * @version 21.12.19
- */
 package com.oops.wallsandwarriors.screens.challenges;
 
 import com.oops.wallsandwarriors.Game;
-import com.oops.wallsandwarriors.GameConstants;
 import com.oops.wallsandwarriors.StorageManager;
 import com.oops.wallsandwarriors.model.ChallengeData;
 import com.oops.wallsandwarriors.util.EncodeUtils;
@@ -21,10 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * A class to store the data to be represented in the CampaignChallengesScreen.
+ * @author Tunar Mahmudov
+ */
 public class CampaignChallengesData {
 
+    private final StorageManager storageManager;
     public static List<ChallengeData> campaignChallenges;
-    StorageManager storageManager;
     public static List<String> campaignChallengesProgress;
 
     /**
@@ -32,13 +30,13 @@ public class CampaignChallengesData {
      * with a storageManager and an empty ArrayList of ChallengeData. If there was a saved version
      * initializes the data as such.
      */
-    public CampaignChallengesData()
-    {
+    public CampaignChallengesData() {
         storageManager = Game.getInstance().storageManager;
         campaignChallenges = new ArrayList<>();
         readProgressData();
         writeCampaignChallenges();
     }
+    
     /**
      * A method to read the ProgressData if it exists from previous sessions.
      */
@@ -71,8 +69,7 @@ public class CampaignChallengesData {
     /**
      * A method to write the CampaignChallenges according to the stored challenges if they exist.
      */
-    private void writeCampaignChallenges()
-    {
+    private void writeCampaignChallenges() {
         campaignChallenges.clear();
         FileWriter fileWriter = null;
         try {
@@ -100,12 +97,11 @@ public class CampaignChallengesData {
      * A method to write the progress in the CampaignChallenges to a file to be stored.
      * @param storageManager StorageManager object to be used to manage de storing of the progres..
      */
-    public void writeProgressDataToFile(StorageManager storageManager)
-    {
+    public void writeProgressDataToFile(StorageManager storageManager) {
 
         FileWriter fileWriter = null;
 
-        if(storageManager.getProgressData().length() == 0)
+        if(storageManager.getProgressData().length() == 0) 
         {
             try {
                 fileWriter = new FileWriter(storageManager.progressData);
@@ -136,8 +132,7 @@ public class CampaignChallengesData {
      * A get method to return the campaignChallenges.
      * @return  campaignChallenges as a list of ChallengeData.
      */
-    public List<ChallengeData> getCampaignChallenges()
-    {
+    public List<ChallengeData> getCampaignChallenges() {
         return campaignChallenges;
     }
 }

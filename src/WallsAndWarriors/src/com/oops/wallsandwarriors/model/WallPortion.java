@@ -7,7 +7,7 @@ import java.util.Objects;
  * This class will be used to define the portions of a wall. In this class, relativePos1
  * and relativePos2 attributes of type Coordinate define the relative positioning
  * of the wall portion. The wall lies between these two given coordinates. * Implements Serializable
- * @author OOPs
+ * @author Emin Bahadir Tuluce
  */
 public class WallPortion implements Serializable {
     
