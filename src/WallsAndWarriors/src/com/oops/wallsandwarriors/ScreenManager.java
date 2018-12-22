@@ -10,6 +10,10 @@ import com.oops.wallsandwarriors.screens.MainMenuScreen;
 import com.oops.wallsandwarriors.screens.Screen;
 import com.oops.wallsandwarriors.screens.SettingsScreen;
 
+/**
+ * A class to store the screen instances of the game
+ * @author Emin Bahadir Tuluce
+ */
 public class ScreenManager {
 
     public final Screen challengeEditor = new ChallengeEditorScreen();
