@@ -56,11 +56,13 @@ public class GameScreen extends BaseGameScreen {
      * A method to set the previous screen of the current screen.
      * @param previousScreen as the given previous Screen.
      */
-
     public void setPreviousScreen(Screen previousScreen) {
         this.previousScreen = previousScreen;
     }
 
+    /**
+     * A method to initialize objects in the current view.
+     */
     @Override
     protected void initViewObjects() {
         super.initViewObjects();
@@ -175,6 +177,10 @@ public class GameScreen extends BaseGameScreen {
         drawWalls(deltaTime);
     }
 
+    /**
+     * An abstract method  to draw all wals on the screen to their correct places
+     * @param deltaTime the time difference until last render
+     */
     @Override
     protected void drawWalls(double deltaTime) {
         WallView selectedWallView = null;
@@ -203,6 +209,10 @@ public class GameScreen extends BaseGameScreen {
         }
     }
 
+    /**
+     * A method to check whether the solution of the user to a chosen challenge is correct or not
+     * @param showMistake boolean value to indicate whether to show the mistakes after incorrect solution or not
+     */
     private void checkSolution(boolean showMistake) {
         ChallengeData challenge = Game.getInstance().challengeManager.getChallengeData();
         SolutionManager solutionManager = Game.getInstance().solutionManager;
@@ -220,6 +230,10 @@ public class GameScreen extends BaseGameScreen {
             }
         }
     }
+
+    /**
+     * A method to give by placing one wall to the correct place on the grid hint to the user for the challenge played
+     */
     private void showHint(){
             ChallengeData challengeData = Game.getInstance().challengeManager.getChallengeData();
             ChallengeData solutionData = Game.getInstance().hintManager.getChallengeData();
@@ -239,6 +253,12 @@ public class GameScreen extends BaseGameScreen {
             checkSolution(false);
     }
 
+    /**
+     * A method to show alert message after solving and completing the challenge succesfully
+     * @param title title of the challenge played
+     * @param content content of the challenge played
+     * @param show boolean value to indicate showing status of  the alert message
+     */
     private void handleAlert(String title, String content, boolean show) {
         if (show) {
             ButtonType stayType = new ButtonType("Stay Here", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -264,12 +284,19 @@ public class GameScreen extends BaseGameScreen {
             }
         }
     }
-    
+
+    /**
+     * A method to change the screen on the canvas
+     * @param screen new screen to pass/move
+     */
     private void changeScreen(Screen screen) {
         Game.getInstance().storageManager.clearSessionFile();
         Game.getInstance().setScreen(screen);
     }
-    
+
+    /**
+     * A method to save the session of the player after having sudden system crash while playing the challenge
+     */
     private void saveSession() {
         try {
             ChallengeData challengeData = Game.getInstance().challengeManager.getChallengeData();
@@ -301,6 +328,11 @@ public class GameScreen extends BaseGameScreen {
         }
     }
 
+    /**
+     * A method to edit progress info of the user after solving the challenge played
+     * @param challengeData a challenge played recently/currently
+     * @param isSolved boolean value representing whether the challenge is solved
+     */
     private void editProgressInfo(ChallengeData challengeData, boolean isSolved)
     {
         FileWriter fileWriter;
@@ -327,6 +359,11 @@ public class GameScreen extends BaseGameScreen {
         }
     }
 
+    /**
+     * A method to indicate the index(sequence number) of a challenge in campaign challenges list
+     * @param challengeData challenge to get its index
+     * @return sequence number of the challenge
+     */
     private int getIndex(ChallengeData challengeData)
     {
         for (int i = 0; i < CampaignChallengesData.campaignChallenges.size(); i++) {
@@ -336,7 +373,10 @@ public class GameScreen extends BaseGameScreen {
         }
         return -1;
     }
-    
+
+    /**
+     * A method to pass/go to next challenge after solving the current/recent campaign challenge
+     */
     private void goNextChallenge() {
         ChallengeData current = Game.getInstance().challengeManager.getChallengeData();
         List<String> progress = CampaignChallengesData.campaignChallengesProgress;
