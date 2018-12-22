@@ -40,11 +40,11 @@ public class MainMenuScreen extends GeneralScreen {
     }
 
     private void addButtons(Group root) {
-        addTransactionButton(root, "Campaign Mode", 300, 250, 160, 40, Game.getInstance().screenManager.campaignChallenges);
-        addTransactionButton(root, "Custom Challenges", 300, 300, 160, 40, Game.getInstance().screenManager.customChallenges);
-        addTransactionButton(root, "Settings", 300, 400, 160, 40, Game.getInstance().screenManager.settings);
-        addTransactionButton(root, "How to Play", 300, 450, 160, 40, Game.getInstance().screenManager.howToPlay);
-        addTransactionButton(root, "Credits", 300, 500, 160, 40, Game.getInstance().screenManager.credits);
+        addTransitionButton(root, "Campaign Mode", 300, 250, 160, 40, Game.getInstance().screenManager.campaignChallenges);
+        addTransitionButton(root, "Custom Challenges", 300, 300, 160, 40, Game.getInstance().screenManager.customChallenges);
+        addTransitionButton(root, "Settings", 300, 400, 160, 40, Game.getInstance().screenManager.settings);
+        addTransitionButton(root, "How to Play", 300, 450, 160, 40, Game.getInstance().screenManager.howToPlay);
+        addTransitionButton(root, "Credits", 300, 500, 160, 40, Game.getInstance().screenManager.credits);
         addButton(root, "Challenge Editor", 300, 350, 160, 40, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -72,8 +72,9 @@ public class MainMenuScreen extends GeneralScreen {
                 }
             }
         } catch (FileNotFoundException ex) {
-            
-        } catch (Exception ex) {
+            ;
+        }
+        catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -121,7 +122,8 @@ public class MainMenuScreen extends GeneralScreen {
     private static Image contentImage = null;
     private static Image getContentImage() {
         if (contentImage == null) {
-            contentImage = new Image(FileUtils.getInputStream("/com/oops/wallsandwarriors/resources/images/background.png"));
+            contentImage = new Image(FileUtils.getInputStream(
+                "/com/oops/wallsandwarriors/resources/images/background.png"));
         }
         return contentImage;
     }

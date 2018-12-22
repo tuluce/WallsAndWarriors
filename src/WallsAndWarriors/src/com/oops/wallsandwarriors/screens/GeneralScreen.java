@@ -55,7 +55,7 @@ public abstract class GeneralScreen implements Screen {
         });
     }
     
-    protected Button addTransactionButton(Group root, String text, double x, double y, double width, double height, Screen nextScreen) {
+    protected Button addTransitionButton(Group root, String text, double x, double y, double width, double height, Screen nextScreen) {
         Button button = addTransitionButton(root, text, x, y, nextScreen);
         button.setMinWidth(width);
         button.setMinHeight(height);

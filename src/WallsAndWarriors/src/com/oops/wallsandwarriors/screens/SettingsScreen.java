@@ -26,9 +26,10 @@ import javafx.scene.text.FontWeight;
 public class SettingsScreen extends GeneralScreen {
 
     /**
-     * A inner class for color theme
+     * An inner class for color theme
      */
     private class ColorTheme {
+        
         public final Color allyColor;
         public final Color enemyColor;
 
@@ -39,12 +40,19 @@ public class SettingsScreen extends GeneralScreen {
             this.allyColor = allyColor;
             this.enemyColor = enemyColor;
         }
+        
         @Override
         public String toString() {
-            return getColorName(allyColor) +
-                    " - " + getColorName(enemyColor);
+            return getColorName(allyColor) + " - " + getColorName(enemyColor);
         }
     }
+    
+    private final Color colors[] = {
+            Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW,
+            Color.PURPLE, Color.BROWN, Color.ORANGE, Color.CORNFLOWERBLUE};
+    private final String colorNames[] = {
+            "Blue", "Red", "Green", "Yellow",
+            "Purple", "Brown", "Orange", "Baby Blue"};
     
     @Override
     public Scene getScene() {
@@ -177,12 +185,6 @@ public class SettingsScreen extends GeneralScreen {
 
         cb.setValue(getColorName(allyColor) + " - " + getColorName(enemyColor));
     }
-
-
-    final Color colors[] = {Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW,
-            Color.PURPLE, Color.BROWN, Color.ORANGE, Color.CORNFLOWERBLUE};
-    final String colorNames[] = {"Blue", "Red", "Green", "Yellow", "Purple",
-            "Brown", "Orange", "Baby Blue"};
 
     /**
      * A method to get color name
