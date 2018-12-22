@@ -14,6 +14,7 @@ public class HintManager {
 
     /**
      * A method to set challenge data
+     * @param challengeData challenge data 
      */
     public void setChallengeData(ChallengeData challengeData) {
         this.challengeData = challengeData;

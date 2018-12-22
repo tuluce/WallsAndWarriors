@@ -129,7 +129,6 @@ public class StorageManager {
     public void makeCampaignChallengesFile() {
         campaignChallengeData= new File(wnwData,   "campaign_challenges.dat");
 
-
         try {
             campaignChallengeData.createNewFile();
         } catch (IOException e) {
@@ -143,7 +142,6 @@ public class StorageManager {
      */
     public void makeCustomChallengesFile() {
         customChallengeData= new File(wnwData,   "custom_challenges.dat");
-
 
         try {
             customChallengeData.createNewFile();
@@ -203,6 +201,7 @@ public class StorageManager {
     /**
      * A method to read session from session.dat file
      * @return BufferReader for the session data
+     * @throws FileNotFoundException if file is not found
      */
     public BufferedReader getSessionReader() throws FileNotFoundException {
         return new BufferedReader(new FileReader(new File(wnwData, "session.dat")));

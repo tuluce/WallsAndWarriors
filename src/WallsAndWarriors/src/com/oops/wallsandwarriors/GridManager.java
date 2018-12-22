@@ -20,6 +20,8 @@ public class GridManager {
     /**
      * A method to check whether piece is placeable or not
      * @return true if piece is placeable
+     * @param block gird coordinate
+     * @param piece grid piece
      */
     public boolean isPiecePlacable(Coordinate block, GridPiece piece) {
         if (piece instanceof WallData) {
@@ -35,6 +37,8 @@ public class GridManager {
     /**
      * A method to attempt to place piece
      * @return true if placement performed
+     * @param block grid coordinate
+     * @param piece grid piece
      */
     public boolean attemptPlacement(Coordinate block, GridPiece piece) {
         if (piece instanceof WallData) {
@@ -50,6 +54,8 @@ public class GridManager {
     /**
      * A method to check whether the wall is placeable or not
      * @return true if wall is placeable
+     * @param block grid coordinate
+     * @param wall wall data
      */
     private boolean isWallPlacable(Coordinate block, WallData wall) {
         List<Coordinate> blocks = Game.getInstance().challengeManager.
@@ -80,6 +86,8 @@ public class GridManager {
     /**
      * A method to check whether the knight is placeable or not
      * @return true if knight is placeable
+     * @param block grid coordinate
+     * @param knight test knight to place
      */
     private boolean isKnightPlacable(Coordinate block, KnightData knight) {
         ChallengeData challenge = Game.getInstance().challengeManager.getChallengeData();
@@ -90,6 +98,8 @@ public class GridManager {
     /**
      * A method to check whether the high tower is placeable or not
      * @return true if the high tower is placeable
+     * @param block grid coordinate
+     * @param highTower high tower to place
      */
     private boolean isHighTowerPlacable(Coordinate block, HighTowerData highTower) {
         ChallengeData challenge = Game.getInstance().challengeManager.getChallengeData();
@@ -118,6 +128,8 @@ public class GridManager {
     /**
      * A method to attempt to place a wall
      * @return true placement performed
+     * @param block grid coordinate
+     * @param wall wall to attempt place
      */
     private boolean attemptWallPlacement(Coordinate block, WallData wall) {
         if (isWallPlacable(block, wall)) {
@@ -130,6 +142,8 @@ public class GridManager {
     /**
      * A method to attempt to place a knight
      * @return true placement performed
+     * @param block grid coordinate
+     * @param knight knight to attempt place
      */
     private boolean attemptKnightPlacement(Coordinate block, KnightData knight) {
         if (isKnightPlacable(block, knight)) {
@@ -142,6 +156,8 @@ public class GridManager {
     /**
      * A method to attempt to place a high tower
      * @return true placement performed
+     * @param block grid coordinate
+     * @param highTower high tower to attempt place
      */
     private boolean attemptHighTowerPlacement(Coordinate block, HighTowerData highTower) {
         if (isHighTowerPlacable(block, highTower)) {
@@ -158,6 +174,8 @@ public class GridManager {
     /**
      * A method to check whether the piece is inside of the grid borders or not
      * @return true if piece is inside
+     * @param point point to check
+     * @param gridCoordinate grid coordinate
      */
     private boolean isInside(Point point, Coordinate gridCoordinate) {
         return (gridCoordinate.x - 0.5 <= point.x && point.x <= gridCoordinate.x + 0.5
@@ -167,6 +185,8 @@ public class GridManager {
     /**
      * A method to check whether the points of the pieces in conflict or not
      * @return true if there is no conflict
+     * @param point1 point to check conflict
+     * @param point2 point to check conflict
      */
     private boolean pointsConflict(Point point1, Point point2) {
         return Point2D.distance(point1.x, point1.y, point2.x, point2.y) < (0.35);
