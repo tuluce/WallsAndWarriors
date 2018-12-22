@@ -6,7 +6,7 @@ import javafx.scene.shape.ArcType;
 
 /**
  * A class to draw figures
- * @author OOPs
+ * @author Emin Bahadir Tuluce
  */
 public class DrawUtils {
 
@@ -23,8 +23,6 @@ public class DrawUtils {
         graphics.setLineWidth(lineWidth);
     }
 
-
-
     /**
      * Method to draw a rectangle
      * @param graphics is the graphics instantiation
@@ -37,9 +35,6 @@ public class DrawUtils {
         graphics.fillRect(x, y, width, height);
         graphics.strokeRect(x, y, width, height);
     }
-
-
-
 
     /**
      * Method to draw a round rectangle
@@ -55,9 +50,6 @@ public class DrawUtils {
         graphics.strokeRoundRect(x, y, width, height, arc, arc);
     }
 
-
-
-
     /**
      * Method to draw an oval
      * @param graphics is the graphics instantiation
@@ -70,9 +62,6 @@ public class DrawUtils {
         graphics.fillOval(x, y, width, height);
         graphics.strokeOval(x, y, width, height);
     }
-
-
-
 
     /**
      * Method to draw an arc

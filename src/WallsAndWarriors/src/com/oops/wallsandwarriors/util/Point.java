@@ -4,8 +4,8 @@ import com.oops.wallsandwarriors.model.Coordinate;
 import java.awt.geom.Point2D;
 
 /**
- * A class to manage point coordinates
- * @author OOPs
+ * A class that represents a 2D point
+ * @author Emin Bahadir Tuluce
  */
 public class Point extends Point2D.Double {
 

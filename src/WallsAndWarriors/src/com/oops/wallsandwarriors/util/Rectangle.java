@@ -3,8 +3,8 @@ package com.oops.wallsandwarriors.util;
 import java.awt.geom.Rectangle2D;
 
 /**
- * A class that distributes a rectangle
- * @author OOPs
+ * A class that represents a 2D rectangle
+ * @author Emin Bahadir Tuluce
  */
 public class Rectangle extends Rectangle2D.Double {
 

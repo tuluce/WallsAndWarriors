@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 
 /**
  * A class to manage file utilities
- * @author OOPs
+ * @author Emin Bahadir Tuluce
  */
 public class FileUtils {
     

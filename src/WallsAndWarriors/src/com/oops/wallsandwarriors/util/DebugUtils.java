@@ -5,8 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 
 /**
- * A class to print the coordinates of clicked points
- * @author OOPs
+ * A class for debugging functionalities
+ * @author Emin Bahadir Tuluce
  */
 public class DebugUtils {
     

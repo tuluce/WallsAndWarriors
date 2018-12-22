@@ -4,13 +4,13 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * A class to manage algorithm of an iterator
- * @author OOPs
+ * A class for miscellaneous algorithm methods
+ * @author Emin Bahadir Tuluce
  */
 public class AlgorithmUtils {
 
     /**
-     * Method to remove an element from a list
+     * A thread-safe method to remove an element from a list
      * @param list input list
      * @param element the element in the list that will be removed
      * @param <T> type of the element

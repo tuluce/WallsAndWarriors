@@ -2,7 +2,7 @@ package com.oops.wallsandwarriors.util;
 
 /**
  * A class to manage math utilities
- * @author OOPs
+ * @author Emin Bahadir Tuluce
  */
 public class MathUtils {
 

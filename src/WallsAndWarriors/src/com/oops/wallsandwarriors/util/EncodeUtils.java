@@ -16,7 +16,7 @@ import java.util.Base64;
 /**
  * A class to convert ChallengeData into Base64 code and vice-versa to provide mobility 
  * and easy storage for challenges of all types.
- * @author OOPs
+ * @author Cagla Sozen
  */
 public class EncodeUtils {
 
