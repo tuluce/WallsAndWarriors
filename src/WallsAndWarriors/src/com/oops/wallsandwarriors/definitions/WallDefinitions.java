@@ -1,3 +1,8 @@
+/**
+ * A class to define the structure of standard wall types.
+ * @author OOPs
+ * @version 21.12.19
+ */
 package com.oops.wallsandwarriors.definitions;
 
 import com.oops.wallsandwarriors.model.Coordinate;
