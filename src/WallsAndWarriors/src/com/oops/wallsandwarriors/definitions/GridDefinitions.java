@@ -33,7 +33,13 @@ public class GridDefinitions {
         LARGE = new ArrayList<Coordinate>();
         fillGrid(LARGE, LARGE_ROWS, LARGE_COLUMNS);
     }
-    
+
+    /**
+     * A method to fill the grid for the given dimension(row,column)
+     * @param grid grid of the game
+     * @param rows rows of the grid
+     * @param columns columns of the grid
+     */
     private static void fillGrid(List<Coordinate> grid, int rows, int columns) {
         for (int column = 0; column < columns; column++) {
             for (int row = 0; row < rows; row++) {
