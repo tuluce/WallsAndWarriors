@@ -8,6 +8,10 @@ import com.oops.wallsandwarriors.model.ChallengeData;
 import com.oops.wallsandwarriors.model.KnightData;
 import java.util.ArrayList;
 
+/**
+ * A class for checking a ChallengeData’s correctly solved/unsolved status.
+ * @author Ali Babayev
+ */
 public class SolutionManager {
 
     private final MarkedCoordinates markedCoordinatelist;
@@ -16,16 +20,25 @@ public class SolutionManager {
     private final Coordinate upperCoordinate = new Coordinate(0,-1);
     private final Coordinate downCordinate = new Coordinate(0,1);
     private final ArrayList<KnightData> IncorrectRedKnightList;
-    
+
     private ChallengeData challengeData;
 
+
+    /**
+     * A default constructor that initializes lists of marked coordinates and incorrect enemy knights
+     */
     public SolutionManager() {
         markedCoordinatelist = new MarkedCoordinates();
         IncorrectRedKnightList = new ArrayList<KnightData>();
     }
 
+    /**
+     * A method to check whether solution of the user to the particular challenge is correct
+     * @param newChallengeData ChallengeData drew on the canvas.
+     * @return null if walls are not in their correct places on the grid or list of red(enemy) knights that are marked
+     */
     public ArrayList<KnightData> checkSolution(ChallengeData newChallengeData) {
-        
+
         reset();
         challengeData = newChallengeData;
 
@@ -38,8 +51,8 @@ public class SolutionManager {
 
         //mark high towers
         for(int i = 0; i < challengeData.highTowers.size(); i++){
-                markMapCoordinates(challengeData.highTowers.get(i).getFirstPosition());
-                markMapCoordinates(challengeData.highTowers.get(i).getSecondPosition());
+            markMapCoordinates(challengeData.highTowers.get(i).getFirstPosition());
+            markMapCoordinates(challengeData.highTowers.get(i).getSecondPosition());
         }
 
         //check whether RED knights are marked, if there is, then add them to the list(IncorrectRedKnightList)
@@ -93,6 +106,10 @@ public class SolutionManager {
         return null;
     }
 
+    /**
+     * A method to mark the given coordinate
+     * @param coordinate coordinate to get marked
+     */
     private void markMapCoordinates(Coordinate coordinate) {
         if( !(markedCoordinatelist.findCoordinate(coordinate)) && isProperCoordinate(coordinate)) {
             markedCoordinatelist.addMarkedCoordinate(coordinate);
@@ -133,6 +150,11 @@ public class SolutionManager {
         }
     }
 
+    /**
+     * A method to check whether given coordinate is belong to the grid
+     * @param coordinate coordinate to check its belonging
+     * @return boolean value representing belonging status of the given coordinate
+     */
     private boolean isProperCoordinate(Coordinate coordinate) {
         for(Coordinate aCoordinate : challengeData.blocks) {
             if(coordinate.equals(aCoordinate))
@@ -141,9 +163,11 @@ public class SolutionManager {
         return false;
     }
 
+    /**
+     * A method to reset both coordinates marked and red(enemy) knights listed as incorrect placed
+     */
     private void reset() {
         IncorrectRedKnightList.clear();
         markedCoordinatelist.clearMarks();
     }
-    
 }
