@@ -1,11 +1,3 @@
-/**
- * A class to implement the distinguishable features for Campaign Challenges Screen.
- * Extending the BaseChallengesScreen , it implements an additional method for
- * marking locked challenges.
- * Extends BaseChallengesScreen
- * @author OOPs
- * @version 21.12.19
- */
 package com.oops.wallsandwarriors.screens.challenges;
 
 import com.oops.wallsandwarriors.model.ChallengeData;
@@ -40,6 +32,14 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ListView;
 
+/**
+ * A class to implement the distinguishable features for Campaign Challenges Screen.
+ * Extending the BaseChallengesScreen , it implements an additional method for
+ * marking locked challenges.
+ * Extends BaseChallengesScreen
+ * @author OOPs
+ * @version 21.12.19
+ */
 public class CampaignChallengesScreen extends BaseChallengesScreen {
     private static final int HEIGHT = 80;
     private static final int WIDTH = 95;
