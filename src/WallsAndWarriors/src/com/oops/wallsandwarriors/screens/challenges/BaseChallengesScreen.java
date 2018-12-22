@@ -95,8 +95,8 @@ public abstract class BaseChallengesScreen extends GeneralScreen {
      * @param root a Group object to indicate the root of the screen.
      */
     public void renderButtons(Group root) {
-        addTransitionScreen(root, "Back", GameConstants.BASE_CHAL_BUTTON_X,
-                GameConstants.BASE_CHAL_BUTTON_Y, Game.getInstance().screenManager.mainMenu);
+        addTransitionButton(root, "Back", GameConstants.BACK_BUTTON_X,
+                GameConstants.BACK_BUTTON_Y, Game.getInstance().screenManager.mainMenu);
     }
 
     /**

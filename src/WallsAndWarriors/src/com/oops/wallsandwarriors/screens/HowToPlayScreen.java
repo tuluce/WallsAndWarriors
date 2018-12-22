@@ -1,6 +1,7 @@
 package com.oops.wallsandwarriors.screens;
 
 import com.oops.wallsandwarriors.Game;
+import com.oops.wallsandwarriors.GameConstants;
 import com.oops.wallsandwarriors.util.FileUtils;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -20,7 +21,8 @@ public class HowToPlayScreen extends GeneralScreen {
         g.fillRoundRect(10, 80, 784, 450, 30, 30);
         Image content = getContentImage();
         g.drawImage(content, 20, 90, 784.0, 450.6);
-        addTransitionScreen(root, "Back", 700, 550, Game.getInstance().screenManager.mainMenu);
+        addTransitionButton(root, "Back", GameConstants.BACK_BUTTON_X,
+                GameConstants.BACK_BUTTON_Y, Game.getInstance().screenManager.mainMenu);
 
         return scene;
     }

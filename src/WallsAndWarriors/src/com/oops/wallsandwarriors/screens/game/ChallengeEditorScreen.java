@@ -88,7 +88,7 @@ public class ChallengeEditorScreen extends BaseGameScreen {
     
     @Override
     protected void addComponents(Group root) {
-        addTransitionScreen(root, "Back", GameConstants.EDITOR_BACK_X,
+        addTransitionButton(root, "Back", GameConstants.EDITOR_BACK_X,
                 GameConstants.EDITOR_BACK_Y, Game.getInstance().screenManager.mainMenu);
         addButton(root, "Export", GameConstants.EDITOR_EXP_X,
                 GameConstants.EDITOR_EXP_Y, new EventHandler<ActionEvent>() {
