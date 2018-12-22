@@ -1,8 +1,3 @@
-/**
- * A class to define the structure of standard wall types.
- * @author OOPs
- * @version 21.12.19
- */
 package com.oops.wallsandwarriors.definitions;
 
 import com.oops.wallsandwarriors.model.Coordinate;
@@ -13,6 +8,11 @@ import com.oops.wallsandwarriors.model.WallPortion;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class to define the structure of standard wall types.
+ * @author OOPs
+ * @version 21.12.19
+ */
 public class WallDefinitions {
     
     public static final List<WallData> STANDARD;
