@@ -1,8 +1,3 @@
-/**
- * A class to store the data to be represented in the CustomChallengesScreen.
- * @author OOPs
- * @version 21.12.19
- */
 package com.oops.wallsandwarriors.screens.challenges;
 
 import com.oops.wallsandwarriors.Game;
@@ -22,6 +17,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class to store the data to be represented in the CustomChallengesScreen.
+ * @author OOPs
+ * @version 21.12.19
+ */
 public class CustomChallengesData {
 
 
