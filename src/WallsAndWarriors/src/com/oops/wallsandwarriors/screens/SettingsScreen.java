@@ -3,7 +3,6 @@ package com.oops.wallsandwarriors.screens;
 
 import com.oops.wallsandwarriors.util.DebugUtils;
 import com.oops.wallsandwarriors.Game;
-import com.oops.wallsandwarriors.GameConstants;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -19,19 +18,31 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-
+/**
+ * A class to implement high tower view
+ * @author Merve Sagyatanlar
+ * @author Emin Bahadir Tuluce
+ */
 public class SettingsScreen extends GeneralScreen {
-    
+
+    /**
+     * A inner class for color theme
+     */
     private class ColorTheme {
         public final Color allyColor;
         public final Color enemyColor;
+
+        /**
+         * A constructor for color theme inner class with given parameters
+         */
         public ColorTheme(Color allyColor, Color enemyColor) {
             this.allyColor = allyColor;
             this.enemyColor = enemyColor;
         }
         @Override
         public String toString() {
-            return getColorName(allyColor) + " - " + getColorName(enemyColor);
+            return getColorName(allyColor) +
+                    " - " + getColorName(enemyColor);
         }
     }
     
@@ -39,7 +50,9 @@ public class SettingsScreen extends GeneralScreen {
     public Scene getScene() {
         Group root = new Group();
         Scene scene = new Scene(root);
-        GraphicsContext g = addBackgroundCanvas(root, "/com/oops/wallsandwarriors/resources/images/background2.png", "How To Play");
+        GraphicsContext g = addBackgroundCanvas(root,
+                "/com/oops/wallsandwarriors/resources/images/background2.png",
+                "How To Play");
         g.setFill(Color.BEIGE);
         g.fillRoundRect(120,160,480,240,30,30);
         
@@ -48,9 +61,11 @@ public class SettingsScreen extends GeneralScreen {
         DebugUtils.initClickDebugger(scene);
         ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList(getThemeNames(themes)));
         showOldValue(cb);
-        cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+        cb.getSelectionModel().selectedIndexProperty().
+                addListener(new ChangeListener<Number>() {
             @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+            public void changed(ObservableValue<? extends Number> observable,
+                                Number oldValue, Number newValue) {
                 int index = newValue.intValue();
                 Color allyColor = themes[index].allyColor;
                 Color enemyColor = themes[index].enemyColor;
@@ -100,11 +115,11 @@ public class SettingsScreen extends GeneralScreen {
         Game.getInstance().settingsManager.setVolume(sl.getValue());
         Game.getInstance().settingsManager.setMusicVolume(slmusic.getValue());
 
-        addButton(root, "Back", GameConstants.BACK_BUTTON_X, GameConstants.BACK_BUTTON_Y,
-            new EventHandler<ActionEvent>() {
+        addButton(root, "Back", 700, 550, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Game.getInstance().storageManager.writeSettings(sl.getValue(),slmusic.getValue());
+                Game.getInstance().storageManager.
+                        writeSettings(sl.getValue(),slmusic.getValue());
                 Game.getInstance().setScreen(Game.getInstance().screenManager.mainMenu);
             }
         });
@@ -112,7 +127,11 @@ public class SettingsScreen extends GeneralScreen {
         root.getChildren().addAll(cb,sl,slmusic);
         return scene;
     }
-    
+
+    /**
+     * A method to get initial themes
+     * @return themes array
+     */
     private ColorTheme[] initThemes() {
         ColorTheme[] themes = {
             new ColorTheme(Color.BLUE, Color.RED),
@@ -122,7 +141,11 @@ public class SettingsScreen extends GeneralScreen {
         };
         return themes;
     }
-    
+
+    /**
+     * A method to get theme names
+     * @return theme names array
+     */
     private String[] getThemeNames(ColorTheme[] themes) {
         String[] themeNames = new String[themes.length];
         for (int i = 0; i < themes.length; i++) {
@@ -130,6 +153,12 @@ public class SettingsScreen extends GeneralScreen {
         }
         return themeNames;
     }
+
+    /**
+     * A method to show old value of the sliders
+     * @param sl slider for sound
+     * @param slmusic slider for music
+     */
     private void showOldValueSlider(Slider sl, Slider slmusic) {
         double slvalue = Game.getInstance().settingsManager.getVolume();
         sl.setValue(slvalue);
@@ -138,17 +167,28 @@ public class SettingsScreen extends GeneralScreen {
 
     }
 
-    
+    /**
+     * A method to show old value of the choice box
+     * @param cb choice boz for color
+     */
     private void showOldValue(ChoiceBox cb) {
         Color allyColor = Game.getInstance().settingsManager.getAllyColor();
         Color enemyColor = Game.getInstance().settingsManager.getEnemyColor();
 
         cb.setValue(getColorName(allyColor) + " - " + getColorName(enemyColor));
     }
-    
-    final Color colors[] = {Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW, Color.PURPLE, Color.BROWN, Color.ORANGE, Color.CORNFLOWERBLUE};
-    final String colorNames[] = {"Blue", "Red", "Green", "Yellow", "Purple", "Brown", "Orange", "Baby Blue"};
-    
+
+
+    final Color colors[] = {Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW,
+            Color.PURPLE, Color.BROWN, Color.ORANGE, Color.CORNFLOWERBLUE};
+    final String colorNames[] = {"Blue", "Red", "Green", "Yellow", "Purple",
+            "Brown", "Orange", "Baby Blue"};
+
+    /**
+     * A method to get color name
+     * @param color theme color
+     * @return color name
+     */
     private String getColorName(Color color) {
         for (int i = 0; i < colors.length; i++) {
             if (colors[i].equals(color)) {
@@ -157,7 +197,14 @@ public class SettingsScreen extends GeneralScreen {
         }
         return null;
     }
-    
+
+    /**
+     * A method to add label
+     * @param text label text
+     * @param root Group object
+     * @param x layout coordinate
+     * @param y layout coordinate
+     */
     private void addLabel(Group root, String text, double x, double y) {
         Label label = new Label(text);
         label.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 24));
