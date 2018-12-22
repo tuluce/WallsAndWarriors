@@ -1,15 +1,14 @@
-/**
- * A class to define the structure of the grid for different sizes.
- * @author OOPs
- * @version 21.12.19
- */
-
 package com.oops.wallsandwarriors.definitions;
 
 import com.oops.wallsandwarriors.model.Coordinate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class to define the structure of the grid for different sizes.
+ * @author OOPs
+ * @version 21.12.19
+ */
 public class GridDefinitions {
     
     public static final List<Coordinate> SMALL;
