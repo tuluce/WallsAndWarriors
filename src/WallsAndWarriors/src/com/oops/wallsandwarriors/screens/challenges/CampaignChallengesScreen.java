@@ -38,7 +38,6 @@ import javafx.scene.control.ListView;
  * marking locked challenges.
  * Extends BaseChallengesScreen
  * @author OOPs
- * @version 21.12.19
  */
 public class CampaignChallengesScreen extends BaseChallengesScreen {
     private static final int HEIGHT = 80;

@@ -9,7 +9,6 @@ import java.util.List;
  * the wall shape.
  * Implements Serializable
  * @author OOPs
- * @version 21.12.19
  */
 public class WallDefinition implements Serializable{
 

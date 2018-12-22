@@ -8,7 +8,6 @@ import java.util.List;
  * the grid.
  * Extends GridPiece
  * @author OOPs
- * @version 21.12.19
  */
 public interface BorderPiece extends GridPiece {
 

@@ -18,11 +18,9 @@ import com.oops.wallsandwarriors.view.HighTowerView;
 import com.oops.wallsandwarriors.view.KnightView;
 import com.oops.wallsandwarriors.view.GamePaletteView;
 import com.oops.wallsandwarriors.view.WallView;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -44,7 +42,6 @@ import javafx.scene.input.MouseButton;
  * campaign challenges)
  * Extends the BaseGameScreen .
  * @author OOPs
- * @version 21.12.19
  */
 public class GameScreen extends BaseGameScreen {
 
@@ -341,7 +338,7 @@ public class GameScreen extends BaseGameScreen {
         ChallengeData current = Game.getInstance().challengeManager.getChallengeData();
         List<String> progress = CampaignChallengesData.campaignChallengesProgress;
         int nextIndex = getIndex(current) + 1;
-        if (nextIndex == GameConstants.ZERO || nextIndex >= progress.size()) {
+        if (nextIndex == 0 || nextIndex >= progress.size()) {
             changeScreen(previousScreen);
         } else {
             ChallengeData next = CampaignChallengesData.campaignChallenges.get(nextIndex);
@@ -351,4 +348,5 @@ public class GameScreen extends BaseGameScreen {
         }
         
     }
+    
 }

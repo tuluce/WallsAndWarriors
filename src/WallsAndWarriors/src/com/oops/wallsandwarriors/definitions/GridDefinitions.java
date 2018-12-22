@@ -7,7 +7,6 @@ import java.util.List;
 /**
  * A class to define the structure of the grid for different sizes.
  * @author OOPs
- * @version 21.12.19
  */
 public class GridDefinitions {
     
@@ -38,7 +37,8 @@ public class GridDefinitions {
     private static void fillGrid(List<Coordinate> grid, int rows, int columns) {
         for (int column = 0; column < columns; column++) {
             for (int row = 0; row < rows; row++) {
-                if (! ((column == 0 || column == columns - 1) && (row == 0 || row == rows - 1))) {
+                if (! ((column == 0 || column == columns - 1) &&
+                        (row == 0 || row == rows - 1))) {
                     grid.add(new Coordinate(column, row));
                 }
             }

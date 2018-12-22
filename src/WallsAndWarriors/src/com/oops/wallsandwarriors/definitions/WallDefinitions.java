@@ -11,7 +11,6 @@ import java.util.List;
 /**
  * A class to define the structure of standard wall types.
  * @author OOPs
- * @version 21.12.19
  */
 public class WallDefinitions {
     

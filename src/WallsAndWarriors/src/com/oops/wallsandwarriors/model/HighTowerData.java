@@ -10,7 +10,6 @@ import java.util.List;
  * is stored as two coordinates which define its position on the grid.
  * Implements BorderPiece, BlockPiece, Serializable
  * @author OOPs
- * @version 21.12.19
  */
 public class HighTowerData implements BorderPiece, BlockPiece, Serializable {
 

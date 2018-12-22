@@ -8,7 +8,6 @@ import java.util.Objects;
  * and relativePos2 attributes of type Coordinate define the relative positioning
  * of the wall portion. The wall lies between these two given coordinates. * Implements Serializable
  * @author OOPs
- * @version 21.12.19
  */
 public class WallPortion implements Serializable {
     

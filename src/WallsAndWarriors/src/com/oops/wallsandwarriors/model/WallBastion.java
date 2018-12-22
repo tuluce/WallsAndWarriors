@@ -8,7 +8,6 @@ import java.io.Serializable;
  * respect to the wall origin.
  * Implements Serializable.
  * @author OOPs
- * @version 21.12.19
  */
 public class WallBastion implements Serializable {
     

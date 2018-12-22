@@ -25,7 +25,6 @@ import java.util.List;
  * sub-classes.
  * Extends GeneralScreen
  * @author OOPs
- * @version 21.12.19
  */
 public abstract class BaseChallengesScreen extends GeneralScreen {
 

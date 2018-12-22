@@ -9,7 +9,6 @@ import java.util.List;
  * stored as a coordinate to define its position on the grid.
  * Implements BlockPiece, Serializable
  * @author OOPs
- * @version 21.12.19
  */
 public class KnightData implements BlockPiece,Serializable {
 

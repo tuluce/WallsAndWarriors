@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.oops.wallsandwarriors.util.EncodeUtils;
-import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -39,7 +38,6 @@ import javafx.scene.paint.Color;
  * Extending the BaseChallengesScreen , it implements an additional methods for
  * the process of importing challenges.
  * @author OOPs
- * @version 21.12.19
  */
 public class CustomChallengesScreen extends BaseChallengesScreen {
 

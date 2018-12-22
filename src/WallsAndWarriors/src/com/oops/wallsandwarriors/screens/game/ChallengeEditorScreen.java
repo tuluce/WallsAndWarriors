@@ -47,7 +47,6 @@ import javafx.scene.text.Font;
  * This class defines the structure of the editor screen for Challenge Editor.
  * Extends BaseGameScreen
  * @author OOPs
- * @version 21.12.19
  */
 public class ChallengeEditorScreen extends BaseGameScreen {
     
@@ -329,13 +328,13 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         
-        if (nameField.getText().length() == GameConstants.ZERO) {
+        if (nameField.getText().length() == 0) {
             alert.setContentText("Challenge name cannot be blank");
         }
-        else if (descriptionField.getText().length() == GameConstants.ZERO) {
+        else if (descriptionField.getText().length() == 0) {
             alert.setContentText("Challenge description cannot be blank");
         }
-        else if (creatorField.getText().length() == GameConstants.ZERO) {
+        else if (creatorField.getText().length() == 0) {
             alert.setContentText("Challenge creator cannot be blank");
         }
         else if (max_LENGTH  <= descriptionField.getText().length() &&
@@ -370,7 +369,7 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         textArea.setEditable(false);
         textArea.setWrapText(true);
         GridPane gridPane = new GridPane();
-        gridPane.add(textArea, GameConstants.ZERO, GameConstants.ZERO);
+        gridPane.add(textArea, 0, 0);
         ButtonType clipboard = new ButtonType("Copy To Clipboard");
         ButtonType addToCustom = new ButtonType( "Add To Custom Challenges");
         ButtonType ok = new ButtonType("OK", ButtonData.CANCEL_CLOSE);

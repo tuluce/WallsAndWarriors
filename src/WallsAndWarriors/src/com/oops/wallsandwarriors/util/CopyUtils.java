@@ -1,15 +1,12 @@
-/**
- * A class to utilize  in the game to copy Base64 text to clipboard by a single button.
- * @author OOPs
- * @version 21.12.19
- */
-
 package com.oops.wallsandwarriors.util;
 
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 
-
+/**
+ * A class to utilize  in the game to copy Base64 text to clipboard by a single button.
+ * @author OOPs
+ */
 public class CopyUtils {
 
     /**

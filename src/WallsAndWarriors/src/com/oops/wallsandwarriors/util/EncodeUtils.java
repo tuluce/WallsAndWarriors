@@ -1,10 +1,3 @@
-/**
- * A class to convert ChallengeData into Base64 code and vice-versa to provide mobility 
- * and easy storage for challenges of all types.
- * @author OOPs
- * @version 21.12.19
- */
-
 package com.oops.wallsandwarriors.util;
 
 import com.oops.wallsandwarriors.model.ChallengeData;
@@ -20,6 +13,11 @@ import java.io.ObjectOutputStream;
 
 import java.util.Base64;
 
+/**
+ * A class to convert ChallengeData into Base64 code and vice-versa to provide mobility 
+ * and easy storage for challenges of all types.
+ * @author OOPs
+ */
 public class EncodeUtils {
 
     private static String base64;

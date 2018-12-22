@@ -20,7 +20,6 @@ import java.util.List;
 /**
  * A class to store the data to be represented in the CustomChallengesScreen.
  * @author OOPs
- * @version 21.12.19
  */
 public class CustomChallengesData {
 

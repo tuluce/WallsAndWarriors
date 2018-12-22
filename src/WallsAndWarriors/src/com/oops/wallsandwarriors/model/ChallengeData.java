@@ -14,7 +14,6 @@ import java.util.List;
  * regarding information.
  * Implements Serializable
  * @author OOPs
- * @version 21.12.19
  */
 public class ChallengeData implements Serializable {
 
@@ -58,7 +57,6 @@ public class ChallengeData implements Serializable {
      * A default constructor that initializes a ChallengeData with no given parameters
      * with a SMALL grid and STANDARD walls .
      */
-
     public ChallengeData() {
         this(GridDefinitions.SMALL, WallDefinitions.STANDARD);
     }
@@ -67,7 +65,6 @@ public class ChallengeData implements Serializable {
      * Method to add any given grid piece to the ChallengeData.
      * @param  piece  Piece of any kind to be added.
      */
-
     public void addPiece(GridPiece piece) {
         if (piece instanceof WallData) {
             walls.add((WallData) piece);
@@ -125,6 +122,7 @@ public class ChallengeData implements Serializable {
         borderPieces.clear();
         blockPieces.clear();
     }
+    
     /**
      * Method to get the border points which are occupied currently in the Challenge.
      * @return List of occupied border Points.
@@ -246,23 +244,23 @@ public class ChallengeData implements Serializable {
     public boolean isWild(){
 
         int blueKnightsSize = noOfBlueKnights();
+        
         //Checking number of Knights -- In Std: 3 Red Knigthts, 4 Blue Knight, 1 High Tower
-
         if(3 < blueKnightsSize)
             return true;
-        else if ( 4 < knights.size()-blueKnightsSize )
+        else if (4 < knights.size() - blueKnightsSize)
             return true;
-        else if (1<highTowers.size())
+        else if (1 < highTowers.size())
             return true;
-
 
         //Checking if there are more than two instances of the same wall
-        for( int i = 0; i< walls.size(); i++)
+        for (int i = 0; i < walls.size(); i++)
         {
-            for ( int j =  i+1 ; j < walls.size();j++)
-                if( walls.get(i).isPieceEqual(walls.get(j)) ){
+            for (int j =  i+1; j < walls.size(); j++) {
+                if (walls.get(i).isPieceEqual(walls.get(j))) {
                     return true;
                 }
+            }
         }
         return false ;
     }
@@ -272,8 +270,8 @@ public class ChallengeData implements Serializable {
      * Standard according to the definitions.
      * @return String representation of the type of the Challenge.
      */
-    public String getType(){
-        if(isWild())
+    public String getType() {
+        if (isWild())
             return "Wild";
         else
             return "Standard";

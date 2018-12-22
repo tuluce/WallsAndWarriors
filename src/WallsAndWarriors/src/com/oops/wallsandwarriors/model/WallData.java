@@ -12,7 +12,6 @@ import java.util.List;
  * described in the WallDefinition and its positioning on the grid.
  * Implements BorderPiece, Serializable
  * @author OOPs
- * @version 21.12.19
  */
 public class WallData implements BorderPiece, Serializable {
 

@@ -2,9 +2,6 @@ package com.oops.wallsandwarriors;
 
 public class GameConstants {
 
-    public static final int ZERO = 0;
-
-
     public static final double SCREEN_RATIO = 0.75;
     
     public static final double SCREEN_WIDTH = 800;
