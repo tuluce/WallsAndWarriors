@@ -24,6 +24,15 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * This abstract class defines a general screen structure for the Game Screens. This
+ * screen will provide a generic definition of standard structure for playing and creating
+ * challenges using the mutual components. But the distinguishing methods will be
+ * implemented separately in the sub-classes.
+ * Extends GeneralScreen
+ * @author OOPs
+ * @version 21.12.19
+ */
 public abstract class BaseGameScreen extends GeneralScreen {
     
     private double lastRenderTime;
@@ -45,7 +54,11 @@ public abstract class BaseGameScreen extends GeneralScreen {
     protected List<WallView> wallViews;
     protected List<KnightView> knightViews;
     protected List<HighTowerView> highTowerViews;
-    
+
+    /**
+     * A default constructor that initializes a BaseGAmeScreen with
+     * no given parameters to provide animations
+     */
     public BaseGameScreen() {
         stepTimer = new AnimationTimer() {
             @Override
@@ -56,7 +69,11 @@ public abstract class BaseGameScreen extends GeneralScreen {
             }
         };
     }
-    
+
+    /**
+     * An overriden get method to return current Scene.
+     * @return the current Scene.
+     */
     @Override
     public Scene getScene() {
         Group root = new Group();
@@ -69,7 +86,10 @@ public abstract class BaseGameScreen extends GeneralScreen {
         restartTimer();
         return scene;
     }
-    
+
+    /**
+     * A method to initialize objects in the current view.
+     */
     protected void initViewObjects() {
         fpsDisplayView = new FpsDisplayView();
         wallViews = new ArrayList<WallView>();
@@ -77,7 +97,7 @@ public abstract class BaseGameScreen extends GeneralScreen {
         highTowerViews = new ArrayList<HighTowerView>();
         clickables = new ArrayList<BoundedViewObject>();
     }
-    
+
     private void initHoverController(Scene scene) {
         scene.setOnMouseMoved(
             new EventHandler<MouseEvent>() {
@@ -91,7 +111,7 @@ public abstract class BaseGameScreen extends GeneralScreen {
             }
         );
     }
-    
+
     private void initClickController(Scene scene) {
         scene.setOnMouseClicked(
             new EventHandler<MouseEvent>() {
