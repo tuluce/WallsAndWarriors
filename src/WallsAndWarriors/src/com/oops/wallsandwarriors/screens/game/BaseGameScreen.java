@@ -97,10 +97,6 @@ public abstract class BaseGameScreen extends GeneralScreen {
         clickables = new ArrayList<BoundedViewObject>();
     }
 
-    /**
-     * A method to initialize
-     * @param scene
-     */
     private void initHoverController(Scene scene) {
         scene.setOnMouseMoved(
             new EventHandler<MouseEvent>() {
@@ -220,7 +216,7 @@ public abstract class BaseGameScreen extends GeneralScreen {
     protected abstract void step(double deltaTime);
 
     /**
-     * An abstract method  to draw all wals on the screen in their correct places
+     * An abstract method  to draw all wals on the screen to their correct places
      * @param deltaTime the time difference until last render
      */
     protected abstract void drawWalls(double deltaTime);
