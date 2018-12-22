@@ -1,3 +1,11 @@
+/**
+ * A class to implement the distinguishable features for Campaign Challenges Screen.
+ * Extending the BaseChallengesScreen , it implements an additional method for
+ * marking locked challenges.
+ * Extends BaseChallengesScreen
+ * @author OOPs
+ * @version 21.12.19
+ */
 package com.oops.wallsandwarriors.screens.challenges;
 
 import com.oops.wallsandwarriors.model.ChallengeData;
@@ -33,6 +41,33 @@ import javafx.geometry.Pos;
 import javafx.scene.control.ListView;
 
 public class CampaignChallengesScreen extends BaseChallengesScreen {
+    private static final int HEIGHT = 80;
+    private static final int WIDTH = 95;
+    private static final int TEXT_X = 30;
+    private static final int TEXT_Y = 100;
+    private static final int TEXT_SIZE = 20;
+    private static final int CH_HEIGHT = 80;
+    private static final int CH_WIDTH = 95;
+    private static final int TEXT_MARG_T = 0;
+    private static final int TEXT_MARG_R = 0;
+    private static final int TEXT_MARG_B = 20;
+    private static final int TEXT_MARG_L = 0;
+    private static final int BORDER_MARG_T = 5;
+    private static final int BORDER_MARG_R = 10;
+    private static final int BORDER_MARG_B = 5;
+    private static final int BORDER_MARG_L = 10;
+    private static final int NO_OF_CHALS = 6;
+    private static final int LAY_X = 20;
+    private static final int LAY_Y = 130;
+    private static final int PREF_HEIGHT = 460;
+    private static final int PREF_WIDTH = 760;
+    private static final int DELTA_T = 1;
+    private static final int GRID_X_VAL = 3;
+    private static final int GRID_Y_VAL = 3;
+    private static final int MARGIN = 3;
+    private static final int BLOCK_LENGTH = 18;
+    private static final int GRID_B = 18;
+
 
     public List<ChallengeData> campaignChallenges;
 
@@ -40,6 +75,10 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
 
     GridPane grid = super.getGrid();
 
+    /**
+     * An overriden getScene method to return the current Screen.
+     * @return the current screen as a Screen object.
+     */
     @Override
     public Scene getScene() {
         Group root = new Group();
@@ -49,11 +88,12 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
         campaignChallenges = campaignChallengesData.getCampaignChallenges();
 
         DebugUtils.initClickDebugger(scene);
-        addBackgroundCanvas(root, "/com/oops/wallsandwarriors/resources/images/background2.png", "Campaign Challenges");
+        addBackgroundCanvas(root, "/com/oops/wallsandwarriors/resources/images/background2.png",
+                "Campaign Challenges");
         super.renderButtons(root);
 
-        Text title = new Text(30, 100, "Choose a challenge.");
-        Font theFont = Font.font("Arial", FontWeight.BOLD, 20);
+        Text title = new Text(TEXT_X, TEXT_Y, "Choose a challenge.");
+        Font theFont = Font.font("Arial", FontWeight.BOLD, TEXT_SIZE);
         title.setFont(theFont);
         root.getChildren().add(title);
 
@@ -62,11 +102,13 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
         return scene;
     }
 
-
-
+    /**
+     * A method to display CampaignChallenges on the Screen..
+     * @param root root as a Group object.
+     */
     private void showChallenges(Group root)
     {
-        ObservableList<HBox> hBoxes = FXCollections.observableArrayList ();;
+        ObservableList<HBox> hBoxes = FXCollections.observableArrayList ();
 
         HBox hBox = new HBox();
         int hBoxCount = 0;
@@ -74,74 +116,68 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
         javafx.scene.image.Image lock = new javafx.scene.image.Image(FileUtils.getInputStream(
                     "/com/oops/wallsandwarriors/resources/images/lock.png"));
 
-        for(int i = 0; i < campaignChallenges.size(); i++)
-        {
+        for (int i = 0; i < campaignChallenges.size(); i++) {
             final int index = i;
 
             ImageView imageView = new ImageView();
-            imageView.setFitHeight(80);
-            imageView.setFitWidth(95);
+            imageView.setFitHeight(CH_HEIGHT);
+            imageView.setFitWidth(CH_WIDTH);
             imageView.setImage(lock);
 
             ChallengeData challengeData = campaignChallenges.get(i);
 
-
-            
             Canvas canvas = drawAndGetCanvas(challengeData);
             Text challengeNameText = new Text(challengeData.getName());
             
             BorderPane border = new BorderPane();
             
             BorderPane.setAlignment(challengeNameText, Pos.CENTER);
-            BorderPane.setMargin(challengeNameText, new Insets(0, 0, 20, 0));
+            BorderPane.setMargin(challengeNameText, new Insets(TEXT_MARG_T,
+                    TEXT_MARG_R, TEXT_MARG_B, TEXT_MARG_L));
             border.setBottom(challengeNameText);
 
-            
-            if(CampaignChallengesData.campaignChallengesProgress.get(i).equals("0") && i != 0)
-            {
-                BorderPane.setMargin(imageView, new Insets(5, 10, 5, 10));
+            if (CampaignChallengesData.campaignChallengesProgress.get(i).equals("0") && i != 0) {
+                BorderPane.setMargin(imageView, new Insets(BORDER_MARG_T,
+                        BORDER_MARG_R, BORDER_MARG_B, BORDER_MARG_L));
                 border.setCenter(imageView);
             }
-            else
-            {
-                BorderPane.setMargin(canvas, new Insets(5, 10, 5, 10));
+            else {
+                BorderPane.setMargin(canvas, new Insets(BORDER_MARG_T,
+                        BORDER_MARG_R, BORDER_MARG_B, BORDER_MARG_L));
                 border.setCenter(canvas);
                 border.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
                         Game.getInstance().soundManager.playClick();
-                        CampaignChallengesScreen.super.startChallenge(challengeData.createCopy(true), challengeData.createCopy(false));
+                        CampaignChallengesScreen.super.startChallenge(
+                                challengeData.createCopy(true), challengeData.createCopy(false));
                     }
                 });
             }
 
-            if(index / 6  <= hBoxCount)
-            {
+            if (index / NO_OF_CHALS  <= hBoxCount) {
                 hBox.getChildren().add(border);
             }
-            else
-            {
+            else {
                 hBoxes.add(hBox);
                 hBox = new HBox();
                 hBox.getChildren().add(border);
                 hBoxCount++;
             }
 
-            if(index / 6 == hBoxCount )
-            {
-                if (index == campaignChallenges.size() - 1)
-                {
+            if (index / NO_OF_CHALS == hBoxCount ) {
+                if (index == campaignChallenges.size() - 1) {
                     hBoxes.add(hBox);
                 }
             }
-
         }
+
         ListView<HBox> list = new ListView<>();
-        list.setLayoutX(20);
-        list.setLayoutY(130);
+        list.setLayoutX(LAY_X);
+        list.setLayoutY(LAY_Y);
         list.setOrientation(Orientation.VERTICAL);
-        list.setPrefHeight(460);
-        list.setPrefWidth(800 - 40);
+        list.setPrefHeight(PREF_HEIGHT);
+        list.setPrefWidth(PREF_WIDTH);
         list.setItems(hBoxes);
         
         list.setStyle("-fx-control-inner-background: beige;");
@@ -151,29 +187,31 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
                 event.consume();
             }
         });
-
         root.getChildren().add(list);
     }
 
-
+    /**
+     * A method to draw the given ChallengeData on  the Canvas and get it.
+     * @param challenge ChallengeData to draw on the canvas.
+     * @return drawn Canvas.
+     */
     private Canvas drawAndGetCanvas(ChallengeData challenge)
     {
         Game.getInstance().challengeManager.setChallengeData(challenge);
 
         Canvas previewCanvas = new Canvas();
-        previewCanvas.setHeight(80);
-        previewCanvas.setWidth(95);
+        previewCanvas.setHeight(HEIGHT);
+        previewCanvas.setWidth(WIDTH);
         GraphicsContext graphics = previewCanvas.getGraphicsContext2D();
 
-        GridView gridView = new GridView(3, 3, 3, 18);
-        gridView.draw(graphics, 1);
+        GridView gridView = new GridView(GRID_X_VAL, GRID_Y_VAL, MARGIN, BLOCK_LENGTH);
+        gridView.draw(graphics, DELTA_T);
         for (KnightData knight : challenge.knights) {
-            new KnightView(knight, 3, 3, 18).draw(graphics, 1);
+            new KnightView(knight, GRID_X_VAL, GRID_Y_VAL, GRID_B).draw(graphics, DELTA_T);
         }
         for (HighTowerData highTower : challenge.highTowers) {
-            new HighTowerView(highTower, 3, 3, 18).draw(graphics, 1);
+            new HighTowerView(highTower, GRID_X_VAL, GRID_Y_VAL, GRID_B).draw(graphics, DELTA_T);
         }
-
         return previewCanvas;
     }
 }
