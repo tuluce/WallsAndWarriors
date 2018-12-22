@@ -3,6 +3,10 @@ package com.oops.wallsandwarriors.view;
 import com.oops.wallsandwarriors.GameConstants;
 import javafx.scene.canvas.GraphicsContext;
 
+/**
+ * A class to implement palette view of the challenge editor
+ * @author Emin Bahadir Tuluce
+ */
 public class EditorPaletteView extends GamePaletteView {
     
     @Override

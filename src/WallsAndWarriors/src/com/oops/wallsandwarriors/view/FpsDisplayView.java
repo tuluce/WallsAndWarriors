@@ -7,6 +7,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+/**
+ * A class to implement Fps display view
+ * @author Emin Bahadir Tuluce
+ */
 public class FpsDisplayView implements ViewObject {
 
     private static final double REFRESH_PERIOD = 1;
@@ -16,7 +20,10 @@ public class FpsDisplayView implements ViewObject {
     private double time;
     private int frames;
     private int fps;
-    
+
+    /**
+     * A default constructor of the class
+     */
     public FpsDisplayView() {
         fpsFont = Font.font("Monospace", FontWeight.BOLD, 10);
         time = 0;
