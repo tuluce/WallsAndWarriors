@@ -38,6 +38,12 @@ public class EncodeUtils {
         return base64;
     }
 
+    /**
+     * Method to get byte stream of a ChallengeData object
+     * @param toByte, Challenge data object
+     * @return objInBytes, bytes of ChallengeData object
+     * @throws IOException
+     */
     private static byte[] getByteStream(ChallengeData toByte) throws IOException
     {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();

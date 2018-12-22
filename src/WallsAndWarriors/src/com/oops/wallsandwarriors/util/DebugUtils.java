@@ -8,6 +8,10 @@ public class DebugUtils {
     
     public static final boolean DEBUGGING = true;
 
+    /**
+     * Method to print coordinates of X and Y in order to debug
+     * @param scene is the scene of the game
+     */
     public static void initClickDebugger(Scene scene) {
         scene.setOnMouseClicked(
             new EventHandler<MouseEvent>() {

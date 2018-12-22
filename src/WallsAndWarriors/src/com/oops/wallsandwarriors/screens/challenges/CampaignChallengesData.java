@@ -69,7 +69,7 @@ public class CampaignChallengesData {
     }
 
     /**
-     * A method to write the CampaignChallenges according tothe stored challenges if they exist.
+     * A method to write the CampaignChallenges according to the stored challenges if they exist.
      */
     private void writeCampaignChallenges()
     {
