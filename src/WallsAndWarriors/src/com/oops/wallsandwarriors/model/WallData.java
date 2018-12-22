@@ -1,3 +1,10 @@
+package com.oops.wallsandwarriors.model;
+
+import com.oops.wallsandwarriors.util.Point;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A class to store the structure and the position of a wall as a game object. This
  * object has two attributes, definition in type WallDefinition and position in
@@ -7,13 +14,6 @@
  * @author OOPs
  * @version 21.12.19
  */
-package com.oops.wallsandwarriors.model;
-
-import com.oops.wallsandwarriors.util.Point;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 public class WallData implements BorderPiece, Serializable {
 
     private static final int ROTATION = 4;
