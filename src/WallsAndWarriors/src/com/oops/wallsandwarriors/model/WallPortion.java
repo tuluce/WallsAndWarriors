@@ -1,3 +1,8 @@
+package com.oops.wallsandwarriors.model;
+
+import java.io.Serializable;
+import java.util.Objects;
+
 /**
  * This class will be used to define the portions of a wall. In this class, relativePos1
  * and relativePos2 attributes of type Coordinate define the relative positioning
@@ -5,11 +10,6 @@
  * @author OOPs
  * @version 21.12.19
  */
-package com.oops.wallsandwarriors.model;
-
-import java.io.Serializable;
-import java.util.Objects;
-
 public class WallPortion implements Serializable {
     
     // The wall portion lies between two relative block positions
