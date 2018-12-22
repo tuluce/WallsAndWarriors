@@ -1,3 +1,8 @@
+/**
+ * A class to store the data to be represented in the CampaignChallengesScreen.
+ * @author OOPs
+ * @version 21.12.19
+ */
 package com.oops.wallsandwarriors.screens.challenges;
 
 import com.oops.wallsandwarriors.Game;
@@ -16,11 +21,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CampaignChallengesData {
+    private static final int ZERO = 0;
+
 
     public static List<ChallengeData> campaignChallenges;
     StorageManager storageManager;
     public static List<String> campaignChallengesProgress;
 
+    /**
+     * A default constructor that initializes a CampaignChallengesData with no given parameters
+     * with a storageManager and an empty ArrayList of ChallengeData. If there was a saved version
+     * initializes the data as such.
+     */
     public CampaignChallengesData()
     {
         storageManager = Game.getInstance().storageManager;
@@ -28,36 +40,38 @@ public class CampaignChallengesData {
         readProgressData();
         writeCampaignChallenges();
     }
-
+    /**
+     * A method to read the ProgressData if it exists from previous sessions.
+     */
     private void readProgressData() {
         campaignChallengesProgress = new ArrayList<>();
 
-        if(storageManager.getProgressData().length() == 0)
-        {
+        if (storageManager.getProgressData().length() == ZERO) {
             writeProgressDataToFile(storageManager);
         }
-        else{
+        else {
             campaignChallengesProgress.clear();
 
             try {
-                BufferedReader bufferedReader = new BufferedReader(new FileReader(storageManager.progressData));
+                BufferedReader bufferedReader =
+                        new BufferedReader(new FileReader(storageManager.progressData));
                 String text = bufferedReader.readLine();
 
-                for(int i = 0; i < text.length(); i++)
-                {
-                    if(text.charAt(i) != '[' && text.charAt(i) != ']' && text.charAt(i) != ',' && text.charAt(i) != ' ')
-                    {
+                for (int i = 0; i < text.length(); i++) {
+                    if (text.charAt(i) != '[' && text.charAt(i) != ']' &&
+                            text.charAt(i) != ',' && text.charAt(i) != ' ') {
                         campaignChallengesProgress.add(String.valueOf(text.charAt(i)));
                     }
                 }
-                
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
     }
 
+    /**
+     * A method to write the CampaignChallenges according tothe stored challenges if they exist.
+     */
     private void writeCampaignChallenges()
     {
         campaignChallenges.clear();
@@ -77,21 +91,22 @@ public class CampaignChallengesData {
                     e.printStackTrace();
                 }
             }
-
             fileWriter.close();
-
         } catch (IOException e) {
             e.printStackTrace();
-        }    }
+        }
+    }
 
-
-
+    /**
+     * A method to write the progress in the CampaignChallenges to a file to be stored.
+     * @param storageManager StorageManager object to be used to manage de storing of the progres..
+     */
     public void writeProgressDataToFile(StorageManager storageManager)
     {
 
         FileWriter fileWriter = null;
 
-        if(storageManager.getProgressData().length() == 0)
+        if(storageManager.getProgressData().length() == ZERO)
         {
             try {
                 fileWriter = new FileWriter(storageManager.progressData);
@@ -101,28 +116,27 @@ public class CampaignChallengesData {
 
                 int index = 0;
                 while (campaignChallengeScanner.hasNext()) {
-                    if(index == 0)
-                    {
+                    if (index == 0) {
                         campaignChallengesProgress.add("1");
                     }
-                    else
-                    {
+                    else {
                         campaignChallengesProgress.add("0");
                     }
                     index++;
                     campaignChallengeScanner.nextLine();
                 }
-
                 fileWriter.write(campaignChallengesProgress.toString() + "\n");
                 fileWriter.close();
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-
+    /**
+     * A get method to return the campaignChallenges.
+     * @return  campaignChallenges as a list of ChallengeData.
+     */
     public List<ChallengeData> getCampaignChallenges()
     {
         return campaignChallenges;
