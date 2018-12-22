@@ -1,5 +1,6 @@
 package com.oops.wallsandwarriors.screens.challenges;
 
+import com.oops.wallsandwarriors.GameConstants;
 import com.oops.wallsandwarriors.util.CopyUtils;
 import com.oops.wallsandwarriors.util.DebugUtils;
 import com.oops.wallsandwarriors.Game;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.oops.wallsandwarriors.util.EncodeUtils;
+import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -38,23 +40,9 @@ import javafx.scene.paint.Color;
  * Extending the BaseChallengesScreen , it implements an additional methods for
  * the process of importing challenges.
  * @author OOPs
+ * @version 21.12.19
  */
 public class CustomChallengesScreen extends BaseChallengesScreen {
-
-    private static final int LAY_X = 50;
-    private static final int LAY_Y = 150;
-    private static final int LIST_PREF_HEIGHT = 350;
-    private static final int LIST_PREF_WIDTH = 350;
-    private static final int FONT_SIZE = 14;
-    private static final int ZERO = 0;
-    private static final double PREF_WIDTH = 220.00;
-    private static final int SPACING = 20;
-    private static final int COL_IND = 0;
-    private static final int ROW_IND = 1;
-    private static final int H_GAP = 10;
-    private static final int V_GAP = 10;
-    private static final int GRID_LAY_X = 450;
-    private static final int GRID_LAY_Y = 150;
 
     CustomChallengesData customChallengesData;
 
@@ -81,16 +69,17 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
                 "Custom Challenges");
         super.renderButtons(root);
 
-        Text title = new Text(50, 100, "Choose a challenge.");
-        Font theFont = Font.font("Arial", FontWeight.BOLD, 20);
+        Text title = new Text(GameConstants.CUST_SCR_TEXT_X, GameConstants.CUST_SCR_TEXT_Y,
+                "Choose a challenge.");
+        Font theFont = Font.font("Arial", FontWeight.BOLD, GameConstants.CUST_SCR_FONT);
         title.setFont(theFont);
         root.getChildren().add(title);
 
         showChallenges(root);
 
         Button importButton = new Button("Import");
-        importButton.setLayoutX(50);
-        importButton.setLayoutY(520);
+        importButton.setLayoutX(GameConstants.CUST_SCR_IMP_X);
+        importButton.setLayoutY(GameConstants.CUST_SCR_IMP_Y);
 
         importButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -115,11 +104,11 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         }
 
         ListView<String> list = new ListView<>();
-        list.setLayoutX(LAY_X);
-        list.setLayoutY(LAY_Y);
+        list.setLayoutX(GameConstants.CUST_SCR_LAY_X);
+        list.setLayoutY(GameConstants.CUST_SCR_LAY_Y);
         list.setOrientation(Orientation.VERTICAL);
-        list.setPrefWidth(LIST_PREF_WIDTH);
-        list.setPrefHeight(LIST_PREF_HEIGHT);
+        list.setPrefWidth(GameConstants.CUST_SCR_LIST_PREF_WIDTH);
+        list.setPrefHeight(GameConstants.CUST_SCR_LIST_PREF_HEIGHT);
         list.setItems(challengeNames);
         root.getChildren().add(list);
 
@@ -129,7 +118,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
                 grid.getChildren().clear();
                 int challengeIndex = list.getSelectionModel().getSelectedIndex();
                 try {
-                    if (challengeIndex >= ZERO) {
+                    if (challengeIndex >= 0) {
                         showChallengeInfo(customChallenges.get(challengeIndex), root);
                     }
                 } catch (FileNotFoundException e) {
@@ -189,7 +178,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
             }
         });
         
-        Font theFont = Font.font("Arial", FontWeight.MEDIUM, FONT_SIZE);
+        Font theFont = Font.font("Arial", FontWeight.MEDIUM, GameConstants.CUST_SCR_FONT_SIZE);
         nameLabel.setTextFill(Color.BEIGE);
         descLabel.setTextFill(Color.BEIGE);
         creatorLabel.setTextFill(Color.BEIGE);
@@ -200,7 +189,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         creatorLabel.setFont(theFont);
         typeLabel.setFont(theFont);
         warriorLabel.setFont(theFont);
-        double prefferedWidth = PREF_WIDTH;
+        double prefferedWidth = GameConstants.CUST_SCR_PREF_WIDTH;
         nameLabel.setPrefWidth(prefferedWidth);
         nameLabel.setWrapText(true);
         descLabel.setPrefWidth(prefferedWidth);
@@ -213,15 +202,15 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         warriorLabel.setWrapText(true);
         
         HBox buttons = new HBox();
-        buttons.setSpacing(SPACING);
+        buttons.setSpacing(GameConstants.CUST_SCR_SPACING);
         buttons.getChildren().addAll(playButton, shareButton, removeButton);
 
-        grid.add(nameLabel,COL_IND,ROW_IND);
-        grid.add(descLabel,COL_IND,ROW_IND+1);
-        grid.add(creatorLabel,COL_IND,ROW_IND+2);
-        grid.add(typeLabel,COL_IND,ROW_IND+3);
-        grid.add(warriorLabel,COL_IND,ROW_IND+4);
-        grid.add(buttons, COL_IND, ROW_IND+5);
+        grid.add(nameLabel,GameConstants.CUST_SCR_COL_IND,GameConstants.CUST_SCR_ROW_IND);
+        grid.add(descLabel,GameConstants.CUST_SCR_COL_IND,GameConstants.CUST_SCR_ROW_IND+1);
+        grid.add(creatorLabel,GameConstants.CUST_SCR_COL_IND,GameConstants.CUST_SCR_ROW_IND+2);
+        grid.add(typeLabel,GameConstants.CUST_SCR_COL_IND,GameConstants.CUST_SCR_ROW_IND+3);
+        grid.add(warriorLabel,GameConstants.CUST_SCR_COL_IND,GameConstants.CUST_SCR_ROW_IND+4);
+        grid.add(buttons, GameConstants.CUST_SCR_COL_IND, GameConstants.CUST_SCR_ROW_IND+5);
     }
 
     /**
@@ -236,7 +225,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         textArea.setEditable(false);
         textArea.setWrapText(true);
         GridPane gridPane = new GridPane();
-        gridPane.add(textArea, COL_IND, ROW_IND-1);
+        gridPane.add(textArea, GameConstants.CUST_SCR_COL_IND, GameConstants.CUST_SCR_ROW_IND-1);
         ButtonType clipboard = new ButtonType("Copy To Clipboard!");
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -298,10 +287,10 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
      */
     public void constructGrid(Group root, GridPane grid)
     {
-        grid.setHgap(H_GAP);
-        grid.setVgap(V_GAP);
-        grid.setLayoutX(GRID_LAY_X);
-        grid.setLayoutY(GRID_LAY_Y);
+        grid.setHgap(GameConstants.CUST_SCR_H_GAP);
+        grid.setVgap(GameConstants.CUST_SCR_V_GAP);
+        grid.setLayoutX(GameConstants.CUST_SCR_GRID_LAY_X);
+        grid.setLayoutY(GameConstants.CUST_SCR_GRID_LAY_Y);
         root.getChildren().add(grid);
     }
 }

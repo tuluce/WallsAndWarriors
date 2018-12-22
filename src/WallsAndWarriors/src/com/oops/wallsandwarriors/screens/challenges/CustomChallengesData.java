@@ -17,10 +17,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A class to store the data to be represented in the CustomChallengesScreen.
- * @author OOPs
- */
 public class CustomChallengesData {
 
 

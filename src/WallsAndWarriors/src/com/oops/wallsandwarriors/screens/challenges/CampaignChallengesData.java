@@ -1,6 +1,12 @@
+/**
+ * A class to store the data to be represented in the CampaignChallengesScreen.
+ * @author OOPs
+ * @version 21.12.19
+ */
 package com.oops.wallsandwarriors.screens.challenges;
 
 import com.oops.wallsandwarriors.Game;
+import com.oops.wallsandwarriors.GameConstants;
 import com.oops.wallsandwarriors.StorageManager;
 import com.oops.wallsandwarriors.model.ChallengeData;
 import com.oops.wallsandwarriors.util.EncodeUtils;
@@ -15,13 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * A class to store the data to be represented in the CampaignChallengesScreen.
- * @author OOPs
- */
 public class CampaignChallengesData {
-    private static final int ZERO = 0;
-
 
     public static List<ChallengeData> campaignChallenges;
     StorageManager storageManager;
@@ -45,7 +45,7 @@ public class CampaignChallengesData {
     private void readProgressData() {
         campaignChallengesProgress = new ArrayList<>();
 
-        if (storageManager.getProgressData().length() == ZERO) {
+        if (storageManager.getProgressData().length() == 0) {
             writeProgressDataToFile(storageManager);
         }
         else {
@@ -105,7 +105,7 @@ public class CampaignChallengesData {
 
         FileWriter fileWriter = null;
 
-        if(storageManager.getProgressData().length() == ZERO)
+        if(storageManager.getProgressData().length() == 0)
         {
             try {
                 fileWriter = new FileWriter(storageManager.progressData);

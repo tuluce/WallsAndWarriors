@@ -1,6 +1,16 @@
+/**
+ * An abstract class to define a general screen structure for Challenges Screens. This
+ * screen will provide a generic definition of standard methods for viewing the
+ * challenges, but the distinguishable methods will be implemented separately in the
+ * sub-classes.
+ * Extends GeneralScreen
+ * @author OOPs
+ * @version 21.12.19
+ */
 package com.oops.wallsandwarriors.screens.challenges;
 
 import com.oops.wallsandwarriors.Game;
+import com.oops.wallsandwarriors.GameConstants;
 import com.oops.wallsandwarriors.model.ChallengeData;
 import com.oops.wallsandwarriors.model.HighTowerData;
 import com.oops.wallsandwarriors.model.KnightData;
@@ -18,28 +28,8 @@ import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * An abstract class to define a general screen structure for Challenges Screens. This
- * screen will provide a generic definition of standard methods for viewing the
- * challenges, but the distinguishable methods will be implemented separately in the
- * sub-classes.
- * Extends GeneralScreen
- * @author OOPs
- */
 public abstract class BaseChallengesScreen extends GeneralScreen {
 
-    private static final int HEIGHT = 150;
-    private static final int WIDTH = 200;
-    private static final int GRID_X_VAL = 5;
-    private static final int GRID_Y_VAL = 5;
-    private static final int MARGIN = 5;
-    private static final int BLOCK_LENGTH = 30;
-    private static final int DELTA_T = 1;
-    private static final int COL_IN = 0;
-    private static final int ROW_IN = 0;
-    private static final int GRID_B = 30;
-    private static final int BUTTON_X = 700;
-    private static final int BUTTON_Y = 50;
 
     List<ChallengeData> challenges;
     GridPane grid = new GridPane();
@@ -77,19 +67,25 @@ public abstract class BaseChallengesScreen extends GeneralScreen {
      */
     public void displayChallengePreview(ChallengeData challenge) {
         Canvas previewCanvas = new Canvas();
-        previewCanvas.setHeight(HEIGHT);
-        previewCanvas.setWidth(WIDTH);
+        previewCanvas.setHeight(GameConstants.BASE_CHAL_HEIGHT);
+        previewCanvas.setWidth(GameConstants.BASE_CHAL_WIDTH);
         GraphicsContext graphics = previewCanvas.getGraphicsContext2D();
 
-        GridView gridView = new GridView(GRID_X_VAL, GRID_Y_VAL, MARGIN, BLOCK_LENGTH);
-        gridView.draw(graphics, DELTA_T);
-        grid.add(previewCanvas, COL_IN, ROW_IN);
+        GridView gridView = new GridView(GameConstants.BASE_CHAL_GRID_X_VAL,
+                GameConstants.BASE_CHAL_GRID_Y_VAL, GameConstants.BASE_CHAL_MARGIN,
+                GameConstants.BASE_CHAL_BLOCK_LENGTH);
+        gridView.draw(graphics, 1);
+        grid.add(previewCanvas, GameConstants.BASE_CHAL_COL_IN, GameConstants.BASE_CHAL_ROW_IN);
 
         for (KnightData knight : challenge.knights) {
-            new KnightView(knight, GRID_X_VAL, GRID_Y_VAL, GRID_B).draw(graphics, DELTA_T);
+            new KnightView(knight, GameConstants.BASE_CHAL_GRID_X_VAL,
+                    GameConstants.BASE_CHAL_GRID_Y_VAL,
+                    GameConstants.BASE_CHAL_GRID_B).draw(graphics, 1);
         }
         for (HighTowerData highTower : challenge.highTowers) {
-            new HighTowerView(highTower, GRID_X_VAL, GRID_Y_VAL, GRID_B).draw(graphics, DELTA_T);
+            new HighTowerView(highTower, GameConstants.BASE_CHAL_GRID_X_VAL,
+                    GameConstants.BASE_CHAL_GRID_Y_VAL, GameConstants.BASE_CHAL_GRID_B).
+                    draw(graphics, 1);
         }
     }
 
@@ -99,7 +95,8 @@ public abstract class BaseChallengesScreen extends GeneralScreen {
      * @param root a Group object to indicate the root of the screen.
      */
     public void renderButtons(Group root) {
-        addTransitionScreen(root, "Back", BUTTON_X, BUTTON_Y, Game.getInstance().screenManager.mainMenu);
+        addTransitionScreen(root, "Back", GameConstants.BASE_CHAL_BUTTON_X,
+                GameConstants.BASE_CHAL_BUTTON_Y, Game.getInstance().screenManager.mainMenu);
     }
 
     /**

@@ -1,5 +1,14 @@
+/**
+ * A class to implement the distinguishable features for Campaign Challenges Screen.
+ * Extending the BaseChallengesScreen , it implements an additional method for
+ * marking locked challenges.
+ * Extends BaseChallengesScreen
+ * @author OOPs
+ * @version 21.12.19
+ */
 package com.oops.wallsandwarriors.screens.challenges;
 
+import com.oops.wallsandwarriors.GameConstants;
 import com.oops.wallsandwarriors.model.ChallengeData;
 import com.oops.wallsandwarriors.model.HighTowerData;
 import com.oops.wallsandwarriors.model.KnightData;
@@ -32,41 +41,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ListView;
 
-/**
- * A class to implement the distinguishable features for Campaign Challenges Screen.
- * Extending the BaseChallengesScreen , it implements an additional method for
- * marking locked challenges.
- * Extends BaseChallengesScreen
- * @author OOPs
- */
 public class CampaignChallengesScreen extends BaseChallengesScreen {
-    private static final int HEIGHT = 80;
-    private static final int WIDTH = 95;
-    private static final int TEXT_X = 30;
-    private static final int TEXT_Y = 100;
-    private static final int TEXT_SIZE = 20;
-    private static final int CH_HEIGHT = 80;
-    private static final int CH_WIDTH = 95;
-    private static final int TEXT_MARG_T = 0;
-    private static final int TEXT_MARG_R = 0;
-    private static final int TEXT_MARG_B = 20;
-    private static final int TEXT_MARG_L = 0;
-    private static final int BORDER_MARG_T = 5;
-    private static final int BORDER_MARG_R = 10;
-    private static final int BORDER_MARG_B = 5;
-    private static final int BORDER_MARG_L = 10;
-    private static final int NO_OF_CHALS = 6;
-    private static final int LAY_X = 20;
-    private static final int LAY_Y = 130;
-    private static final int PREF_HEIGHT = 460;
-    private static final int PREF_WIDTH = 760;
-    private static final int DELTA_T = 1;
-    private static final int GRID_X_VAL = 3;
-    private static final int GRID_Y_VAL = 3;
-    private static final int MARGIN = 3;
-    private static final int BLOCK_LENGTH = 18;
-    private static final int GRID_B = 18;
-
 
     public List<ChallengeData> campaignChallenges;
 
@@ -91,8 +66,9 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
                 "Campaign Challenges");
         super.renderButtons(root);
 
-        Text title = new Text(TEXT_X, TEXT_Y, "Choose a challenge.");
-        Font theFont = Font.font("Arial", FontWeight.BOLD, TEXT_SIZE);
+        Text title = new Text(GameConstants.CAMP_SCR_TEXT_X,
+                GameConstants.CAMP_SCR_TEXT_Y, "Choose a challenge.");
+        Font theFont = Font.font("Arial", FontWeight.BOLD, GameConstants.CAMP_SCR_TEXT_SIZE);
         title.setFont(theFont);
         root.getChildren().add(title);
 
@@ -119,8 +95,8 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
             final int index = i;
 
             ImageView imageView = new ImageView();
-            imageView.setFitHeight(CH_HEIGHT);
-            imageView.setFitWidth(CH_WIDTH);
+            imageView.setFitHeight(GameConstants.CAMP_SCR_CH_HEIGHT);
+            imageView.setFitWidth(GameConstants.CAMP_SCR_CH_WIDTH);
             imageView.setImage(lock);
 
             ChallengeData challengeData = campaignChallenges.get(i);
@@ -131,18 +107,22 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
             BorderPane border = new BorderPane();
             
             BorderPane.setAlignment(challengeNameText, Pos.CENTER);
-            BorderPane.setMargin(challengeNameText, new Insets(TEXT_MARG_T,
-                    TEXT_MARG_R, TEXT_MARG_B, TEXT_MARG_L));
+            BorderPane.setMargin(challengeNameText, new Insets(GameConstants.CAMP_SCR_TEXT_MARG_T,
+                    GameConstants.CAMP_SCR_TEXT_MARG_R, GameConstants.CAMP_SCR_TEXT_MARG_B,
+                    GameConstants.CAMP_SCR_TEXT_MARG_L));
             border.setBottom(challengeNameText);
 
             if (CampaignChallengesData.campaignChallengesProgress.get(i).equals("0") && i != 0) {
-                BorderPane.setMargin(imageView, new Insets(BORDER_MARG_T,
-                        BORDER_MARG_R, BORDER_MARG_B, BORDER_MARG_L));
+                BorderPane.setMargin(imageView, new Insets(GameConstants.CAMP_SCR_BORDER_MARG_T,
+                        GameConstants.CAMP_SCR_BORDER_MARG_R,
+                        GameConstants.CAMP_SCR_BORDER_MARG_B, GameConstants.CAMP_SCR_BORDER_MARG_L)
+                );
                 border.setCenter(imageView);
             }
             else {
-                BorderPane.setMargin(canvas, new Insets(BORDER_MARG_T,
-                        BORDER_MARG_R, BORDER_MARG_B, BORDER_MARG_L));
+                BorderPane.setMargin(canvas, new Insets(GameConstants.CAMP_SCR_BORDER_MARG_T,
+                        GameConstants.CAMP_SCR_BORDER_MARG_R, GameConstants.CAMP_SCR_BORDER_MARG_B,
+                        GameConstants.CAMP_SCR_BORDER_MARG_L));
                 border.setCenter(canvas);
                 border.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
@@ -154,7 +134,7 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
                 });
             }
 
-            if (index / NO_OF_CHALS  <= hBoxCount) {
+            if (index / GameConstants.CAMP_SCR_NO_OF_CHALS  <= hBoxCount) {
                 hBox.getChildren().add(border);
             }
             else {
@@ -164,7 +144,7 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
                 hBoxCount++;
             }
 
-            if (index / NO_OF_CHALS == hBoxCount ) {
+            if (index / GameConstants.CAMP_SCR_NO_OF_CHALS == hBoxCount ) {
                 if (index == campaignChallenges.size() - 1) {
                     hBoxes.add(hBox);
                 }
@@ -172,11 +152,11 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
         }
 
         ListView<HBox> list = new ListView<>();
-        list.setLayoutX(LAY_X);
-        list.setLayoutY(LAY_Y);
+        list.setLayoutX(GameConstants.CAMP_SCR_LAY_X);
+        list.setLayoutY(GameConstants.CAMP_SCR_LAY_Y);
         list.setOrientation(Orientation.VERTICAL);
-        list.setPrefHeight(PREF_HEIGHT);
-        list.setPrefWidth(PREF_WIDTH);
+        list.setPrefHeight(GameConstants.CAMP_SCR_PREF_HEIGHT);
+        list.setPrefWidth(GameConstants.CAMP_SCR_PREF_WIDTH);
         list.setItems(hBoxes);
         
         list.setStyle("-fx-control-inner-background: beige;");
@@ -199,17 +179,23 @@ public class CampaignChallengesScreen extends BaseChallengesScreen {
         Game.getInstance().challengeManager.setChallengeData(challenge);
 
         Canvas previewCanvas = new Canvas();
-        previewCanvas.setHeight(HEIGHT);
-        previewCanvas.setWidth(WIDTH);
+        previewCanvas.setHeight(GameConstants.CAMP_SCR_HEIGHT);
+        previewCanvas.setWidth(GameConstants.CAMP_SCR_WIDTH);
         GraphicsContext graphics = previewCanvas.getGraphicsContext2D();
 
-        GridView gridView = new GridView(GRID_X_VAL, GRID_Y_VAL, MARGIN, BLOCK_LENGTH);
-        gridView.draw(graphics, DELTA_T);
+        GridView gridView = new GridView(GameConstants.CAMP_SCR_GRID_X_VAL,
+                GameConstants.CAMP_SCR_GRID_Y_VAL, GameConstants.CAMP_SCR_MARGIN,
+                GameConstants.CAMP_SCR_BLOCK_LENGTH);
+        gridView.draw(graphics, 1);
         for (KnightData knight : challenge.knights) {
-            new KnightView(knight, GRID_X_VAL, GRID_Y_VAL, GRID_B).draw(graphics, DELTA_T);
+            new KnightView(knight, GameConstants.CAMP_SCR_GRID_X_VAL,
+                    GameConstants.CAMP_SCR_GRID_Y_VAL, GameConstants.CAMP_SCR_GRID_B).
+                    draw(graphics, 1);
         }
         for (HighTowerData highTower : challenge.highTowers) {
-            new HighTowerView(highTower, GRID_X_VAL, GRID_Y_VAL, GRID_B).draw(graphics, DELTA_T);
+            new HighTowerView(highTower, GameConstants.CAMP_SCR_GRID_X_VAL,
+                    GameConstants.CAMP_SCR_GRID_Y_VAL, GameConstants.CAMP_SCR_GRID_B).
+                    draw(graphics, 1);
         }
         return previewCanvas;
     }
