@@ -1,5 +1,10 @@
 package com.oops.wallsandwarriors;
 
+/**
+ * A class for storing game constants
+ * @author Emin Bahadir Tuluce
+ * @author Cagla Sozen
+ */
 public class GameConstants {
 
     public static final double SCREEN_RATIO = 0.75;

@@ -10,7 +10,7 @@ import java.util.List;
  * Implements Serializable
  * @author Emin Bahadir Tuluce
  */
-public class WallDefinition implements Serializable{
+public class WallDefinition implements Serializable {
 
     public final List<WallPortion> portions;
     public final List<WallBastion> bastions;

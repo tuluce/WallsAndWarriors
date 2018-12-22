@@ -15,9 +15,9 @@ public class Coordinate implements Serializable{
     public static final Coordinate ZERO = new Coordinate(0, 0);
 
     /**
-     * A constructor that initializes a Coordinate with the x and y values as screen coordinates.
-     * @param x  x coordinate on the screen.
-     * @param y y coordinate on the screen.
+     * A constructor that initializes a Coordinate with the x and y values as grid coordinates
+     * @param x x coordinate on the grid
+     * @param y y coordinate on the grid
      */
     public Coordinate(int x, int y) {
         this.x = x;
@@ -25,10 +25,10 @@ public class Coordinate implements Serializable{
     }
 
     /**
-     * An overriden equals method to check the equality of the Coordinate objects.
-     * Equality for Coordinate objects require equality of both x and y values.
-     * @param other Coordinate to be compared.
-     * @return A boolean value to indicate whether the objects are equal or not.
+     * An overriden equals method to check the equality of the Coordinate objects
+     * Equality for Coordinate objects require equality of both x and y values
+     * @param other Coordinate to be compared
+     * @return A boolean value to indicate whether the objects are equal or not
      */
     @Override
     public boolean equals(Object other) {
@@ -41,9 +41,9 @@ public class Coordinate implements Serializable{
     }
 
     /**
-     * An overriden hashCode method to generate a hashCode
-     * for the Object according to x and y values.
-     * @return An integer value as the hash code of the Coordinate object.
+     * An overriden hashCode method to generate a hash code
+     * for the Object according to x and y values
+     * @return An integer value as the hash code of the Coordinate object
      */
     @Override
     public int hashCode() {
@@ -65,7 +65,7 @@ public class Coordinate implements Serializable{
     }
 
     /**
-     * A method to rotate Coordinates by replacing x value with y and vice-versa.
+     * A method to rotate Coordinates by replacing x value with negative y and vice-versa.
      * @return new Coordinate as a result of the rotation.
      */
     public Coordinate rotate() {

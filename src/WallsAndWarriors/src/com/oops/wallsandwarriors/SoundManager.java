@@ -12,37 +12,29 @@ import javafx.util.Duration;
  */
 public class SoundManager {
 
-    private Media musicFile = new Media(FileUtils.getURI(
+    private final Media musicFile = new Media(FileUtils.getURI(
             "/com/oops/wallsandwarriors/resources/musics/bg_music.mp3"));
-    private MediaPlayer mediaplayer = new MediaPlayer(musicFile);
+    private final MediaPlayer mediaplayer = new MediaPlayer(musicFile);
 
-    private Media primary = new Media(FileUtils.getURI(
+    private final Media primary = new Media(FileUtils.getURI(
             "/com/oops/wallsandwarriors/resources/musics/primary.wav"));
-    private MediaPlayer primarySound = new MediaPlayer(primary);
+    private final MediaPlayer primarySound = new MediaPlayer(primary);
 
-    private Media secondary = new Media(FileUtils.getURI(
+    private final Media secondary = new Media(FileUtils.getURI(
             "/com/oops/wallsandwarriors/resources/musics/secondary.wav"));
-    private MediaPlayer secondarySound = new MediaPlayer(secondary);
+    private final MediaPlayer secondarySound = new MediaPlayer(secondary);
 
-    private Media congrats = new Media(FileUtils.getURI(
+    private final Media congrats = new Media(FileUtils.getURI(
             "/com/oops/wallsandwarriors/resources/musics/congrats.mp3"));
-    private MediaPlayer congratsSound = new MediaPlayer(congrats);
+    private final MediaPlayer congratsSound = new MediaPlayer(congrats);
 
-    private Media rotate = new Media(FileUtils.getURI(
+    private final Media rotate = new Media(FileUtils.getURI(
             "/com/oops/wallsandwarriors/resources/musics/rotate.wav"));
-    private MediaPlayer rotateSound = new MediaPlayer(rotate);
+    private final MediaPlayer rotateSound = new MediaPlayer(rotate);
 
-    private Media click = new Media(FileUtils.getURI(
+    private final Media click = new Media(FileUtils.getURI(
             "/com/oops/wallsandwarriors/resources/musics/click.wav"));
-    private MediaPlayer clickSound = new MediaPlayer(click);
-
-    /**
-     * A method to start playing sound file
-     */
-    public void playCongrats() {
-        congratsSound.play();
-        congratsSound.seek(Duration.ZERO);
-    }
+    private final MediaPlayer clickSound = new MediaPlayer(click);
 
     /**
      * A method to set music and sound files volume to mute
@@ -52,6 +44,8 @@ public class SoundManager {
         primarySound.setVolume(0);
         secondarySound.setVolume(0);
         congratsSound.setVolume(0);
+        rotateSound.setVolume(0);
+        clickSound.setVolume(0);
     }
 
     /**
@@ -59,11 +53,9 @@ public class SoundManager {
      * @return true if both volume is greater than 0
      */
     public boolean soundCheck() {
-        if(mediaplayer.getVolume()> 0 || primarySound.getVolume() > 0 ||
-                secondarySound.getVolume() > 0) {
-            return true;
-        }
-        return false;
+        return mediaplayer.getVolume() > 0 ||
+               primarySound.getVolume() > 0 ||
+               secondarySound.getVolume() > 0;
     }
 
     /**
@@ -76,20 +68,10 @@ public class SoundManager {
     }
 
     /**
-     * A method to start playing music file
-     */
-    public void startPlayMusic() {
-        mediaplayer.setCycleCount(Integer.MAX_VALUE);
-        mediaplayer.setVolume(Game.getInstance().settingsManager.getMusicVolume());
-        mediaplayer.play();
-    }
-
-    /**
      * A method to update music volume
      */
     public void updateMusicVolume(){
-        mediaplayer.setVolume(
-                Game.getInstance().settingsManager.getMusicVolume());
+        mediaplayer.setVolume(Game.getInstance().settingsManager.getMusicVolume());
     }
 
     /**
@@ -101,6 +83,23 @@ public class SoundManager {
         congratsSound.setVolume(Game.getInstance().settingsManager.getVolume());
         rotateSound.setVolume(Game.getInstance().settingsManager.getVolume());
         clickSound.setVolume(Game.getInstance().settingsManager.getVolume());
+    }
+    
+    /**
+     * A method to start playing music file
+     */
+    public void startPlayMusic() {
+        mediaplayer.setCycleCount(Integer.MAX_VALUE);
+        mediaplayer.setVolume(Game.getInstance().settingsManager.getMusicVolume());
+        mediaplayer.play();
+    }
+    
+    /**
+     * A method to start playing sound file
+     */
+    public void playCongrats() {
+        congratsSound.seek(Duration.ZERO);
+        congratsSound.play();
     }
 
     /**

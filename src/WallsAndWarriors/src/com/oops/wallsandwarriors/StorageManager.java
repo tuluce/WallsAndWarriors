@@ -32,7 +32,6 @@ public class StorageManager {
         makeDirectory();
     }
 
-
     /**
      * A method to create .wnwdata folder into the user's home directory
      */
@@ -129,8 +128,7 @@ public class StorageManager {
      * A method to create campaign_challenges.dat file into the .wnwdata folder
      */
     public void makeCampaignChallengesFile() {
-        campaignChallengeData= new File(wnwData,   "campaign_challenges.dat");
-
+        campaignChallengeData = new File(wnwData, "campaign_challenges.dat");
         try {
             campaignChallengeData.createNewFile();
         } catch (IOException e) {
@@ -143,14 +141,12 @@ public class StorageManager {
      * A method to create custom_challenges.dat file into the .wnwdata folder
      */
     public void makeCustomChallengesFile() {
-        customChallengeData= new File(wnwData,   "custom_challenges.dat");
-
+        customChallengeData = new File(wnwData, "custom_challenges.dat");
         try {
             customChallengeData.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         makeSessionFile();
     }
 
@@ -159,14 +155,11 @@ public class StorageManager {
      */
     public void makeProgressFile() {
         progressData = new File(wnwData, "progress.dat");
-
         try {
             progressData.createNewFile();
-        }catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
         progressData.setWritable(true);
     }
 
@@ -175,7 +168,6 @@ public class StorageManager {
      */
     public void makeSessionFile() {
         sessionData = new File(wnwData, "session.dat");
-
         try {
             sessionData.createNewFile();
         } catch (IOException e) {

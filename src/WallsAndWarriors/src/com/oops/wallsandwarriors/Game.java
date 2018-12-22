@@ -3,7 +3,10 @@ package com.oops.wallsandwarriors;
 import com.oops.wallsandwarriors.screens.Screen;
 import javafx.stage.Stage;
 
-
+/**
+ * Represents the currently running game instance
+ * @author Emin Bahadir Tuluce
+ */
 public class Game {
     
     private static Game instance;
@@ -18,6 +21,10 @@ public class Game {
     public final SettingsManager settingsManager;
     public final SoundManager soundManager;
 
+    /**
+     * Gives the singleton instance of the game
+     * @return the instance of the game
+     */
     public static Game getInstance() {
         if (instance == null) {
             instance = new Game();
@@ -36,6 +43,10 @@ public class Game {
         soundManager = new SoundManager();
     }
     
+    /**
+     * Initializes the game
+     * @param stage the JavaFX stage for the game to run on
+     */
     public void initGame(Stage stage) {
         Game.stage = stage;
         setScreen(screenManager.mainMenu);
@@ -46,6 +57,10 @@ public class Game {
         soundManager.startPlayMusic();
     }
     
+    /**
+     * Changes the screen currently being displayed
+     * @param screen the new screen to display
+     */
     public void setScreen(Screen screen) {
         stage.setScene(screen.getScene());
         stage.sizeToScene();

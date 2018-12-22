@@ -4,9 +4,12 @@ import java.util.ArrayList;
 
 /**
  * A class to store the marked Coordinates on the grid.
+ * Used in the algorithm that checks the solution of a challenge
+ * @see SolutionManager
  * @author Ali Babayev
  */
 public class MarkedCoordinates {
+    
     public final ArrayList<Coordinate> markedCoordinates;
 
     /**

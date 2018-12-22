@@ -14,6 +14,7 @@ import java.util.List;
  * regarding information.
  * Implements Serializable
  * @author Emin Bahadir Tuluce
+ * @author Cagla Sozen
  */
 public class ChallengeData implements Serializable {
 
@@ -223,23 +224,20 @@ public class ChallengeData implements Serializable {
      * A method to check if the ChallengeData contains Blue knights or not.
      * @return A boolean value indicating if the ChallengeData contains Blue knights or not.
      */
-    public boolean hasBlueKnights(){
-        if(0<noOfBlueKnights())
-            return true;
-        return false;
+    public boolean hasBlueKnights() {
+        return 0 < noOfBlueKnights();
     }
 
     /**
      * A method to return number of Blue(ally) knights in ChallengeDara
      * @return number of blue(ally) knights.
      */
-    public int noOfBlueKnights(){
+    public int noOfBlueKnights() {
         int count = 0;
-
-        for( int i = 0; i < knights.size(); i++)
-        {
-            if ( !knights.get(i).isEnemy )
+        for (int i = 0; i < knights.size(); i++) {
+            if (!knights.get(i).isEnemy) {
                 count++;
+            }
         }
         return count;
     }
@@ -248,21 +246,18 @@ public class ChallengeData implements Serializable {
      * A method to check whether ChallengeData's type is wild or not
      * @return boolean value indicating if the ChallengeData is wild type
      */
-    public boolean isWild(){
-
+    public boolean isWild() {
         int blueKnightsSize = noOfBlueKnights();
         
-        //Checking number of Knights -- In Std: 3 Red Knigthts, 4 Blue Knight, 1 High Tower
-        if(3 < blueKnightsSize)
+        // Checking number of knights
+        if(3 < blueKnightsSize ||
+                4 < knights.size() - blueKnightsSize ||
+                1 < highTowers.size()) {
             return true;
-        else if (4 < knights.size() - blueKnightsSize)
-            return true;
-        else if (1 < highTowers.size())
-            return true;
+        }
 
-        //Checking if there are more than two instances of the same wall
-        for (int i = 0; i < walls.size(); i++)
-        {
+        // Checking if there are more than two instances of the same wall
+        for (int i = 0; i < walls.size(); i++) {
             for (int j =  i+1; j < walls.size(); j++) {
                 if (walls.get(i).isPieceEqual(walls.get(j))) {
                     return true;
@@ -278,10 +273,11 @@ public class ChallengeData implements Serializable {
      * @return String representation of the type of the Challenge.
      */
     public String getType() {
-        if (isWild())
+        if (isWild()) {
             return "Wild";
-        else
+        } else {
             return "Standard";
+        }
     }
 
 }

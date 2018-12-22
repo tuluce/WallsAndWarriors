@@ -7,7 +7,6 @@ import com.oops.wallsandwarriors.model.ChallengeData;
  * @author Cagla Sozen
  * @author Emin Bahadir Tuluce
  */
-
 public class HintManager {
     
     private ChallengeData challengeData;

@@ -3,7 +3,7 @@ package com.oops.wallsandwarriors;
 import com.oops.wallsandwarriors.model.ChallengeData;
 
 /**
- * A class to manage challenge settings of the game
+ * A class to manage the current challenge of the game
  * @author Emin Bahadir Tuluce
  */
 public class ChallengeManager {

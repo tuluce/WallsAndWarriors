@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class WallData implements BorderPiece, Serializable {
 
-    private static final int ROTATION = 4;
+    private static final int ROTATION_NO = 4;
 
     private WallDefinition definition;
     private Coordinate position;
@@ -152,7 +152,7 @@ public class WallData implements BorderPiece, Serializable {
     public boolean isPieceEqual( WallData otherWall )
     {
         WallData copyWall = otherWall.createCopy();
-        for ( int i = 0; i < ROTATION; i++) {
+        for ( int i = 0; i < ROTATION_NO; i++) {
             if( this.getWallDefinition().equals(copyWall.getWallDefinition()) )
                 return true;
             copyWall.rotate();
