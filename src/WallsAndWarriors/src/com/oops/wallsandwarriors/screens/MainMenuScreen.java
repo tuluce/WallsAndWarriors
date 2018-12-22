@@ -19,12 +19,20 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-
+/**
+ * Class for structuring the main menu screen. and adding and structuring the buttons
+ * for screen transitions.
+ * @author OOPs
+ */
 public class MainMenuScreen extends GeneralScreen {
     
     private ChallengeData lastSessionChallenge;
     private ChallengeData lastSessionHint;
-    
+
+    /**
+     * An overriden getScene method to return the current Screen.
+     * @return the current screen as a Screen object.
+     */
     @Override
     public Scene getScene() {
         Group root = new Group();

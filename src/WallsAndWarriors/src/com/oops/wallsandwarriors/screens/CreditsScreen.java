@@ -10,8 +10,17 @@ import javafx.scene.image.Image;
 
 import javafx.scene.paint.Color;
 
+/**
+ * This class will structure the credits screen. It will add the GUI components for this
+ * screen including the credits information and the main menu button.
+ * @author Merve Sagyatanlar
+ */
 public class CreditsScreen extends GeneralScreen {
-    
+
+    /**
+     * An overriden getScene method to return the current Screen.
+     * @return the current screen as a Screen object.
+     */
     @Override
     public Scene getScene() {
         Group root = new Group();
@@ -34,5 +43,4 @@ public class CreditsScreen extends GeneralScreen {
         }
         return contentImage;
     }
-    
 }

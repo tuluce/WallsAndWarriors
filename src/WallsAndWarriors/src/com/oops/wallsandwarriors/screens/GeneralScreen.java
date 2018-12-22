@@ -15,9 +15,22 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-
+/**
+ * Abstract parent class for all Screen classes. It structures the generic
+ * elements in all screens like transition buttons and the background.
+ * @author OOPs
+ */
 public abstract class GeneralScreen implements Screen {
-    
+
+    /**
+     * A method to add a button to the screen
+     * @param root root as a Group object.
+     * @param text title text of the button
+     * @param x x coordinate of the button to place
+     * @param y y coordinate of the button to place
+     * @param action parameter to catch the action type when event occurs
+     * @return newly created button object
+     */
     protected Button addButton(Group root, String text, double x, double y, EventHandler<ActionEvent> action) {
         Button button = new Button(text);
         setLayoutPos(button, x , y);
@@ -34,18 +47,46 @@ public abstract class GeneralScreen implements Screen {
         root.getChildren().add(button);
         return button;
     }
-    
+
+    /**
+     * A method to add a button to the screen
+     * @param root root as a Group object.
+     * @param text title text of the button
+     * @param x x coordinate of the button to place
+     * @param y y coordinate of the button to place
+     * @param width minimum width to set for the button
+     * @param height minimum height to set for the button
+     * @param action parameter to catch the action type when event occurs
+     * @return newly created button object
+     */
     protected Button addButton(Group root, String text, double x, double y, double width, double height, EventHandler<ActionEvent> action) {
         Button button = addButton(root, text, x, y, action);
         button.setMinWidth(width);
         button.setMinHeight(height);
         return button;
     }
-    
+
+    /**
+     * A method to add a button to the screen with minimum specified width and height
+     * @param root root as a Group object.
+     * @param text title text of the button
+     * @param x x coordinate of the button to place
+     * @param y y coordinate of the button to place
+     * @return newly created button object
+     */
     protected Button addButton(Group root, String text, double x, double y) {
         return addButton(root, text, x, y, null);
     }
-    
+
+    /**
+     * A method to add a transition button to the screen
+     * @param root root as a Group object.
+     * @param text title text of the button
+     * @param x x coordinate of the button to place
+     * @param y y coordinate of the button to place
+     * @param nextScreen next screen to pass/show while button is pressed
+     * @return newly created transition button object
+     */
     protected Button addTransitionButton(Group root, String text, double x, double y, Screen nextScreen) {
         return addButton(root, text, x, y, new EventHandler<ActionEvent>() {
             @Override
@@ -54,13 +95,25 @@ public abstract class GeneralScreen implements Screen {
             }
         });
     }
-    
+
+    /**
+     * A method to add a transition button to the screen
+     * @param root root as a Group object.
+     * @param text title text of the button
+     * @param x x coordinate of the button to place
+     * @param y y coordinate of the button to place
+     * @param width minimum width to set for the button
+     * @param height minimum height to set for the button
+     * @param nextScreen next screen to pass/show while button is pressed
+     * @return newly created transition button object
+     */
     protected Button addTransitionButton(Group root, String text, double x, double y, double width, double height, Screen nextScreen) {
         Button button = addTransitionButton(root, text, x, y, nextScreen);
         button.setMinWidth(width);
         button.setMinHeight(height);
         return button;
     }
+
     
     protected void setLayoutPos(Node componentNode, double x, double y) {
         componentNode.setLayoutX(x);

@@ -10,8 +10,17 @@ import javafx.scene.image.Image;
 
 import javafx.scene.paint.Color;
 
+/**
+ * Class for adding the GUI components for this
+ * screen including the information on How To Play in a form of tabs/pages
+ * @author Merve Sagyatanlar
+ */
 public class HowToPlayScreen extends GeneralScreen {
-    
+
+    /**
+     * An overriden getScene method to return the current Screen.
+     * @return the current screen as a Screen object.
+     */
     @Override
     public Scene getScene() {
         Group root = new Group();
