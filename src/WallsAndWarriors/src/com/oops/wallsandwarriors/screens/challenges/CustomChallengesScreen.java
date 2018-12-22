@@ -24,8 +24,10 @@ import java.util.List;
 import java.util.Optional;
 
 import com.oops.wallsandwarriors.util.EncodeUtils;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -50,10 +52,8 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
     ObservableList<String> challengeNames;
     List<ChallengeData> customChallenges;
 
-    GridPane grid = super.getGrid();
-
-    /**GameConstants.MAX_LENGTH_OF_TEXT_FIELDS;
-     * An overriden getScene method to return the current Screen.
+    /** 
+     * An overriden getScene method to return the current screen content.
      * @return the current screen as a Screen object.
      */
     @Override
@@ -78,17 +78,15 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
 
         showChallenges(root);
 
-        Button importButton = new Button("Import");
-        importButton.setLayoutX(GameConstants.CUST_SCR_IMP_X);
-        importButton.setLayoutY(GameConstants.CUST_SCR_IMP_Y);
-
-        importButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        Button importButton = addButton(root, "Import", 0, 0, new EventHandler<ActionEvent>() {
             @Override
-            public void handle(MouseEvent event) {
+            public void handle(ActionEvent event) {
                 importChallenge();
             }
         });
-        root.getChildren().add(importButton);
+        importButton.setLayoutX(GameConstants.CUST_SCR_IMP_X);
+        importButton.setLayoutY(GameConstants.CUST_SCR_IMP_Y);
+
         constructGrid(root,grid);
 
         return scene;
@@ -151,6 +149,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         playButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                Game.getInstance().soundManager.playClick();
                 startChallenge(challenge.createCopy(true),challenge.createCopy(false));
             }
         });
@@ -158,8 +157,8 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         Button shareButton = new Button("Share");
         shareButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event){
-
+            public void handle(MouseEvent event) {
+                Game.getInstance().soundManager.playClick();
                 try {
                     shareChallenge(challenge);
                 } catch (IOException e) {
@@ -172,6 +171,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         removeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                Game.getInstance().soundManager.playClick();
                 removeChallenge(challenge);
                 playButton.setDisable(true);
                 shareButton.setDisable(true);
@@ -206,12 +206,12 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         buttons.setSpacing(GameConstants.CUST_SCR_SPACING);
         buttons.getChildren().addAll(playButton, shareButton, removeButton);
 
-        grid.add(nameLabel,GameConstants.CUST_SCR_COL_IND,GameConstants.CUST_SCR_ROW_IND);
-        grid.add(descLabel,GameConstants.CUST_SCR_COL_IND,GameConstants.CUST_SCR_ROW_IND+1);
-        grid.add(creatorLabel,GameConstants.CUST_SCR_COL_IND,GameConstants.CUST_SCR_ROW_IND+2);
-        grid.add(typeLabel,GameConstants.CUST_SCR_COL_IND,GameConstants.CUST_SCR_ROW_IND+3);
-        grid.add(warriorLabel,GameConstants.CUST_SCR_COL_IND,GameConstants.CUST_SCR_ROW_IND+4);
-        grid.add(buttons, GameConstants.CUST_SCR_COL_IND, GameConstants.CUST_SCR_ROW_IND+5);
+        grid.add(nameLabel,   GameConstants.CUST_SCR_COL_IND, GameConstants.CUST_SCR_ROW_IND);
+        grid.add(descLabel,   GameConstants.CUST_SCR_COL_IND, GameConstants.CUST_SCR_ROW_IND + 1);
+        grid.add(creatorLabel,GameConstants.CUST_SCR_COL_IND, GameConstants.CUST_SCR_ROW_IND + 2);
+        grid.add(typeLabel,   GameConstants.CUST_SCR_COL_IND, GameConstants.CUST_SCR_ROW_IND + 3);
+        grid.add(warriorLabel,GameConstants.CUST_SCR_COL_IND, GameConstants.CUST_SCR_ROW_IND + 4);
+        grid.add(buttons,     GameConstants.CUST_SCR_COL_IND, GameConstants.CUST_SCR_ROW_IND + 5);
     }
 
     /**
@@ -226,15 +226,17 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         textArea.setEditable(false);
         textArea.setWrapText(true);
         GridPane gridPane = new GridPane();
-        gridPane.add(textArea, GameConstants.CUST_SCR_COL_IND, GameConstants.CUST_SCR_ROW_IND-1);
+        gridPane.add(textArea, GameConstants.CUST_SCR_COL_IND, GameConstants.CUST_SCR_ROW_IND - 1);
         ButtonType clipboard = new ButtonType("Copy To Clipboard!");
+        ButtonType okButtonType = new ButtonType("OK", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setTitle("Share the challenge code.");
         alert.setHeaderText(null);
         alert.getDialogPane().setContent(gridPane);
         alert.getButtonTypes().add(clipboard);
-
+        alert.getButtonTypes().add(okButtonType);
+        
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == clipboard ) {

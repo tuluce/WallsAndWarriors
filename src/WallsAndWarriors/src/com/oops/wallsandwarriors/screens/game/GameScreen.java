@@ -85,26 +85,30 @@ public class GameScreen extends BaseGameScreen {
 
     @Override
     protected void addComponents(Group root) {
-        addButton(root, "Back", GameConstants.GAME_SCR_BACK_X, GameConstants.GAME_SCR_BACK_Y, new EventHandler<ActionEvent>() {
+        addButton(root, "Back", GameConstants.GAME_SCR_BACK_X,
+                GameConstants.GAME_SCR_BACK_Y, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 changeScreen(previousScreen);
             }
         });
-        addButton(root, "Hint", GameConstants.GAME_SCR_HINT_X, GameConstants.GAME_SCR_HINT_Y, new EventHandler<ActionEvent>() {
+        addButton(root, "Hint", GameConstants.GAME_SCR_HINT_X,
+                GameConstants.GAME_SCR_HINT_Y, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 showHint();
             }
         });
-        addButton(root, "Reset", GameConstants.GAME_SCR_RESET_X, GameConstants.GAME_SCR_RESET_Y, new EventHandler<ActionEvent>() {
+        addButton(root, "Reset", GameConstants.GAME_SCR_RESET_X,
+                GameConstants.GAME_SCR_RESET_Y, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 resetState();
             }
         });
 
-        muteButton = addButton(root, "Mute", GameConstants.GAME_SCR_MUTE_X, GameConstants.GAME_SCR_MUTE_Y, new EventHandler<ActionEvent>() {
+        muteButton = addButton(root, "Mute", GameConstants.GAME_SCR_MUTE_X,
+                GameConstants.GAME_SCR_MUTE_Y, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 if (Game.getInstance().soundManager.soundCheck()){
@@ -211,7 +215,8 @@ public class GameScreen extends BaseGameScreen {
 
     /**
      * A method to check whether the solution of the user to a chosen challenge is correct or not
-     * @param showMistake boolean value to indicate whether to show the mistakes after incorrect solution or not
+     * @param showMistake boolean value to indicate whether to show the mistakes
+     *                    after incorrect solution or not
      */
     private void checkSolution(boolean showMistake) {
         ChallengeData challenge = Game.getInstance().challengeManager.getChallengeData();
@@ -232,7 +237,8 @@ public class GameScreen extends BaseGameScreen {
     }
 
     /**
-     * A method to give by placing one wall to the correct place on the grid hint to the user for the challenge played
+     * A method to give by placing one wall to the correct place on the grid hint to
+     * the user for the challenge player.
      */
     private void showHint(){
             ChallengeData challengeData = Game.getInstance().challengeManager.getChallengeData();
@@ -274,9 +280,8 @@ public class GameScreen extends BaseGameScreen {
             if (previousScreen == Game.getInstance().screenManager.campaignChallenges) {
                 alert.getButtonTypes().add(nextType);
             }
-            
             Optional<ButtonType> result = alert.showAndWait();
-
+            
             if (result.get() == nextType) {
                goNextChallenge();
             } else if (result.get() == backType) {
@@ -295,7 +300,8 @@ public class GameScreen extends BaseGameScreen {
     }
 
     /**
-     * A method to save the session of the player after having sudden system crash while playing the challenge
+     * A method to save the session of the player after having sudden system
+     * crash while playing the challenge
      */
     private void saveSession() {
         try {
@@ -304,9 +310,7 @@ public class GameScreen extends BaseGameScreen {
             StorageManager storageManager = Game.getInstance().storageManager;
             File inputFile = storageManager.sessionData;
             File tempFile = new File(storageManager.wnwData, "tempSession.dat");
-
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(tempFile));
-
             String challengeCode = EncodeUtils.encode(challengeData);
             String hintCode = EncodeUtils.encode(hintData);
             bufferedWriter.write(challengeCode + "\n" + hintCode + "\n");
@@ -315,8 +319,7 @@ public class GameScreen extends BaseGameScreen {
                 System.out.println("Could not delete file");
                 return;
             }
-
-            //Rename the new file to the filename the original file had.
+            // Rename the new file to the filename the original file had.
             if (!tempFile.renameTo(inputFile)) {
                 System.out.println("Could not rename file");
             }
@@ -337,23 +340,18 @@ public class GameScreen extends BaseGameScreen {
     {
         FileWriter fileWriter;
         StorageManager storageManager = Game.getInstance().storageManager;
-
         try {
             fileWriter = new FileWriter(storageManager.progressData);
-
             int index = getIndex(challengeData);
             if (isSolved) {
                 if (index < CampaignChallengesData.campaignChallengesProgress.size() - 1) {
                     CampaignChallengesData.campaignChallengesProgress.set(index + 1, "1");
                 }
-            }
-            else {
+            } else {
                 CampaignChallengesData.campaignChallengesProgress.set(index + 1, "0");
             }
-
             fileWriter.write(CampaignChallengesData.campaignChallengesProgress.toString() + "\n");
             fileWriter.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -364,8 +362,7 @@ public class GameScreen extends BaseGameScreen {
      * @param challengeData challenge to get its index
      * @return sequence number of the challenge
      */
-    private int getIndex(ChallengeData challengeData)
-    {
+    private int getIndex(ChallengeData challengeData) {
         for (int i = 0; i < CampaignChallengesData.campaignChallenges.size(); i++) {
             if (challengeData.getName().equals(CampaignChallengesData.campaignChallenges.get(i).getName())) {
                 return i;
