@@ -1,5 +1,9 @@
 package com.oops.wallsandwarriors.util;
 
+/**
+ * A class to manage math utilities
+ * @author OOPs
+ */
 public class MathUtils {
 
     /**

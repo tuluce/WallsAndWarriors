@@ -3,6 +3,10 @@ package com.oops.wallsandwarriors.util;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 
+/**
+ * A class to manage file utilities
+ * @author OOPs
+ */
 public class FileUtils {
     
     private static FileUtils instance;

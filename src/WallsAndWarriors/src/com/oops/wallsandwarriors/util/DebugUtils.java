@@ -4,6 +4,10 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * A class to print the coordinates of clicked points
+ * @author OOPs
+ */
 public class DebugUtils {
     
     public static final boolean DEBUGGING = false;

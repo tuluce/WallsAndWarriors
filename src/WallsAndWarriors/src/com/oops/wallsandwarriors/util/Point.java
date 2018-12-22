@@ -3,6 +3,10 @@ package com.oops.wallsandwarriors.util;
 import com.oops.wallsandwarriors.model.Coordinate;
 import java.awt.geom.Point2D;
 
+/**
+ * A class to manage point coordinates
+ * @author OOPs
+ */
 public class Point extends Point2D.Double {
 
     /**

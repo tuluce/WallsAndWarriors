@@ -3,6 +3,10 @@ package com.oops.wallsandwarriors.util;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * A class to manage algorithm of an iterator
+ * @author OOPs
+ */
 public class AlgorithmUtils {
 
     /**
