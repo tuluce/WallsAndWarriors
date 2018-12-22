@@ -1,16 +1,13 @@
 package com.oops.wallsandwarriors.screens;
 
-import com.oops.wallsandwarriors.util.DebugUtils;
 import com.oops.wallsandwarriors.Game;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import com.oops.wallsandwarriors.util.FileUtils;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 public class CreditsScreen extends GeneralScreen {
     
@@ -18,49 +15,22 @@ public class CreditsScreen extends GeneralScreen {
     public Scene getScene() {
         Group root = new Group();
         Scene scene = new Scene(root);
-        
-        DebugUtils.initClickDebugger(scene);
-        GraphicsContext graphics = addBackgroundCanvas(root, "/com/oops/wallsandwarriors/resources/images/background2.png", "Credits");
+        GraphicsContext g = addBackgroundCanvas(root, "/com/oops/wallsandwarriors/resources/images/background2.png", "Credits");
+        g.setFill(Color.BEIGE);
+        g.fillRoundRect(50, 80, 450, 450, 30, 30);
+        Image content = getContentImage();
+        g.drawImage(content, 60, 90, 780, 430);
         addTransitionScreen(root, "Back", 700, 550, Game.getInstance().screenManager.mainMenu);
-        drawContent(graphics);
 
         return scene;
     }
     
-    private void drawContent(GraphicsContext graphics) {
-        String contentText =
-              "Walls & Warriors is a term project done for 'Object-Oriented\n"
-            + "Software Engineering' course in Bilkent University.\n\n"
-            + "-- Contributors --\n"
-            + " Ali Babayev\n"
-            + " Tunar Mahmudov\n"
-            + " Merve Sagyatanlar\n"
-            + " Cagla Sozen\n"
-            + " Emin Bahadir Tuluce\n";
-        graphics.setFill(Color.BEIGE);
-        graphics.fillRoundRect(60, 160, 670, 300, 50, 50);
-        graphics.setFont(Font.font("Arial", FontWeight.NORMAL, 24));
-        graphics.setFill(Color.BLACK);
-        graphics.fillText(contentText, 80, 200);
-    }
-
-    public void addNameList(Group root){
-        ListView<String> nameList = new ListView<String>();
-        ObservableList<String> names = FXCollections.observableArrayList(
-                "Ali Babayev                 ali.babayev@ug.bilkent.edu.tr",
-                    "Tunar Mahmudov       tunar.mahmudov@ug.bilkent.edu.tr",
-                    "Merve Sagyatanlar     merve.sagyatanlar@ug.bilkent.edu.tr",
-                    "Cagla Sozen               cagla.sozen@ug.bilkent.edu.tr",
-                    "Bahadir Tuluce           bahadir.tuluce@ug.bilkent.edu.tr"
-                 );
-        nameList.setItems(names);
-        nameList.setLayoutX(100);
-        nameList.setLayoutY(250);
-
-        nameList.setPrefSize(600,130);
-
-        root.getChildren().add(nameList);
-
+    private static Image contentImage = null;
+    private static Image getContentImage() {
+        if (contentImage == null) {
+            contentImage = new Image(FileUtils.getInputStream("/com/oops/wallsandwarriors/resources/images/credits.png"));
+        }
+        return contentImage;
     }
     
 }
