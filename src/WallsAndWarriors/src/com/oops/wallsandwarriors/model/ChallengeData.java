@@ -223,13 +223,16 @@ public class ChallengeData implements Serializable {
      * A method to check if the ChallengeData contains Blue knights or not.
      * @return A boolean value indicating if the ChallengeData contains Blue knights or not.
      */
-
     public boolean hasBlueKnights(){
         if(0<noOfBlueKnights())
             return true;
         return false;
     }
 
+    /**
+     * A method to return number of Blue(ally) knights in ChallengeDara
+     * @return number of blue(ally) knights.
+     */
     public int noOfBlueKnights(){
         int count = 0;
 
@@ -241,6 +244,10 @@ public class ChallengeData implements Serializable {
         return count;
     }
 
+    /**
+     * A method to check whether ChallengeData's type is wild or not
+     * @return boolean value indicating if the ChallengeData is wild type
+     */
     public boolean isWild(){
 
         int blueKnightsSize = noOfBlueKnights();
