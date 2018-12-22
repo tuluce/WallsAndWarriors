@@ -1,7 +1,7 @@
 /**
  * A class to utilize  in the game to copy Base64 text to clipboard by a single button.
  * @author OOPs
- * @version 21.12.12
+ * @version 21.12.19
  */
 
 package com.oops.wallsandwarriors.util;
