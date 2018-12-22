@@ -9,6 +9,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * A class to manage writing and reading file operations
+ * @author Merve Sagyatanlar
+ * @author Emin Bahadir Tuluce
+ * @author Ali Babayev
+ * @author Tunar Mahmudov
+ */
 public class StorageManager {
 
     public File wnwData;
@@ -18,13 +25,18 @@ public class StorageManager {
     public File progressData;
     public File settingsData;
 
-    public StorageManager()
-    {
+    /**
+     * A default constructor that calls makeDirectory
+     */
+    public StorageManager() {
         makeDirectory();
     }
 
-    private void makeDirectory()
-    {
+
+    /**
+     * A method to create .wnwdata folder into the user's home directory
+     */
+    private void makeDirectory() {
         String userHome = System.getProperty("user.home");
         wnwData = new File(userHome + "/.wnwdata");
         wnwData.mkdirs();
@@ -35,7 +47,10 @@ public class StorageManager {
         makeSettingsFile();
     }
 
-    public void makeSettingsFile(){
+    /**
+     * A method to create settings.dat file into the .wnwdata folder
+     */
+    public void makeSettingsFile() {
         settingsData = new File (wnwData,"settings.dat");
         try {
             if (!settingsData.exists()) {
@@ -51,7 +66,10 @@ public class StorageManager {
         settingsData.setWritable(true);
     }
 
-    public void writeSettings(double sound, double music){
+    /**
+     * A method to write latest data to the settings.dat file
+     */
+    public void writeSettings(double sound, double music) {
         try {
             settingsData = new File(wnwData, "settings.dat");
             settingsData.createNewFile();
@@ -64,9 +82,14 @@ public class StorageManager {
         }
     }
 
+    /**
+     * A method to read sound settings from the settings.dat file
+     * @return sound setting
+     */
     public double readSoundSetting() {
         try {
-            BufferedReader soundReader = new BufferedReader(new FileReader(new File(wnwData, "settings.dat")));
+            BufferedReader soundReader = new BufferedReader(
+                    new FileReader(new File(wnwData, "settings.dat")));
             String soundSetting = soundReader.readLine();
             Scanner soundScanner = new Scanner(soundSetting);
             return Double.parseDouble(soundScanner.next());
@@ -79,9 +102,14 @@ public class StorageManager {
         return 0;
     }
 
+    /**
+     * A method to read latest music setting from the settings.dat file
+     * @return music setting
+     */
     public double readMusicSetting() {
         try {
-            BufferedReader soundReader = new BufferedReader(new FileReader(new File(wnwData, "settings.dat")));
+            BufferedReader soundReader = new BufferedReader(
+                    new FileReader(new File(wnwData, "settings.dat")));
             String soundSetting = soundReader.readLine();
             Scanner soundScanner = new Scanner(soundSetting);
             soundScanner.next();
@@ -95,10 +123,10 @@ public class StorageManager {
         return 0;
     }
 
-
-
-    public void makeCampaignChallengesFile()
-    {
+    /**
+     * A method to create campaign_challenges.dat file into the .wnwdata folder
+     */
+    public void makeCampaignChallengesFile() {
         campaignChallengeData= new File(wnwData,   "campaign_challenges.dat");
 
 
@@ -110,9 +138,10 @@ public class StorageManager {
         campaignChallengeData.setWritable(true);
     }
 
-
-    public void makeCustomChallengesFile()
-    {
+    /**
+     * A method to create custom_challenges.dat file into the .wnwdata folder
+     */
+    public void makeCustomChallengesFile() {
         customChallengeData= new File(wnwData,   "custom_challenges.dat");
 
 
@@ -125,11 +154,10 @@ public class StorageManager {
         makeSessionFile();
     }
 
-
-
-
-    public void makeProgressFile()
-    {
+    /**
+     * A method to create progress.dat file into the .wnwdata folder
+     */
+    public void makeProgressFile() {
         progressData = new File(wnwData, "progress.dat");
 
         try {
@@ -142,9 +170,10 @@ public class StorageManager {
         progressData.setWritable(true);
     }
 
-
-    public void makeSessionFile()
-    {
+    /**
+     * A method to create session.dat file into the .wnwdata folder
+     */
+    public void makeSessionFile() {
         sessionData = new File(wnwData, "session.dat");
 
         try {
@@ -155,6 +184,9 @@ public class StorageManager {
         sessionData.setWritable(true);
     }
 
+    /**
+     * A method to remove data from session.dat file
+     */
     public void clearSessionFile() {
         try {
             sessionData = new File(wnwData, "session.dat");
@@ -168,13 +200,19 @@ public class StorageManager {
         }
     }
 
+    /**
+     * A method to read session from session.dat file
+     * @return BufferReader for the session data
+     */
     public BufferedReader getSessionReader() throws FileNotFoundException {
         return new BufferedReader(new FileReader(new File(wnwData, "session.dat")));
     }
 
-
-    public File getProgressData()
-    {
+    /**
+     * A method to get progress data
+     * @return progress data file
+     */
+    public File getProgressData() {
         return progressData;
     }
 }
