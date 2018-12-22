@@ -1,3 +1,9 @@
+/**
+ * A class to convert ChallengeData into Base64 code and vice-versa to provide mobility and easy storage for challenges of all types.
+ * @author OOPs
+ * @version 21.12.12
+ */
+
 package com.oops.wallsandwarriors.util;
 
 import com.oops.wallsandwarriors.model.ChallengeData;
@@ -18,6 +24,12 @@ public class EncodeUtils {
     private static String base64;
     private static ChallengeData data;
 
+    /**
+     * Method to encode Challenge game object into Base64 String.
+     * @param  toEncode  ChallengeData of the object to be encoded into Base64 String
+     * @return Encoded String version of the object.
+     * @throws IOException
+     */
     public static String encode(ChallengeData toEncode) throws IOException
     {
         data = toEncode;
@@ -27,7 +39,7 @@ public class EncodeUtils {
         return base64;
     }
 
-    public static byte[] getByteStream(ChallengeData toByte) throws IOException
+    private static byte[] getByteStream(ChallengeData toByte) throws IOException
     {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutput out = null;
@@ -48,7 +60,16 @@ public class EncodeUtils {
         }
     }
 
-    public static ChallengeData decode(String toDecode) throws FileNotFoundException, IOException, ClassNotFoundException
+    /**
+     * Method to decode Base64 String into Challenge game object.
+     * @param  toDecode  Base64 String encoding of the object.
+     * @return ChallengeData version of the object.
+     * @throws ClassNotFoundException if a class exception occurs during conversion.
+     * @throws FileNotFoundException if a file exception occurs during reading from file.
+     * @throws IOException if an input or output exception occurs during conversion.
+     */
+    public static ChallengeData decode(String toDecode)
+            throws FileNotFoundException, IOException, ClassNotFoundException
     {
         byte[] byteArray = Base64.getDecoder().decode(toDecode);
         data = fromByteStream(byteArray);
@@ -57,7 +78,8 @@ public class EncodeUtils {
 
     }
 
-    private static ChallengeData fromByteStream(byte[] toObj) throws IOException,ClassNotFoundException
+    private static ChallengeData fromByteStream(byte[] toObj)
+            throws IOException,ClassNotFoundException
     {
         ByteArrayInputStream bis = new ByteArrayInputStream(toObj);
         ObjectInput in = null;
