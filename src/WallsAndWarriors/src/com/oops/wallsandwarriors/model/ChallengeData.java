@@ -1,10 +1,3 @@
-/**
- * A class to model all different Challenge objects in the game and keeps the
- * regarding information.
- * Implements Serializable
- * @author OOPs
- * @version 21.12.19
- */
 package com.oops.wallsandwarriors.model;
 
 import com.oops.wallsandwarriors.definitions.GridDefinitions;
@@ -16,6 +9,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class to model all different Challenge objects in the game and keeps the
+ * regarding information.
+ * Implements Serializable
+ * @author OOPs
+ * @version 21.12.19
+ */
 public class ChallengeData implements Serializable {
 
     private String name;
