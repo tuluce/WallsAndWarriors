@@ -1,6 +1,7 @@
 package com.oops.wallsandwarriors.screens;
 
 import com.oops.wallsandwarriors.Game;
+import com.oops.wallsandwarriors.GameConstants;
 import com.oops.wallsandwarriors.util.FileUtils;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -20,7 +21,8 @@ public class CreditsScreen extends GeneralScreen {
         g.fillRoundRect(50, 80, 450, 450, 30, 30);
         Image content = getContentImage();
         g.drawImage(content, 60, 90, 780, 430);
-        addTransitionScreen(root, "Back", 700, 550, Game.getInstance().screenManager.mainMenu);
+        addTransitionButton(root, "Back", GameConstants.BACK_BUTTON_X,
+                GameConstants.BACK_BUTTON_Y, Game.getInstance().screenManager.mainMenu);
 
         return scene;
     }

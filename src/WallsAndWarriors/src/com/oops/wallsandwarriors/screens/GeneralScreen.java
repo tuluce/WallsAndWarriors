@@ -46,7 +46,7 @@ public abstract class GeneralScreen implements Screen {
         return addButton(root, text, x, y, null);
     }
     
-    protected Button addTransitionScreen(Group root, String text, double x, double y, Screen nextScreen) {
+    protected Button addTransitionButton(Group root, String text, double x, double y, Screen nextScreen) {
         return addButton(root, text, x, y, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -56,7 +56,7 @@ public abstract class GeneralScreen implements Screen {
     }
     
     protected Button addTransactionButton(Group root, String text, double x, double y, double width, double height, Screen nextScreen) {
-        Button button = addTransitionScreen(root, text, x, y, nextScreen);
+        Button button = addTransitionButton(root, text, x, y, nextScreen);
         button.setMinWidth(width);
         button.setMinHeight(height);
         return button;

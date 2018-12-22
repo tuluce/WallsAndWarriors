@@ -34,8 +34,9 @@ public class GameConstants {
     public static final int BASE_CHAL_COL_IN = 0;
     public static final int BASE_CHAL_ROW_IN = 0;
     public static final int BASE_CHAL_GRID_B = 30;
-    public static final int BASE_CHAL_BUTTON_X = 700;
-    public static final int BASE_CHAL_BUTTON_Y = 50;
+    
+    public static final int BACK_BUTTON_X = 700;
+    public static final int BACK_BUTTON_Y = 50;
 
     public static final int CAMP_SCR_HEIGHT = 80;
     public static final int CAMP_SCR_WIDTH = 95;

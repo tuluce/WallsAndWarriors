@@ -6,7 +6,7 @@ import javafx.scene.input.MouseEvent;
 
 public class DebugUtils {
     
-    public static final boolean DEBUGGING = true;
+    public static final boolean DEBUGGING = false;
 
     /**
      * Method to print coordinates of X and Y in order to debug
