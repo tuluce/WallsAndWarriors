@@ -108,6 +108,7 @@ public class GameConstants {
     public static final int EDITOR_PREF_WIDTH = 250;
     public static final int EDITOR_FIELD_X = 520;
     public static final int EDITOR_FIELD_Y = 450;
+    public static final int MAX_LENGTH_OF_TEXT_FIELDS = 100;
 
     public static final int GAME_SCR_BACK_X = 700;
     public static final int GAME_SCR_BACK_Y = 50;
@@ -125,5 +126,4 @@ public class GameConstants {
     public static final double BASTION_RADIUS = 0.3;
     public static final double KNIGHT_RADIUS = 0.45;
     public static final double HIGH_TOWER_RADIUS = 0.6;
-    
 }

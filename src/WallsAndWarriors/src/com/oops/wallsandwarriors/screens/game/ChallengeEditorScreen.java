@@ -48,6 +48,7 @@ import javafx.scene.text.Font;
  * Extends BaseGameScreen
  * @author Emin Bahadir Tuluce
  * @author Cagla Sozen
+ * @author Ali Babayev
  */
 public class ChallengeEditorScreen extends BaseGameScreen {
     
@@ -324,7 +325,7 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         SolutionManager solutionManager = Game.getInstance().solutionManager;
         ArrayList<KnightData> incorrectRedKnights = solutionManager.checkSolution(exportedChallenge);
 
-        int max_LENGTH = 100;
+        int max_LENGTH = GameConstants.MAX_LENGTH_OF_TEXT_FIELDS;
         boolean isValid = false;
         
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

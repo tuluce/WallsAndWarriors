@@ -52,7 +52,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
 
     GridPane grid = super.getGrid();
 
-    /**
+    /**GameConstants.MAX_LENGTH_OF_TEXT_FIELDS;
      * An overriden getScene method to return the current Screen.
      * @return the current screen as a Screen object.
      */
