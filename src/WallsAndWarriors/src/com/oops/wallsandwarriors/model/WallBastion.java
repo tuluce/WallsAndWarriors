@@ -1,3 +1,7 @@
+package com.oops.wallsandwarriors.model;
+
+import java.io.Serializable;
+
 /**
  * A class to be used to define the bastions of a wall. In this class, relativePos
  * attribute of type Coordinate defines the relative positioning of the bastion with
@@ -6,10 +10,6 @@
  * @author OOPs
  * @version 21.12.19
  */
-package com.oops.wallsandwarriors.model;
-
-import java.io.Serializable;
-
 public class WallBastion implements Serializable {
     
     // The wall bastion lies on top-left corner of the relative block position
