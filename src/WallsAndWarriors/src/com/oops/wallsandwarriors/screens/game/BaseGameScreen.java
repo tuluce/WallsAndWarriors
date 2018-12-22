@@ -97,6 +97,10 @@ public abstract class BaseGameScreen extends GeneralScreen {
         clickables = new ArrayList<BoundedViewObject>();
     }
 
+    /**
+     * A method to initialize
+     * @param scene
+     */
     private void initHoverController(Scene scene) {
         scene.setOnMouseMoved(
             new EventHandler<MouseEvent>() {
@@ -130,7 +134,10 @@ public abstract class BaseGameScreen extends GeneralScreen {
             }
         );
     }
-    
+
+    /**
+     * A method to restart the timer for the game
+     */
     private void restartTimer() {
         stepTimer.stop();
         lastRenderTime = System.nanoTime();
@@ -152,7 +159,14 @@ public abstract class BaseGameScreen extends GeneralScreen {
             }
         }
     }
-    
+
+    /**
+     * A method to check whether object is clicked on with a mouse button
+     * @param mouseX X coordinate of the screen where mouse button is clicked
+     * @param mouseY Y coordinate of the screen where mouse button is clicked
+     * @param button mouse button
+     * @return boolean value indicating whether the object is chosen with mouse button click
+     */
     private boolean checkObjectClick(double mouseX, double mouseY, MouseButton button) {
         Iterator<BoundedViewObject> iterator = clickables.iterator();
         while (iterator.hasNext()) {
@@ -167,20 +181,28 @@ public abstract class BaseGameScreen extends GeneralScreen {
         previewView = null;
         return false;
     }
-    
+
     protected void checkPlacement() {
         if (hoveredBlock != null) {
             placementIsSuitable = Game.getInstance().gridManager
                     .isPiecePlacable(hoveredBlock, selectedPiece);
         }
     }
-    
+
+    /**
+     * A method to draw all knights on the Screen
+     * @param deltaTime the time difference until last render
+     */
     protected void drawKnights(double deltaTime) {
         for (KnightView knightView : knightViews) {
             knightView.draw(graphics, deltaTime);
         }
     }
 
+    /**
+     * A method to draw all high towers on the screen
+     * @param deltaTime the time difference until last render
+     */
     protected void drawHighTowers(double deltaTime) {
         for (HighTowerView highTowerView : highTowerViews) {
             highTowerView.draw(graphics, deltaTime);
@@ -196,7 +218,11 @@ public abstract class BaseGameScreen extends GeneralScreen {
     protected abstract void resetState();
     
     protected abstract void step(double deltaTime);
-    
+
+    /**
+     * An abstract method  to draw all wals on the screen in their correct places
+     * @param deltaTime the time difference until last render
+     */
     protected abstract void drawWalls(double deltaTime);
     
 }
