@@ -1,9 +1,3 @@
-/**
- * This class defines the structure of the editor screen for Challenge Editor.
- * Extends BaseGameScreen
- * @author OOPs
- * @version 21.12.19
- */
 package com.oops.wallsandwarriors.screens.game;
 
 import com.oops.wallsandwarriors.ChallengeManager;
@@ -49,6 +43,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+/**
+ * This class defines the structure of the editor screen for Challenge Editor.
+ * Extends BaseGameScreen
+ * @author OOPs
+ * @version 21.12.19
+ */
 public class ChallengeEditorScreen extends BaseGameScreen {
     
     private EditorPaletteView paletteView;
