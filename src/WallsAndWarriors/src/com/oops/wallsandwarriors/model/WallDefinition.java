@@ -1,3 +1,8 @@
+package com.oops.wallsandwarriors.model;
+
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * A class to be used to define the wall shapes. This class stores Lists of two
  * objects, one of WallBastion type and the other of WallPortion type to define
@@ -6,11 +11,6 @@
  * @author OOPs
  * @version 21.12.19
  */
-package com.oops.wallsandwarriors.model;
-
-import java.io.Serializable;
-import java.util.List;
-
 public class WallDefinition implements Serializable{
 
     public final List<WallPortion> portions;
