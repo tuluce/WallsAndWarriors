@@ -39,13 +39,24 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseButton;
 
-
+/**
+ * This class defines the structure of the game screen (for both custom challenges and
+ * campaign challenges)
+ * Extends the BaseGameScreen .
+ * @author OOPs
+ * @version 21.12.19
+ */
 public class GameScreen extends BaseGameScreen {
 
     private GamePaletteView wallPaletteView;
     private Screen previousScreen;
     private Button muteButton;
-    
+
+    /**
+     * A method to set the previous screen of the current screen.
+     * @param previousScreen as the given previous Screen.
+     */
+
     public void setPreviousScreen(Screen previousScreen) {
         this.previousScreen = previousScreen;
     }
@@ -72,29 +83,29 @@ public class GameScreen extends BaseGameScreen {
 
     @Override
     protected void addComponents(Group root) {
-        addButton(root, "Back", 700, 50, new EventHandler<ActionEvent>() {
+        addButton(root, "Back", GameConstants.GAME_SCR_BACK_X, GameConstants.GAME_SCR_BACK_Y, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 changeScreen(previousScreen);
             }
         });
-        addButton(root, "Hint", 700, 550, new EventHandler<ActionEvent>() {
+        addButton(root, "Hint", GameConstants.GAME_SCR_HINT_X, GameConstants.GAME_SCR_HINT_Y, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 showHint();
             }
         });
-        addButton(root, "Reset", 650, 550, new EventHandler<ActionEvent>() {
+        addButton(root, "Reset", GameConstants.GAME_SCR_RESET_X, GameConstants.GAME_SCR_RESET_Y, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 resetState();
             }
         });
 
-        muteButton = addButton(root, "Mute", 630, 50, new EventHandler<ActionEvent>() {
+        muteButton = addButton(root, "Mute", GameConstants.GAME_SCR_MUTE_X, GameConstants.GAME_SCR_MUTE_Y, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(Game.getInstance().soundManager.soundCheck()){
+                if (Game.getInstance().soundManager.soundCheck()){
                     Game.getInstance().soundManager.mute();
                     muteButton.setText("Unmute");
                 }
@@ -199,7 +210,8 @@ public class GameScreen extends BaseGameScreen {
         if (incorrectRedKnights == null) {
             handleAlert("Mistake", "Walls are not closed.", showMistake);
         } else if (!incorrectRedKnights.isEmpty()) {
-            handleAlert("Mistake", "Problem with red Knights: " + incorrectRedKnights.size(), showMistake);
+            handleAlert("Mistake", "Problem with red Knights: " +
+                    incorrectRedKnights.size(), showMistake);
         } else {
             Game.getInstance().soundManager.playCongrats();
             handleAlert("WIN", "Congratulations! You solved the challenge.", true);
@@ -212,18 +224,19 @@ public class GameScreen extends BaseGameScreen {
             ChallengeData challengeData = Game.getInstance().challengeManager.getChallengeData();
             ChallengeData solutionData = Game.getInstance().hintManager.getChallengeData();
 
-            challengeData.walls.get(1).setWallDefinition(solutionData.walls.get(1).getWallDefinition());
+            challengeData.walls.get(1).setWallDefinition(solutionData.walls.
+                    get(1).getWallDefinition());
 
-            boolean placable =  Game.getInstance().gridManager.isPiecePlacable(solutionData.walls.get(1).getPosition(),challengeData.walls.get(1));
-            if (!placable)
-            {
+            boolean placable =  Game.getInstance().gridManager.isPiecePlacable(solutionData.walls.
+                    get(1).getPosition(), challengeData.walls.get(1));
+            if (!placable) {
                 resetState();
             }
 
-            Game.getInstance().gridManager.attemptPlacement(solutionData.walls.get(1).getPosition(),challengeData.walls.get(1));
+            Game.getInstance().gridManager.attemptPlacement(solutionData.walls.
+                    get(1).getPosition(),challengeData.walls.get(1));
             saveSession();
             checkSolution(false);
-            return;
     }
 
     private void handleAlert(String title, String content, boolean show) {
@@ -288,7 +301,7 @@ public class GameScreen extends BaseGameScreen {
         }
     }
 
-    public void editProgressInfo(ChallengeData challengeData, boolean isSolved)
+    private void editProgressInfo(ChallengeData challengeData, boolean isSolved)
     {
         FileWriter fileWriter;
         StorageManager storageManager = Game.getInstance().storageManager;
@@ -297,15 +310,12 @@ public class GameScreen extends BaseGameScreen {
             fileWriter = new FileWriter(storageManager.progressData);
 
             int index = getIndex(challengeData);
-            if(isSolved)
-            {
-                if(index < CampaignChallengesData.campaignChallengesProgress.size() - 1)
-                {
+            if (isSolved) {
+                if (index < CampaignChallengesData.campaignChallengesProgress.size() - 1) {
                     CampaignChallengesData.campaignChallengesProgress.set(index + 1, "1");
                 }
             }
-            else
-            {
+            else {
                 CampaignChallengesData.campaignChallengesProgress.set(index + 1, "0");
             }
 
@@ -319,10 +329,8 @@ public class GameScreen extends BaseGameScreen {
 
     private int getIndex(ChallengeData challengeData)
     {
-        for (int i = 0; i < CampaignChallengesData.campaignChallenges.size(); i++)
-        {
-            if(challengeData.getName().equals(CampaignChallengesData.campaignChallenges.get(i).getName()))
-            {
+        for (int i = 0; i < CampaignChallengesData.campaignChallenges.size(); i++) {
+            if (challengeData.getName().equals(CampaignChallengesData.campaignChallenges.get(i).getName())) {
                 return i;
             }
         }
@@ -333,7 +341,7 @@ public class GameScreen extends BaseGameScreen {
         ChallengeData current = Game.getInstance().challengeManager.getChallengeData();
         List<String> progress = CampaignChallengesData.campaignChallengesProgress;
         int nextIndex = getIndex(current) + 1;
-        if (nextIndex == 0 || nextIndex >= progress.size()) {
+        if (nextIndex == GameConstants.ZERO || nextIndex >= progress.size()) {
             changeScreen(previousScreen);
         } else {
             ChallengeData next = CampaignChallengesData.campaignChallenges.get(nextIndex);
@@ -343,5 +351,4 @@ public class GameScreen extends BaseGameScreen {
         }
         
     }
-
 }
