@@ -9,13 +9,24 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import com.oops.wallsandwarriors.model.HighTowerData;
 
+/**
+ * A class to implement high tower view
+ * @author  Emin Bahadir Tuluce
+ */
 public class HighTowerView extends GridPieceView {
     
     private final HighTowerData model;
     private final MultiRectangleBounds bounds;
     private boolean isPlaced;
     private boolean onPalette;
-    
+
+    /**
+     * A constructor of the high tower class with given parameters
+     * @param gridB length of the grid block
+     * @param model high tower model
+     * @param gridX x coordinate
+     * @param gridY y coordinate
+     */
     public HighTowerView(HighTowerData model, double gridX, double gridY, double gridB) {
         this.model = model;
         this.gridX = gridX;
@@ -23,11 +34,20 @@ public class HighTowerView extends GridPieceView {
         this.gridB = gridB;
         bounds = new MultiRectangleBounds();
     }
-    
+
+    /**
+     * A constructor of the high tower class with parameter
+     * @return list of block bounds
+     */
     public HighTowerView(HighTowerData model) {
         this(model, GameConstants.GRID_X, GameConstants.GRID_Y, GameConstants.GRID_B);
     }
-    
+
+    /**
+     * A constructor of the high tower class with parameters
+     * @param model high tower model
+     * @param inEditor indicates in editor or not
+     */
     public HighTowerView(HighTowerData model, boolean inEditor) {
         this(model);
         if (inEditor) {
@@ -79,7 +99,12 @@ public class HighTowerView extends GridPieceView {
         drawHighTowerPart(graphics, getFirstPoint());
         drawHighTowerPart(graphics, getSecondPoint());
     }
-    
+
+    /**
+     * A method to draw high tower part
+     * @param graphics Graphics object
+     * @param part  Point object
+     */
     private void drawHighTowerPart(GraphicsContext graphics, Point part) {
         double a = screenX + (part.x + 0.5) * blockLength;
         double b = screenY + (part.y + 0.5) * blockLength;
@@ -92,7 +117,11 @@ public class HighTowerView extends GridPieceView {
                     b - l * RAD_RATIO * 0.5, l * RAD_RATIO, l * RAD_RATIO));
         }
     }
-    
+
+    /**
+     * A method to draw high tower wall
+     * @param graphics Graphics object
+     */
     private void drawHighTowerWall(GraphicsContext graphics) {
         Point first = getFirstPoint();
         Point second = getSecondPoint();
@@ -102,7 +131,11 @@ public class HighTowerView extends GridPieceView {
         double d = screenY + (second.y + 0.5) * blockLength;
         graphics.strokeLine(a, b, c, d);
     }
-    
+
+    /**
+     * A method to get first point
+     * @return first point
+     */
     private Point getFirstPoint() {
         if (isPlaced) {
             return new Point(model.getFirstPosition());
@@ -111,7 +144,11 @@ public class HighTowerView extends GridPieceView {
         }
         return new Point(0, 0);
     }
-   
+
+    /**
+     * A method to get second point
+     * @return second point
+     */
     private Point getSecondPoint() {
         if (isPlaced) {
             return new Point(model.getSecondPosition());
@@ -123,6 +160,10 @@ public class HighTowerView extends GridPieceView {
         return new Point(1, 0);
     }
 
+    /**
+     * A method to get color
+     * @return high tower color
+     */
     private Color getColor() {
         return Game.getInstance().settingsManager.getAllyColor();
     }
