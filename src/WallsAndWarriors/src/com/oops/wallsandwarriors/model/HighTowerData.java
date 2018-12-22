@@ -1,11 +1,3 @@
-/**
- * A class to be used to define the structure of a high tower object. The information
- * is stored as two coordinates which define its position on the grid.
- * Implements BorderPiece, BlockPiece, Serializable
- * @author OOPs
- * @version 21.12.19
- */
-
 package com.oops.wallsandwarriors.model;
 
 import com.oops.wallsandwarriors.util.Point;
@@ -13,7 +5,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * A class to be used to define the structure of a high tower object. The information
+ * is stored as two coordinates which define its position on the grid.
+ * Implements BorderPiece, BlockPiece, Serializable
+ * @author OOPs
+ * @version 21.12.19
+ */
 public class HighTowerData implements BorderPiece, BlockPiece, Serializable {
 
     private Coordinate firstPosition;
