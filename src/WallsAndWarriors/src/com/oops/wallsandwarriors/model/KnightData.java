@@ -1,3 +1,9 @@
+package com.oops.wallsandwarriors.model;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A class to be used to define the structure of a knight object. The information is
  * stored as a coordinate to define its position on the grid.
@@ -5,14 +11,6 @@
  * @author OOPs
  * @version 21.12.19
  */
-
-package com.oops.wallsandwarriors.model;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-
 public class KnightData implements BlockPiece,Serializable {
 
     public final boolean isEnemy;
