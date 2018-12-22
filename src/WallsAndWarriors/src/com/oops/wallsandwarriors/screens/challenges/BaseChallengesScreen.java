@@ -1,12 +1,3 @@
-/**
- * An abstract class to define a general screen structure for Challenges Screens. This
- * screen will provide a generic definition of standard methods for viewing the
- * challenges, but the distinguishable methods will be implemented separately in the
- * sub-classes.
- * Extends GeneralScreen
- * @author OOPs
- * @version 21.12.19
- */
 package com.oops.wallsandwarriors.screens.challenges;
 
 import com.oops.wallsandwarriors.Game;
@@ -27,6 +18,15 @@ import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * An abstract class to define a general screen structure for Challenges Screens. This
+ * screen will provide a generic definition of standard methods for viewing the
+ * challenges, but the distinguishable methods will be implemented separately in the
+ * sub-classes.
+ * Extends GeneralScreen
+ * @author OOPs
+ * @version 21.12.19
+ */
 public abstract class BaseChallengesScreen extends GeneralScreen {
 
     private static final int HEIGHT = 150;
