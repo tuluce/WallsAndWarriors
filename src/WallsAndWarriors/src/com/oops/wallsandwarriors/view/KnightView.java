@@ -19,7 +19,11 @@ public class KnightView extends GridPieceView {
     private final RectangleBounds bounds;
 
     /**
-     * A constructor for knight view with given parameters
+     * Creates a new KnightView.
+     * @param model the model for the knight view
+     * @param gridX the grid x position 
+     * @param gridY the grid y position
+     * @param gridB the length of a grid block
      */
     public KnightView(KnightData model, double gridX, double gridY, double gridB) {
         this.model = model;
@@ -30,14 +34,17 @@ public class KnightView extends GridPieceView {
     }
 
     /**
-     * A constructor for knight view with given parameters
+     * Creates a new KnightView.
+     * @param model the model for the knight view
      */
     public KnightView(KnightData model) {
         this(model, GameConstants.GRID_X, GameConstants.GRID_Y, GameConstants.GRID_B);
     }
 
     /**
-     * A constructor for knight view with given parameters
+     * Creates a new KnightView.
+     * @param model the model for the knight view
+     * @param inEditor should be given true if the knight is in editor
      */
     public KnightView(KnightData model, boolean inEditor) {
         this(model);
@@ -48,16 +55,29 @@ public class KnightView extends GridPieceView {
         }
     }
     
+    /**
+     * A method to get model of the knight view
+     * @return grid piece
+     */
     @Override
     public KnightData getModel() {
         return model;
     }
     
+    /**
+     * A method to get screen bounds of the knight view
+     * @return screen bounds
+     */
     @Override
     public ScreenBounds getBounds() {
         return bounds;
     }
     
+    /**
+     * Draws the knight view object on the screen
+     * @param graphics the graphics object for rendering
+     * @param deltaTime the time difference until last render
+     */
     @Override
     public void draw(GraphicsContext graphics, double deltaTime) {
         boolean setBounds = true;

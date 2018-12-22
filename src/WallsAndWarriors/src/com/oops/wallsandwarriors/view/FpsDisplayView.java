@@ -22,13 +22,18 @@ public class FpsDisplayView implements ViewObject {
     private int fps;
 
     /**
-     * A default constructor of the class
+     * A default constructor of FpsDisplayView
      */
     public FpsDisplayView() {
         fpsFont = Font.font("Monospace", FontWeight.BOLD, 10);
         time = 0;
     }
     
+    /**
+     * Draws the fps display view object on the screen
+     * @param graphics the graphics object for rendering
+     * @param deltaTime the time difference until last render
+     */
     @Override
     public void draw(GraphicsContext graphics, double deltaTime) {
         time += deltaTime;

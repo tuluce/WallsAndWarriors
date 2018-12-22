@@ -21,11 +21,11 @@ public class HighTowerView extends GridPieceView {
     private boolean onPalette;
 
     /**
-     * A constructor of the high tower class with given parameters
-     * @param gridB length of the grid block
-     * @param model high tower model
-     * @param gridX x coordinate
-     * @param gridY y coordinate
+     * Creates a new HighTowerView.
+     * @param model the model for the hight tower view
+     * @param gridX the grid x position 
+     * @param gridY the grid y position
+     * @param gridB the length of a grid block
      */
     public HighTowerView(HighTowerData model, double gridX, double gridY, double gridB) {
         this.model = model;
@@ -36,17 +36,17 @@ public class HighTowerView extends GridPieceView {
     }
 
     /**
-     * A constructor of the high tower class with parameter
-     * @return list of block bounds
+     * Creates a new HighTowerView.
+     * @param model the model for the hight tower view
      */
     public HighTowerView(HighTowerData model) {
         this(model, GameConstants.GRID_X, GameConstants.GRID_Y, GameConstants.GRID_B);
     }
 
     /**
-     * A constructor of the high tower class with parameters
-     * @param model high tower model
-     * @param inEditor indicates in editor or not
+     * Creates a new HighTowerView.
+     * @param model the model for the wall view
+     * @param inEditor should be given true if the hight tower is in editor
      */
     public HighTowerView(HighTowerData model, boolean inEditor) {
         this(model);
@@ -57,16 +57,29 @@ public class HighTowerView extends GridPieceView {
         }
     }
     
+    /**
+     * A method to get model of the high tower view
+     * @return grid piece
+     */
     @Override
     public HighTowerData getModel() {
         return model;
     }
     
+    /**
+     * A method to get screen bounds of the high tower view
+     * @return screen bounds
+     */
     @Override
     public ScreenBounds getBounds() {
         return bounds;
     }
     
+    /**
+     * Draws the high tower view object on the screen
+     * @param graphics the graphics object for rendering
+     * @param deltaTime the time difference until last render
+     */
     @Override
     public void draw(GraphicsContext graphics, double deltaTime) {
         bounds.clearBounds();
@@ -101,9 +114,9 @@ public class HighTowerView extends GridPieceView {
     }
 
     /**
-     * A method to draw high tower part
-     * @param graphics Graphics object
-     * @param part  Point object
+     * A method to draw a high tower part
+     * @param graphics the graphics object
+     * @param part the part to be drawn
      */
     private void drawHighTowerPart(GraphicsContext graphics, Point part) {
         double a = screenX + (part.x + 0.5) * blockLength;
@@ -120,7 +133,7 @@ public class HighTowerView extends GridPieceView {
 
     /**
      * A method to draw high tower wall
-     * @param graphics Graphics object
+     * @param graphics the graphics object
      */
     private void drawHighTowerWall(GraphicsContext graphics) {
         Point first = getFirstPoint();

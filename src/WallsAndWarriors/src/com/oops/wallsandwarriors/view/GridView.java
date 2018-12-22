@@ -140,7 +140,7 @@ public class GridView implements ViewObject {
     /**
      * A method to get block bounds
      * @param x coordinate value
-     * @return translate x value
+     * @return translated x value
      */
     public int translateToGridX(double x) {
         return (int) ((x - screenX) / blockLength);

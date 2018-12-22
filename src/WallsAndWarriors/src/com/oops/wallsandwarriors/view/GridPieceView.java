@@ -26,7 +26,7 @@ public abstract class GridPieceView implements BoundedViewObject {
     protected double blockLength;
 
     /**
-     * A method to set parameters
+     * A method to set drawing parameters
      * @param screenX x coordinate of the screen
      * @param screenY y coordinate of the screen
      * @param blockLength length of the block
@@ -46,7 +46,7 @@ public abstract class GridPieceView implements BoundedViewObject {
     }
 
     /**
-     * A method to update parameters
+     * A method to update drawing parameters
      * @param isSelected indicate to is selected or not
      * @param previewSuitable indicate to preview is suitable or not
      * @param dragX x value
@@ -61,7 +61,7 @@ public abstract class GridPieceView implements BoundedViewObject {
     }
 
     /**
-     * A method to get model of the grid piece
+     * A method to get model of the grid piece view
      * @return grid piece
      */
     public abstract GridPiece getModel();

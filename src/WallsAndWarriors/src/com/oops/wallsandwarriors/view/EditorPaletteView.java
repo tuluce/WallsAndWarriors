@@ -9,6 +9,11 @@ import javafx.scene.canvas.GraphicsContext;
  */
 public class EditorPaletteView extends GamePaletteView {
     
+    /**
+     * Draws the editor palette view object on the screen
+     * @param graphics the graphics object for rendering
+     * @param deltaTime the time difference until last render
+     */
     @Override
     public void draw(GraphicsContext graphics, double deltaTime) {
         drawSinglePalette(graphics, 

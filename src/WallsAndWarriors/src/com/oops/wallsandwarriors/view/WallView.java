@@ -1,5 +1,6 @@
 package com.oops.wallsandwarriors.view;
 
+import com.oops.wallsandwarriors.ChallengeManager;
 import com.oops.wallsandwarriors.Game;
 import com.oops.wallsandwarriors.GameConstants;
 import com.oops.wallsandwarriors.model.Coordinate;
@@ -13,28 +14,53 @@ import com.oops.wallsandwarriors.util.Rectangle;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+/**
+ * Visual representation of wall object
+ * @author Emin Bahadir Tuluce
+ */
 public class WallView extends GridPieceView {
     
     enum TipType {
-        END, FIRST, SECOND, THIRD, FORTH 
+        END,    // The tip is ending
+        FIRST,  // The tip has a curve on the first quarter
+        SECOND, // The tip has a curve on the second quarter
+        THIRD,  // The tip has a curve on the third quarter
+        FORTH   // The tip has a curve on the forth quarter
     }
     
     private final WallData model;
     private final MultiRectangleBounds bounds;
     
+    /**
+     * Creates a new WallView.
+     * @param model the model for the wall view
+     * @param gridX the grid x position 
+     * @param gridY the grid y position
+     * @param gridB the length of a grid block
+     */
     public WallView(WallData model, double gridX, double gridY, double gridB) {
         this.model = model;
         this.gridX = gridX;
         this.gridY = gridY;
         this.gridB = gridB;
         bounds = new MultiRectangleBounds();
-        index = Game.getInstance().challengeManager.getChallengeData().walls.indexOf(model);
+        ChallengeManager challengeManager = Game.getInstance().challengeManager;
+        index = challengeManager.getChallengeData().walls.indexOf(model);
     }
     
+    /**
+     * Creates a new WallView.
+     * @param model the model for the wall view
+     */
     public WallView(WallData model) {
         this(model, GameConstants.GRID_X, GameConstants.GRID_Y, GameConstants.GRID_B);
     }
     
+    /**
+     * Creates a new WallView.
+     * @param model the model for the wall view
+     * @param inEditor should be given true if the wall is in editor
+     */
     public WallView(WallData model, boolean inEditor) {
         this(model);
         if (inEditor) {
@@ -44,16 +70,29 @@ public class WallView extends GridPieceView {
         }
     }
     
+    /**
+     * A method to get model of the wall view
+     * @return grid piece
+     */
     @Override
     public WallData getModel() {
         return model;
     }
     
+    /**
+     * A method to get screen bounds of the wall view
+     * @return screen bounds
+     */
     @Override
     public ScreenBounds getBounds() {
         return bounds;
     }
     
+    /**
+     * Draws the wall view object on the screen
+     * @param graphics the graphics object for rendering
+     * @param deltaTime the time difference until last render
+     */
     @Override
     public void draw(GraphicsContext graphics, double deltaTime) {
         bounds.clearBounds();
@@ -288,7 +327,7 @@ public class WallView extends GridPieceView {
         }
     }
     
-     private Coordinate getBigger(Coordinate block1, Coordinate block2) {
+    private Coordinate getBigger(Coordinate block1, Coordinate block2) {
         if (block1.x == block2.x) {
             if (block1.y > block2.y) {
                 return block1;

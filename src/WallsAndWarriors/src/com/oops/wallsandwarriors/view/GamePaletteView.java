@@ -12,6 +12,11 @@ import javafx.scene.paint.Color;
  */
 public class GamePaletteView implements ViewObject {
 
+    /**
+     * Draws the game palette view object on the screen
+     * @param graphics the graphics object for rendering
+     * @param deltaTime the time difference until last render
+     */
     @Override
     public void draw(GraphicsContext graphics, double deltaTime) {
         drawSinglePalette(graphics, 

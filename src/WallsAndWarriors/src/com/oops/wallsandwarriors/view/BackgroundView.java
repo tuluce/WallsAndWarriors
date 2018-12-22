@@ -32,6 +32,11 @@ public class BackgroundView implements ViewObject {
         this.inEditMode = inEditMode;
     }
     
+    /**
+     * Draws the background view object on the screen
+     * @param graphics the graphics object for rendering
+     * @param deltaTime the time difference until last render
+     */
     @Override
     public void draw(GraphicsContext graphics, double deltaTime) {
         String title = "Challenge Editor";
