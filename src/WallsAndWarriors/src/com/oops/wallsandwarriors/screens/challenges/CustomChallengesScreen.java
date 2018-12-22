@@ -34,7 +34,29 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
+/**
+ * This class implements the distinguishable features for Custom Challenges Screen.
+ * Extending the BaseChallengesScreen , it implements an additional methods for
+ * the process of importing challenges.
+ * @author OOPs
+ * @version 21.12.19
+ */
 public class CustomChallengesScreen extends BaseChallengesScreen {
+
+    private static final int LAY_X = 50;
+    private static final int LAY_Y = 150;
+    private static final int LIST_PREF_HEIGHT = 350;
+    private static final int LIST_PREF_WIDTH = 350;
+    private static final int FONT_SIZE = 14;
+    private static final int ZERO = 0;
+    private static final double PREF_WIDTH = 220.00;
+    private static final int SPACING = 20;
+    private static final int COL_IND = 0;
+    private static final int ROW_IND = 1;
+    private static final int H_GAP = 10;
+    private static final int V_GAP = 10;
+    private static final int GRID_LAY_X = 450;
+    private static final int GRID_LAY_Y = 150;
 
     CustomChallengesData customChallengesData;
 
@@ -43,6 +65,10 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
 
     GridPane grid = super.getGrid();
 
+    /**
+     * An overriden getScene method to return the current Screen.
+     * @return the current screen as a Screen object.
+     */
     @Override
     public Scene getScene(){
         Group root = new Group();
@@ -53,7 +79,8 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         customChallenges = customChallengesData.getCustomChallenges();
 
         DebugUtils.initClickDebugger(scene);
-        addBackgroundCanvas(root, "/com/oops/wallsandwarriors/resources/images/background2.png", "Custom Challenges");
+        addBackgroundCanvas(root, "/com/oops/wallsandwarriors/resources/images/background2.png",
+                "Custom Challenges");
         super.renderButtons(root);
 
         Text title = new Text(50, 100, "Choose a challenge.");
@@ -62,7 +89,6 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         root.getChildren().add(title);
 
         showChallenges(root);
-
 
         Button importButton = new Button("Import");
         importButton.setLayoutX(50);
@@ -75,28 +101,27 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
             }
         });
         root.getChildren().add(importButton);
-
-
         constructGrid(root,grid);
 
         return scene;
     }
 
-
-
+    /**
+     * A method to display CustomChallenges on the Screen.
+     * @param root root as a Group object.
+     */
     private void showChallenges(Group root)
     {
-        for (int i = 0; i < customChallenges.size(); i++)
-        {
+        for (int i = 0; i < customChallenges.size(); i++) {
             challengeNames.add(customChallenges.get(i).getName());
         }
 
         ListView<String> list = new ListView<>();
-        list.setLayoutX(50);
-        list.setLayoutY(150);
+        list.setLayoutX(LAY_X);
+        list.setLayoutY(LAY_Y);
         list.setOrientation(Orientation.VERTICAL);
-        list.setPrefWidth(350);
-        list.setPrefHeight(350);
+        list.setPrefWidth(LIST_PREF_WIDTH);
+        list.setPrefHeight(LIST_PREF_HEIGHT);
         list.setItems(challengeNames);
         root.getChildren().add(list);
 
@@ -106,7 +131,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
                 grid.getChildren().clear();
                 int challengeIndex = list.getSelectionModel().getSelectedIndex();
                 try {
-                    if (challengeIndex >= 0) {
+                    if (challengeIndex >= ZERO) {
                         showChallengeInfo(customChallenges.get(challengeIndex), root);
                     }
                 } catch (FileNotFoundException e) {
@@ -116,7 +141,12 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         });
     }
 
-
+    /**
+     * A method to display a CustomChallenge information on the Screen with the buttons.
+     * @param challenge ChallengeData of the challenge to be displayed.
+     * @param root root as a Group object.
+     * @throws FileNotFoundException in case of a file error.
+     */
     public void showChallengeInfo(ChallengeData challenge, Group root) throws FileNotFoundException
     {
         Game.getInstance().challengeManager.setChallengeData(challenge);
@@ -136,7 +166,6 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
                 startChallenge(challenge.createCopy(true),challenge.createCopy(false));
             }
         });
-
 
         Button shareButton = new Button("Share");
         shareButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -162,7 +191,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
             }
         });
         
-        Font theFont = Font.font("Arial", FontWeight.MEDIUM, 14);
+        Font theFont = Font.font("Arial", FontWeight.MEDIUM, FONT_SIZE);
         nameLabel.setTextFill(Color.BEIGE);
         descLabel.setTextFill(Color.BEIGE);
         creatorLabel.setTextFill(Color.BEIGE);
@@ -173,7 +202,7 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         creatorLabel.setFont(theFont);
         typeLabel.setFont(theFont);
         warriorLabel.setFont(theFont);
-        double prefferedWidth = 220.00;
+        double prefferedWidth = PREF_WIDTH;
         nameLabel.setPrefWidth(prefferedWidth);
         nameLabel.setWrapText(true);
         descLabel.setPrefWidth(prefferedWidth);
@@ -186,24 +215,30 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         warriorLabel.setWrapText(true);
         
         HBox buttons = new HBox();
-        buttons.setSpacing(20);
+        buttons.setSpacing(SPACING);
         buttons.getChildren().addAll(playButton, shareButton, removeButton);
 
-        grid.add(nameLabel,0,1);
-        grid.add(descLabel,0,2);
-        grid.add(creatorLabel,0,3);
-        grid.add(typeLabel,0,4);
-        grid.add(warriorLabel,0,5);
-        grid.add(buttons, 0, 6);
+        grid.add(nameLabel,COL_IND,ROW_IND);
+        grid.add(descLabel,COL_IND,ROW_IND+1);
+        grid.add(creatorLabel,COL_IND,ROW_IND+2);
+        grid.add(typeLabel,COL_IND,ROW_IND+3);
+        grid.add(warriorLabel,COL_IND,ROW_IND+4);
+        grid.add(buttons, COL_IND, ROW_IND+5);
     }
 
+    /**
+     * A method to share a CustomChallenge from the list.
+     * @param challenge ChallengeData of the challenge to be shared.
+     * @throws FileNotFoundException in case of a file error.
+     * @throws IOException in case of an input/output error.
+     */
     private void shareChallenge(ChallengeData challenge ) throws FileNotFoundException,IOException{
 
         TextArea textArea = new TextArea(EncodeUtils.encode(challenge));
         textArea.setEditable(false);
         textArea.setWrapText(true);
         GridPane gridPane = new GridPane();
-        gridPane.add(textArea, 0, 0);
+        gridPane.add(textArea, COL_IND, ROW_IND-1);
         ButtonType clipboard = new ButtonType("Copy To Clipboard!");
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -214,14 +249,15 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        if(result.get() == clipboard )
-        {
+        if (result.get() == clipboard ) {
             CopyUtils.copyToClipboard(textArea.getText());
         }
         
     }
 
-
+    /**
+     * A method to import a CustomChallenge with the Base64 encoding.
+     */
     public void importChallenge()
     {
         TextInputDialog textInputDialog = new TextInputDialog(null);
@@ -230,24 +266,25 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
         textInputDialog.setContentText("Code: ");
         textInputDialog.showAndWait();
 
-
         String code = textInputDialog.getEditor().getText();
         try {
-            if(code != null)
-            {
+            if (code != null) {
                 ChallengeData toImp = EncodeUtils.decode(code);
                 customChallenges.add(toImp);
                 customChallengesData.update(toImp);
             }
-
-        }catch (IOException | ClassNotFoundException e ) {
+        } catch (IOException | ClassNotFoundException e ) {
             e.printStackTrace();
         }
 
         Screen refresh = Game.getInstance().screenManager.customChallenges;
         Game.getInstance().setScreen(refresh);
     }
-    
+
+    /**
+     * A method to remove a CustomChallenge from the list.
+     * @param challengeToRemove as challenge to be removed.
+     */
     public void removeChallenge(ChallengeData challengeToRemove) {
             ChallengeData toRemove = challengeToRemove;
             customChallenges.remove(toRemove);
@@ -256,14 +293,17 @@ public class CustomChallengesScreen extends BaseChallengesScreen {
             Game.getInstance().setScreen(refresh);
     }
 
-
+    /**
+     * A method to construct the grid of list.
+     * @param root as a Group object.
+     * @param grid as a GridPane object.
+     */
     public void constructGrid(Group root, GridPane grid)
     {
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setLayoutX(450);
-        grid.setLayoutY(150);
+        grid.setHgap(H_GAP);
+        grid.setVgap(V_GAP);
+        grid.setLayoutX(GRID_LAY_X);
+        grid.setLayoutY(GRID_LAY_Y);
         root.getChildren().add(grid);
     }
-
 }
