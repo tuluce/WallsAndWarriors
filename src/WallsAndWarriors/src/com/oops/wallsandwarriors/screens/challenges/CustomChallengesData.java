@@ -1,3 +1,8 @@
+/**
+ * A class to store the data to be represented in the CustomChallengesScreen.
+ * @author OOPs
+ * @version 21.12.19
+ */
 package com.oops.wallsandwarriors.screens.challenges;
 
 import com.oops.wallsandwarriors.Game;
@@ -22,6 +27,11 @@ public class CustomChallengesData {
 
     private final List<ChallengeData> customChallenges;
 
+    /**
+     * A default constructor that initializes a CustomChallengesData with no given parameters
+     * with a storageManager and an empty ArrayList of ChallengeData. If there was a saved version
+     * initializes the data as such.
+     */
     public CustomChallengesData()
     {
         customChallenges = new ArrayList<>();
@@ -29,47 +39,58 @@ public class CustomChallengesData {
     }
 
 
+    /**
+     * A method to read the existing CustomChallenges if any.
+     */
     private void readCustomChallenges()
     {
         try {
-            
             StorageManager storageManager = Game.getInstance().storageManager;
-            FileInputStream fileInputStream = new FileInputStream(storageManager.customChallengeData);
-
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
-
+            FileInputStream fileInputStream = new FileInputStream(
+                    storageManager.customChallengeData);
+            BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(fileInputStream));
             String code;
             while ((code = bufferedReader.readLine()) != null) {
                 customChallenges.add(EncodeUtils.decode(code));
             }
 
             bufferedReader.close();
-        }catch (IOException | ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
+    /**
+     * A get method to return the customChallenges.
+     * @return customChallenges as a List of ChallengeData.
+     */
     public List<ChallengeData> getCustomChallenges()
     {
         return customChallenges;
     }
 
+    /**
+     * A  method to update the customChallenges to get newly added challenge.
+     * @param challengeData challenge to be added.
+     */
     public void update(ChallengeData challengeData)
     {
-        try
-        {
+        try {
             StorageManager storageManager = Game.getInstance().storageManager;
             FileWriter fileWriter = new FileWriter(storageManager.customChallengeData, true);
             fileWriter.write(EncodeUtils.encode(challengeData) + "\n");
             fileWriter.close();
 
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    
+    /**
+     * A  method to remove a given challenge from the CustomChallengesData.
+     * @param challengeData challenge to be removed.
+     */
     public void remove(ChallengeData challengeData) {
         try {
             StorageManager storageManager = Game.getInstance().storageManager;
@@ -83,7 +104,7 @@ public class CustomChallengesData {
             boolean deleted = false;
             for (String lineCode; (lineCode = bufferedReader.readLine()) != null;) {
                 String trimmedLineCode = lineCode.trim();
-                if((trimmedLineCode.equals(removeCode)) && !(deleted)) {
+                if ((trimmedLineCode.equals(removeCode)) && !(deleted)) {
                     deleted = true;
                 }
                 else {
