@@ -1,3 +1,9 @@
+/**
+ * This class defines the structure of the editor screen for Challenge Editor.
+ * Extends BaseGameScreen
+ * @author OOPs
+ * @version 21.12.19
+ */
 package com.oops.wallsandwarriors.screens.game;
 
 import com.oops.wallsandwarriors.ChallengeManager;
@@ -52,7 +58,7 @@ public class ChallengeEditorScreen extends BaseGameScreen {
     private TextField creatorField;
     
     List<ChallengeData> customChallenges;
-    
+
     @Override
     protected void initViewObjects() {
         super.initViewObjects();
@@ -63,7 +69,7 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         paletteView = new EditorPaletteView();
         initPaletteElements();
     }
-    
+
     private void initPaletteElements() {
         paletteElementViews = new ArrayList<EditorPaletteElementView>();
         int index;
@@ -82,8 +88,10 @@ public class ChallengeEditorScreen extends BaseGameScreen {
     
     @Override
     protected void addComponents(Group root) {
-        addTransitionScreen(root, "Back", 700, 50, Game.getInstance().screenManager.mainMenu);
-        addButton(root, "Export", 700, 550, new EventHandler<ActionEvent>() {
+        addTransitionScreen(root, "Back", GameConstants.EDITOR_BACK_X,
+                GameConstants.EDITOR_BACK_Y, Game.getInstance().screenManager.mainMenu);
+        addButton(root, "Export", GameConstants.EDITOR_EXP_X,
+                GameConstants.EDITOR_EXP_Y, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
@@ -95,7 +103,8 @@ public class ChallengeEditorScreen extends BaseGameScreen {
                 }
             }
         });
-        addButton(root, "Reset", 650, 550, new EventHandler<ActionEvent>() {
+        addButton(root, "Reset", GameConstants.EDITOR_RES_X,
+                GameConstants.EDITOR_RES_Y, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 resetState();
@@ -105,7 +114,7 @@ public class ChallengeEditorScreen extends BaseGameScreen {
     }
     
     private void addTextComponents(Group root) {
-        Font labelFont = new Font("Arial", 20);
+        Font labelFont = new Font("Arial", GameConstants.EDITOR_FONT);
         Label nameLabel = new Label("Challenge Name:");
         Label descriptionLabel = new Label("Description:");
         Label creatorLabel = new Label("Creator:");
@@ -115,21 +124,25 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         nameLabel.setTextFill(Color.WHITE);
         descriptionLabel.setTextFill(Color.WHITE);
         creatorLabel.setTextFill(Color.WHITE);
-        setLayoutPos(nameLabel, 350, 450);
-        setLayoutPos(descriptionLabel, 350, 480);
-        setLayoutPos(creatorLabel, 350, 510);
+        setLayoutPos(nameLabel, GameConstants.EDITOR_LABEL_X, GameConstants.EDITOR_LABEL_Y);
+        setLayoutPos(descriptionLabel, GameConstants.EDITOR_LABEL_X,
+                GameConstants.EDITOR_LABEL_Y + GameConstants.EDITOR_LABEL_SP);
+        setLayoutPos(creatorLabel, GameConstants.EDITOR_LABEL_X,
+                GameConstants.EDITOR_LABEL_Y + (GameConstants.EDITOR_LABEL_SP*2));
         
         nameField = new TextField();
         descriptionField = new TextField();
         creatorField = new TextField();
         
-        nameField.setPrefWidth(250);
-        descriptionField.setPrefWidth(250);
-        creatorField.setPrefWidth(250);
+        nameField.setPrefWidth(GameConstants.EDITOR_PREF_WIDTH);
+        descriptionField.setPrefWidth(GameConstants.EDITOR_PREF_WIDTH);
+        creatorField.setPrefWidth(GameConstants.EDITOR_PREF_WIDTH);
         
-        setLayoutPos(nameField, 520, 450);
-        setLayoutPos(descriptionField, 520, 480);
-        setLayoutPos(creatorField, 520, 510);
+        setLayoutPos(nameField, GameConstants.EDITOR_FIELD_X, GameConstants.EDITOR_FIELD_Y);
+        setLayoutPos(descriptionField, GameConstants.EDITOR_FIELD_X,
+                GameConstants.EDITOR_FIELD_Y + GameConstants.EDITOR_LABEL_SP);
+        setLayoutPos(creatorField, GameConstants.EDITOR_FIELD_X,
+                GameConstants.EDITOR_FIELD_Y + (GameConstants.EDITOR_LABEL_SP*2));
         
         root.getChildren().add(nameLabel);
         root.getChildren().add(descriptionLabel);
@@ -147,7 +160,8 @@ public class ChallengeEditorScreen extends BaseGameScreen {
             Game.getInstance().soundManager.playPrimary();
         }
         if (hoveredBlock != null && selectedPiece != null) {
-            boolean placed = Game.getInstance().gridManager.attemptPlacement(hoveredBlock, selectedPiece);
+            boolean placed = Game.getInstance().gridManager.
+                    attemptPlacement(hoveredBlock, selectedPiece);
             if (placed) {
                 Game.getInstance().challengeManager.getChallengeData().addPiece(selectedPiece);
                 updateViewList();
@@ -224,7 +238,7 @@ public class ChallengeEditorScreen extends BaseGameScreen {
     
     private boolean checkWallCount() {
         int wallCount = Game.getInstance().challengeManager.getChallengeData().walls.size();
-        return wallCount < 4;
+        return wallCount < GameConstants.EDITOR_WALL_NO;
     }
     
     @Override
@@ -315,13 +329,13 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         
-        if (nameField.getText().length() == 0) {
+        if (nameField.getText().length() == GameConstants.ZERO) {
             alert.setContentText("Challenge name cannot be blank");
         }
-        else if(descriptionField.getText().length() == 0) {
+        else if (descriptionField.getText().length() == GameConstants.ZERO) {
             alert.setContentText("Challenge description cannot be blank");
         }
-        else if(creatorField.getText().length() == 0) {
+        else if (creatorField.getText().length() == GameConstants.ZERO) {
             alert.setContentText("Challenge creator cannot be blank");
         }
         else if (max_LENGTH  <= descriptionField.getText().length() &&
@@ -329,13 +343,13 @@ public class ChallengeEditorScreen extends BaseGameScreen {
                 max_LENGTH  <= creatorField.getText().length() ) {
             alert.setContentText("Length of each text cannot be more than " + max_LENGTH + "characters");
         }
-        else if(!exportedChallenge.hasBlueKnights()) {
+        else if (!exportedChallenge.hasBlueKnights()) {
             alert.setContentText("There are no blue knights in the challenge");
         }
-        else if(incorrectRedKnights == null) {
+        else if (incorrectRedKnights == null) {
             alert.setContentText("Solution is incomplete");
         }
-        else if(!incorrectRedKnights.isEmpty()) {
+        else if (!incorrectRedKnights.isEmpty()) {
             alert.setContentText("Solution is not correct");
         }
         else
@@ -356,7 +370,7 @@ public class ChallengeEditorScreen extends BaseGameScreen {
         textArea.setEditable(false);
         textArea.setWrapText(true);
         GridPane gridPane = new GridPane();
-        gridPane.add(textArea, 0, 0);
+        gridPane.add(textArea, GameConstants.ZERO, GameConstants.ZERO);
         ButtonType clipboard = new ButtonType("Copy To Clipboard");
         ButtonType addToCustom = new ButtonType( "Add To Custom Challenges");
         ButtonType ok = new ButtonType("OK", ButtonData.CANCEL_CLOSE);
@@ -390,7 +404,7 @@ public class ChallengeEditorScreen extends BaseGameScreen {
             e.printStackTrace();
         }
 
-        if(customChallenges.add(toImp)) {
+        if (customChallenges.add(toImp)) {
             customChallengesData.update(toImp);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Successful");
