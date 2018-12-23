@@ -31,11 +31,15 @@ import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseButton;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 /**
  * This class defines the structure of the game screen (for both custom challenges and
@@ -229,7 +233,7 @@ public class GameScreen extends BaseGameScreen {
                     incorrectRedKnights.size(), showMistake);
         } else {
             Game.getInstance().soundManager.playCongrats();
-            handleAlert("WIN", "Congratulations! You solved the challenge.", true);
+            handleAlert("WIN", "\n Congratulations!\n You solved the challenge. ", true);
             if (previousScreen == Game.getInstance().screenManager.campaignChallenges) {
                 editProgressInfo(challenge, true);
             }
@@ -274,12 +278,30 @@ public class GameScreen extends BaseGameScreen {
             Alert alert = new Alert(Alert.AlertType.NONE);
             alert.setTitle(title);
             alert.setHeaderText(null);
-            alert.setContentText(content);
-            alert.getButtonTypes().add(stayType);
             alert.getButtonTypes().add(backType);
+            alert.getButtonTypes().add(stayType);
             if (previousScreen == Game.getInstance().screenManager.campaignChallenges) {
                 alert.getButtonTypes().add(nextType);
+                ((Button) alert.getDialogPane().lookupButton(nextType)).setMinHeight(60);
             }
+            
+            Text congratsText = new Text(content);
+            congratsText.setFont(Font.font("Arial", FontWeight.BOLD, 30));
+            
+            alert.getDialogPane().setContent(congratsText);
+            alert.getDialogPane().setMinHeight(200);
+            
+            ((Button) alert.getDialogPane().lookupButton(stayType)).setMinHeight(60);
+            ((Button) alert.getDialogPane().lookupButton(backType)).setMinHeight(60);
+            
+            for (Node n : alert.getDialogPane().getChildren()) {
+                if (n instanceof ButtonBar) {
+                    ButtonBar bb = (ButtonBar) n;
+                    bb.setButtonOrder(ButtonBar.BUTTON_ORDER_NONE);
+                }
+            }
+            
+            
             Optional<ButtonType> result = alert.showAndWait();
             
             if (result.get() == nextType) {
