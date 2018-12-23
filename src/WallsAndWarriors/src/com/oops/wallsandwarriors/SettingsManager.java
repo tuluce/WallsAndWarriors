@@ -12,7 +12,7 @@ public class SettingsManager {
     Color allyColor = Color.BLUE;
 
     double volume = 1;
-    double musicVolume = 0.5;
+    double musicVolume = 0;
 
     /**
      * A method to get enemy color

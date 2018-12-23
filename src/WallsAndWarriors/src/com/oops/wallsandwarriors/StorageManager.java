@@ -56,7 +56,7 @@ public class StorageManager {
                 settingsData.createNewFile();
                 BufferedWriter bufferedWriter = new BufferedWriter(
                     new FileWriter(settingsData));
-                bufferedWriter.write("1 0.5");
+                bufferedWriter.write("1 0");
                 bufferedWriter.close();
             }
         } catch (IOException e) {
