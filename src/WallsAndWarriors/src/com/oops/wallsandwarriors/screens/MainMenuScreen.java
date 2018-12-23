@@ -131,7 +131,7 @@ public class MainMenuScreen extends GeneralScreen {
     private static Image getContentImage() {
         if (contentImage == null) {
             contentImage = new Image(FileUtils.getInputStream(
-                "/com/oops/wallsandwarriors/resources/images/background.png"));
+                "/com/oops/wallsandwarriors/resources/images/background.jpg"));
         }
         return contentImage;
     }

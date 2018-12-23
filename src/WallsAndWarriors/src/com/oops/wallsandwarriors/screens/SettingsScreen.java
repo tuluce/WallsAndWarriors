@@ -3,6 +3,7 @@ package com.oops.wallsandwarriors.screens;
 
 import com.oops.wallsandwarriors.util.DebugUtils;
 import com.oops.wallsandwarriors.Game;
+import com.oops.wallsandwarriors.GameConstants;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -123,7 +124,7 @@ public class SettingsScreen extends GeneralScreen {
         Game.getInstance().settingsManager.setVolume(sl.getValue());
         Game.getInstance().settingsManager.setMusicVolume(slmusic.getValue());
 
-        addButton(root, "Back", 700, 550, new EventHandler<ActionEvent>() {
+        addButton(root, "Back", GameConstants.BACK_BUTTON_X, GameConstants.BACK_BUTTON_Y, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 Game.getInstance().storageManager.
