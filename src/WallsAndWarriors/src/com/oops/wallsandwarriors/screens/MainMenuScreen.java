@@ -38,6 +38,8 @@ public class MainMenuScreen extends GeneralScreen {
         Group root = new Group();
         Scene scene = new Scene(root);
         
+        lastSessionChallenge = null;
+        lastSessionHint = null;
         DebugUtils.initClickDebugger(scene);
         GraphicsContext graphics = addBackgroundCanvas(root);
         checkLastSession();
